@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-arabic: 'Tajawal', 'Almarai', sans-serif;
+    --brand-magenta: #9d237a;
+    --brand-magenta-light: #c026d3;
+    --brand-magenta-glow: rgba(157, 35, 122, 0.35);
+    --brand-green: #629131;
+    --brand-green-light: #84cc16;
+    --brand-green-glow: rgba(98, 145, 49, 0.35);
+  }
+
+  html {
+    scroll-behavior: auto;
+    color-scheme: dark;
+    background-color: #0c0912;
+  }
+
+  html[dir="rtl"] {
+    font-family: var(--font-arabic), var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    background-color: #0c0912;
+    color: #e2e8f0;
+    overflow-x: hidden;
+    /* Custom cursor: hide default on desktop */
+  }
+
+  @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+    body {
+      cursor: none;
+    }
+    a, button, [role="button"] {
+      cursor: none;
+    }
+  }
+
+  #root {
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::selection {
+    background-color: rgba(157, 35, 122, 0.35);
+    color: #fdf2f8;
+  }
+}
+
+/* ===== Lenis Smooth Scroll ===== */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0912;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b2246;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9d237a;
+}
+
+/* Hide scrollbar for carousel */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ===== Luxury Typography ===== */
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.font-arabic-calligraphic {
+  font-family: var(--font-arabic);
+}
+
+/* ===== Glassmorphism ===== */
+.glass-header {
+  background: rgba(12, 9, 18, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-notch {
+  background: rgba(18, 12, 28, 0.78);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-card {
+  background: rgba(22, 14, 34, 0.62);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  background: rgba(32, 18, 50, 0.82);
+  border-color: rgba(157, 35, 122, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(157, 35, 122, 0.2);
+}
+
+/* ===== Atmospheric Glow ===== */
+.atmosphere-glow {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(120px);
+  border-radius: 9999px;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+/* ===== Scrollytelling reading text effect ===== */
+.reading-word {
+  display: inline-block;
+  transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease;
+}
+
+.reading-word.active {
+  color: #ffffff;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+}
+
+.reading-word.inactive {
+  color: rgba(148, 163, 184, 0.4);
+}
+
+/* ===== Particle / Noise Grain ===== */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* ===== Pulse beacon ===== */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+/* ===== Shimmer sweep effect ===== */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ===== Chapter Nav active dot ring ===== */
+@keyframes chapter-dot-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.chapter-dot-active::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  animation: chapter-dot-ring 1.8s ease-out infinite;
+}
+
+/* ===== Atmosphere glow drift (CSS fallback) ===== */
+@keyframes glow-drift-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(40px, -30px); }
+}
+
+@keyframes glow-drift-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-40px, 30px); }
+}
+
+/* ===== Reduced motion — respect user preference ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pulse-ring,
+  .shimmer-btn::after,
+  .chapter-dot-active::before {
+    display: none;
+  }
+}
