@@ -66,12 +66,12 @@ function StatCard({ num, label, idx }) {
           transition: { duration: 0.6, delay: idx * 0.1, ease: EXPO_OUT },
         },
       }}
-      whileHover={{ y: -6, borderColor: 'rgba(52, 211, 153, 0.4)', boxShadow: '0 20px 40px -10px rgba(16,185,129,0.2)' }}
+      whileHover={{ y: -6, borderColor: 'rgba(217, 70, 239, 0.4)', boxShadow: '0 20px 40px -10px rgba(217,70,239,0.15)' }}
       className="glass-card p-6 md:p-8 rounded-2xl border border-white/10 text-center"
     >
       <div
         ref={ref}
-        className="font-editorial text-3xl md:text-5xl font-light text-emerald-300 mb-2"
+        className="font-editorial text-3xl md:text-5xl font-light text-[#84cc16] mb-2"
       >
         0
       </div>
@@ -122,25 +122,25 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
             className="w-full h-full object-cover object-center brightness-[0.25] contrast-[1.1]"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f15] via-[#0b0f15]/90 to-[#0b0f15]" />
-        <div className="atmosphere-glow w-[550px] h-[550px] bottom-0 left-1/4 bg-emerald-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0c0912] via-[#0c0912]/90 to-[#0c0912]" />
+        <div className="atmosphere-glow w-[550px] h-[550px] bottom-0 left-1/4 bg-[#9d237a]/15" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header copy */}
         <motion.div variants={slideUp} className="max-w-3xl mb-14">
-          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-emerald-400 uppercase mb-4 flex items-center gap-2">
+          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-[#84cc16] uppercase mb-4 flex items-center gap-2">
             <motion.span
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <MapPin className="w-4 h-4 text-emerald-400" />
+              <MapPin className="w-4 h-4 text-[#84cc16]" />
             </motion.span>
             <span>{t.sanctuary.eyebrow}</span>
           </p>
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-6">
             {t.sanctuary.titlePrefix}{' '}
-            <em className="italic font-light text-emerald-200">{t.sanctuary.titleEmphasis}</em>
+            <em className="italic font-light text-fuchsia-200">{t.sanctuary.titleEmphasis}</em>
           </h2>
           <ScrollReadingText text={t.sanctuary.readingText} />
         </motion.div>
@@ -160,7 +160,7 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
             className="lg:col-span-7 glass-card p-8 md:p-10 rounded-3xl border border-white/10 flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-widest mb-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#84cc16] uppercase tracking-widest mb-4">
                 <ShieldCheck className="w-4 h-4" />
                 <span>{t.sanctuary.addressTitle}</span>
               </div>
@@ -172,18 +172,27 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
               </p>
 
               <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-400 mb-8">
+                <a
+                  href="https://maps.app.goo.gl/o9go6Z1e452RcqRh8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 hover:border-[#84cc16]/40 hover:text-white transition-colors"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-[#84cc16]" />
+                  <span>{t.sanctuary.mapLinkText || 'عرض على خرائط جوجل ↗'}</span>
+                </a>
                 <motion.span
-                  whileHover={{ scale: 1.03, borderColor: 'rgba(52,211,153,0.3)' }}
+                  whileHover={{ scale: 1.03, borderColor: 'rgba(132,204,22,0.4)' }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5"
                 >
-                  <Clock className="w-3.5 h-3.5 text-emerald-400" />
+                  <Clock className="w-3.5 h-3.5 text-[#84cc16]" />
                   <span>{t.sanctuary.hours || 'Sat - Thu: 9:00 AM – 9:00 PM'}</span>
                 </motion.span>
                 <motion.span
-                  whileHover={{ scale: 1.03, borderColor: 'rgba(52,211,153,0.3)' }}
+                  whileHover={{ scale: 1.03, borderColor: 'rgba(217,70,239,0.4)' }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5"
                 >
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-fuchsia-400" />
                   <span>{t.sanctuary.privacyBadge || '100% Private Female Suites'}</span>
                 </motion.span>
               </div>
@@ -194,9 +203,9 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.04, boxShadow: '0 20px 40px -10px rgba(16,185,129,0.4)' }}
+                whileHover={{ scale: 1.04, boxShadow: '0 20px 40px -10px rgba(132,204,22,0.4)' }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-lg shadow-emerald-500/20"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#84cc16] hover:bg-lime-400 text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-lg shadow-lime-500/20"
               >
                 <MessageSquare className="w-4 h-4 text-black" />
                 <span>{t.sanctuary.quickActionWhatsApp}</span>
@@ -204,11 +213,23 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
               </motion.a>
 
               <motion.a
+                href="https://maps.app.goo.gl/o9go6Z1e452RcqRh8"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03, borderColor: 'rgba(217,70,239,0.5)' }}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass-card border border-fuchsia-400/30 hover:border-fuchsia-400 text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors"
+              >
+                <MapPin className="w-4 h-4 text-fuchsia-400" />
+                <span>{t.sanctuary.googleMapsBtn || 'خرائط جوجل'}</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </motion.a>
+
+              <motion.a
                 href="tel:0126918000"
                 whileHover={{ scale: 1.03 }}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass-card border border-white/10 hover:border-white/20 text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors"
               >
-                <Phone className="w-4 h-4 text-emerald-400" />
+                <Phone className="w-4 h-4 text-[#84cc16]" />
                 <span>{t.sanctuary.phone}</span>
               </motion.a>
             </div>
@@ -220,11 +241,11 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
               hidden: { opacity: 0, x: 30, scale: 0.97 },
               visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.7, ease: EXPO_OUT, delay: 0.2 } },
             }}
-            className="lg:col-span-5 glass-card p-8 md:p-10 rounded-3xl border border-white/10 flex flex-col justify-between bg-gradient-to-br from-emerald-950/20 via-[#111827]/60 to-[#0b0f15] relative overflow-hidden"
+            className="lg:col-span-5 glass-card p-8 md:p-10 rounded-3xl border border-white/10 flex flex-col justify-between bg-gradient-to-br from-[#9d237a]/25 via-[#181124]/70 to-[#0c0912] relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 rtl:right-auto rtl:left-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 rtl:right-auto rtl:left-0 w-48 h-48 bg-[#9d237a]/20 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10">
-              <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-fuchsia-300 block mb-2">
                 {t.sanctuary.cardEyebrow || 'PERSONALIZED CONSULTATION'}
               </span>
               <h3 className="text-2xl font-editorial text-white mb-3">
@@ -239,9 +260,9 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
               <motion.button
                 type="button"
                 onClick={onOpenBooking}
-                whileHover={{ scale: 1.03, boxShadow: '0 25px 50px -10px rgba(16,185,129,0.5)' }}
+                whileHover={{ scale: 1.03, boxShadow: '0 25px 50px -10px rgba(157,35,122,0.5)' }}
                 whileTap={{ scale: 0.97 }}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-xl shadow-emerald-500/20 relative overflow-hidden group"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#9d237a] to-[#84cc16] hover:from-[#b02a8a] hover:to-lime-400 text-white font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-xl shadow-fuchsia-500/25 relative overflow-hidden group"
               >
                 {/* Shimmer sweep */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />

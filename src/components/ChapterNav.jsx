@@ -16,7 +16,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
       {/* Chapter Counter Badge */}
       <motion.div
         layout
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card border border-white/10 text-xs font-mono text-emerald-400 mb-2 shadow-lg"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card border border-white/10 text-xs font-mono text-[#84cc16] mb-2 shadow-lg"
       >
         <AnimatePresence mode="wait">
           <motion.span
@@ -25,7 +25,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.3 }}
-            className="font-bold"
+            className="font-bold text-[#84cc16]"
           >
             {currentChapter.num}
           </motion.span>
@@ -51,7 +51,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
                 <motion.span
                   animate={
                     isActive
-                      ? { scale: 1.3, backgroundColor: '#34d399' }
+                      ? { scale: 1.3, backgroundColor: '#84cc16' }
                       : { scale: 1, backgroundColor: '#475569' }
                   }
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -66,7 +66,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
                       animate={{ scale: 2.8, opacity: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut' }}
-                      className="absolute inset-0 rounded-full border border-emerald-400/50"
+                      className="absolute inset-0 rounded-full border border-[#84cc16]/50"
                     />
                   )}
                 </AnimatePresence>

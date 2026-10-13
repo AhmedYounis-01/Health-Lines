@@ -13,10 +13,10 @@ export default function ChapterVideoBackground({
   videoSrc,
   posterSrc,
   alt = 'Health Lines Center Cinematic Ambience',
-  glowClass = 'bg-emerald-500/20',
-  glowSecondaryClass = 'bg-teal-500/15',
-  brightness = 'brightness-[0.38]',
-  contrast = 'contrast-[1.1]',
+  glowClass = 'bg-[#9d237a]/25',
+  glowSecondaryClass = 'bg-[#84cc16]/20',
+  brightness = 'brightness-[0.50]',
+  contrast = 'contrast-[1.05]',
   parallaxY = null,
   scale = 'scale-105',
 }) {
@@ -38,7 +38,7 @@ export default function ChapterVideoBackground({
           if (!isSubscribed) return;
           if (entry.isIntersecting) {
             video.play().catch(() => {
-              // Autoplay policy or low power mode - keep muted and poster visible
+              // Autoplay policy or low power mode
             });
           } else {
             video.pause();
@@ -115,11 +115,11 @@ export default function ChapterVideoBackground({
           </video>
         )}
 
-        {/* Morphowater .water-shade: Vertical Cinematic Vignette Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f15]/90 via-[#0b0f15]/40 to-[#0b0f15]" />
+        {/* Semi-transparent Dark Gradient Overlay - Subtle dark veil keeping video visible with gentle contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0c0912]/60 via-[#0c0912]/30 to-[#0c0912]/65" />
 
-        {/* Radial Depth Vignette for Edge Focus */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_15%,#0b0f15_85%)]" />
+        {/* Soft Radial Depth Vignette for Edge Focus */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#0c0912_90%)] opacity-50" />
 
         {/* Morphowater .water-atmosphere: Atmospheric Color Glows */}
         <div className={`atmosphere-glow w-[550px] h-[550px] -top-24 -left-24 ${glowClass}`} />

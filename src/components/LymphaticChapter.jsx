@@ -67,13 +67,13 @@ export default function LymphaticChapter({ t }) {
     >
       {/* Cinematic Looping Ambient Video Background */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-lymphatic-drainage.webm"
+        videoSrc="/videos/pt-lymphatic-drainage.mp4"
         posterSrc="/assets/lymphatic-massage.jpg"
         alt="Tranquil Lymphatic Drainage Manual Therapy Suite"
-        glowClass="bg-teal-500/15"
-        glowSecondaryClass="bg-emerald-500/10"
-        brightness="brightness-[0.35]"
-        contrast="contrast-[1.12]"
+        glowClass="bg-[#9d237a]/25"
+        glowSecondaryClass="bg-[#84cc16]/20"
+        brightness="brightness-[0.75]"
+        contrast="contrast-[1.05]"
       />
 
       {/* Animated gentle wave overlay */}
@@ -83,10 +83,10 @@ export default function LymphaticChapter({ t }) {
           className="absolute bottom-0 flex"
           style={{ width: '200%' }}
         >
-          <svg viewBox="0 0 1440 80" className="w-1/2 fill-teal-400">
+          <svg viewBox="0 0 1440 80" className="w-1/2 fill-[#9d237a]">
             <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" />
           </svg>
-          <svg viewBox="0 0 1440 80" className="w-1/2 fill-teal-400">
+          <svg viewBox="0 0 1440 80" className="w-1/2 fill-[#84cc16]">
             <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" />
           </svg>
         </div>
@@ -95,13 +95,13 @@ export default function LymphaticChapter({ t }) {
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header copy */}
         <motion.div variants={slideUp} className="max-w-3xl mb-14">
-          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-teal-300 uppercase mb-4 flex items-center gap-2">
-            <Droplets className="w-4 h-4 text-teal-300" />
+          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-fuchsia-300 uppercase mb-4 flex items-center gap-2">
+            <Droplets className="w-4 h-4 text-fuchsia-300" />
             <span>{t.lymphatic.eyebrow}</span>
           </p>
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-6">
             {t.lymphatic.titlePrefix}{' '}
-            <em className="italic font-light text-teal-200">{t.lymphatic.titleEmphasis}</em>
+            <em className="italic font-light text-fuchsia-200">{t.lymphatic.titleEmphasis}</em>
           </h2>
           <ScrollReadingText text={t.lymphatic.readingText} />
         </motion.div>
@@ -124,28 +124,28 @@ export default function LymphaticChapter({ t }) {
                 }}
                 whileHover={{
                   y: -8,
-                  borderColor: 'rgba(45, 212, 191, 0.4)',
-                  boxShadow: '0 25px 50px -10px rgba(45,212,191,0.15)',
+                  borderColor: 'rgba(217, 70, 239, 0.4)',
+                  boxShadow: '0 25px 50px -10px rgba(217,70,239,0.15)',
                 }}
                 transition={{ duration: 0.3 }}
                 className="glass-card p-8 rounded-3xl border border-white/10 relative overflow-hidden group"
               >
                 {/* Glow on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/0 to-teal-500/0 group-hover:from-teal-500/5 group-hover:to-transparent transition-all duration-500 rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#9d237a]/0 to-transparent group-hover:from-[#9d237a]/10 group-hover:to-transparent transition-all duration-500 rounded-3xl" />
 
                 <motion.div
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   transition={{ type: 'spring', stiffness: 300 }}
-                  className="w-12 h-12 rounded-2xl bg-teal-950/40 border border-teal-500/30 flex items-center justify-center text-teal-300 mb-6"
+                  className="w-12 h-12 rounded-2xl bg-[#9d237a]/20 border border-[#9d237a]/40 flex items-center justify-center text-fuchsia-300 mb-6"
                 >
                   <IconComponent className="w-6 h-6" />
                 </motion.div>
 
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-medium text-white group-hover:text-teal-200 transition-colors">
+                  <h3 className="text-xl font-medium text-white group-hover:text-fuchsia-200 transition-colors">
                     {pillar.title}
                   </h3>
-                  <span className="text-xs font-mono text-slate-500">0{idx + 1}</span>
+                  <span className="text-xs font-mono text-[#84cc16]">0{idx + 1}</span>
                 </div>
 
                 <p className="text-slate-300 font-light text-sm md:text-base leading-relaxed">
@@ -159,20 +159,20 @@ export default function LymphaticChapter({ t }) {
         {/* Healing Quote Callout */}
         <motion.div
           variants={slideUp}
-          className="mt-14 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-teal-950/20 via-emerald-950/30 to-teal-950/20 border border-teal-500/20 text-center relative overflow-hidden"
+          className="mt-14 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-[#9d237a]/20 via-[#629131]/15 to-[#9d237a]/20 border border-[#9d237a]/30 text-center relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.05)_0%,transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,70,239,0.08)_0%,transparent_70%)]" />
           <motion.p
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: EXPO_OUT }}
-            className="font-editorial text-xl md:text-2xl italic text-slate-200 max-w-3xl mx-auto relative z-10"
+            className="font-editorial text-xl md:text-2xl italic text-slate-200 max-w-3xl mx-auto relative z-10 leading-relaxed"
           >
-            "When the lymph moves freely, inflammation dissipates and true cellular regeneration begins."
+            {t.lymphatic.quote || '"When the lymph moves freely, inflammation dissipates and true cellular regeneration begins."'}
           </motion.p>
-          <span className="block text-xs font-mono text-teal-400 mt-3 tracking-widest uppercase relative z-10">
-            Health Lines Clinical Philosophy · Jeddah
+          <span className="block text-xs font-mono text-[#84cc16] mt-3 tracking-widest uppercase relative z-10">
+            {t.lymphatic.quoteAuthor || 'Health Lines Clinical Philosophy · Jeddah'}
           </span>
         </motion.div>
       </div>

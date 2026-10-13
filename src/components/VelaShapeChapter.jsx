@@ -102,25 +102,25 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
     >
       {/* Cinematic Looping Ambient Video Background */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-velashape-contour.webm"
+        videoSrc="/videos/pt-velashape-contour.mp4"
         posterSrc="/assets/velashape-tech.jpg"
         alt="VelaShape III Medical Device Suite & Vibration Dynamics"
-        glowClass="bg-amber-500/15"
-        glowSecondaryClass="bg-emerald-500/10"
-        brightness="brightness-[0.35]"
-        contrast="contrast-[1.15]"
+        glowClass="bg-[#9d237a]/25"
+        glowSecondaryClass="bg-[#84cc16]/20"
+        brightness="brightness-[0.75]"
+        contrast="contrast-[1.05]"
       />
 
       <div className="relative z-10 max-w-5xl mx-auto w-full">
         {/* Header Copy */}
         <motion.div variants={slideUp} className="max-w-3xl mb-14">
-          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-amber-300 uppercase mb-4 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-300" />
+          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-fuchsia-300 uppercase mb-4 flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-fuchsia-300" />
             <span>{t.velashape.eyebrow}</span>
           </p>
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-6">
             {t.velashape.titlePrefix}{' '}
-            <em className="italic font-light text-amber-200">{t.velashape.titleEmphasis}</em>
+            <em className="italic font-light text-fuchsia-200">{t.velashape.titleEmphasis}</em>
           </h2>
           <ScrollReadingText text={t.velashape.readingText} />
         </motion.div>
@@ -139,7 +139,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
                   transition: { duration: 0.6, delay: idx * 0.1, ease: EXPO_OUT },
                 },
               }}
-              whileHover={{ y: -6, borderColor: 'rgba(251, 191, 36, 0.4)', boxShadow: '0 20px 40px -10px rgba(251,191,36,0.15)' }}
+              whileHover={{ y: -6, borderColor: 'rgba(217, 70, 239, 0.4)', boxShadow: '0 20px 40px -10px rgba(217,70,239,0.15)' }}
               transition={{ duration: 0.3 }}
               className="glass-card p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between group"
             >
@@ -147,13 +147,13 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
                 <span className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1">
                   {item.detail}
                 </span>
-                <span className="text-sm font-semibold text-white group-hover:text-amber-200 transition-colors">
+                <span className="text-sm font-semibold text-white group-hover:text-fuchsia-200 transition-colors">
                   {item.name}
                 </span>
               </div>
               <div className="flex items-baseline gap-1">
                 <AnimatedCounter value={item.value} delay={idx * 0.15} />
-                <span className="text-xs font-mono text-amber-300">
+                <span className="text-xs font-mono text-[#84cc16]">
                   {item.unit}
                 </span>
               </div>
@@ -167,7 +167,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400">
               {t.velashape.targetZonesTitle || 'TARGET CLINICAL ZONES'}
             </span>
-            <span className="text-xs font-mono text-emerald-400">
+            <span className="text-xs font-mono text-[#84cc16]">
               {t.velashape.targetZonesSubtitle || '0% Surgical Incision · Immediate Normal Routine'}
             </span>
           </div>
@@ -184,12 +184,12 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
                   whileTap={{ scale: 0.98 }}
                   className={`p-4 rounded-xl text-left rtl:text-right border transition-all duration-200 ${
                     isActive
-                      ? 'bg-amber-950/30 border-amber-400/40 text-white shadow-lg shadow-amber-500/10'
+                      ? 'bg-[#9d237a]/30 border-[#d946ef]/60 text-white shadow-lg shadow-fuchsia-500/15'
                       : 'bg-white/[0.02] border-white/5 text-slate-400 hover:border-white/15 hover:text-slate-200'
                   }`}
                 >
                   <p className="font-medium text-sm text-white mb-1">{area.label}</p>
-                  <p className="text-xs font-mono text-amber-300">{area.est}</p>
+                  <p className="text-xs font-mono text-[#84cc16]">{area.est}</p>
                 </motion.button>
               );
             })}
@@ -208,7 +208,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
             type="button"
             onClick={onOpenBooking}
             whileHover={{ x: 4 }}
-            className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-mono uppercase tracking-wider shrink-0"
+            className="inline-flex items-center gap-1.5 text-[#84cc16] hover:text-lime-300 font-mono uppercase tracking-wider shrink-0"
           >
             <span>{t.bookConsultation}</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

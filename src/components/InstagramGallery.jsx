@@ -47,7 +47,7 @@ export default function InstagramGallery({ t }) {
   return (
     <motion.section
       id="instagram"
-      className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden py-24 px-6 border-t border-white/5 bg-[#0b0f15]"
+      className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden py-24 px-6 border-t border-white/5 bg-[#0c0912]"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -63,13 +63,13 @@ export default function InstagramGallery({ t }) {
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
         >
           <div>
-            <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-emerald-400 uppercase mb-4 flex items-center gap-2">
-              <InstagramIcon className="w-4 h-4 text-emerald-400" />
+            <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-[#84cc16] uppercase mb-4 flex items-center gap-2">
+              <InstagramIcon className="w-4 h-4 text-[#84cc16]" />
               <span>{t.instagram.eyebrow}</span>
             </p>
             <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12]">
               {t.instagram.titlePrefix}{' '}
-              <em className="italic font-light text-emerald-200">{t.instagram.titleEmphasis}</em>
+              <em className="italic font-light text-fuchsia-200">{t.instagram.titleEmphasis}</em>
             </h2>
           </div>
 
@@ -79,26 +79,26 @@ export default function InstagramGallery({ t }) {
             rel="noopener noreferrer"
             whileHover={{
               scale: 1.03,
-              borderColor: 'rgba(52, 211, 153, 0.4)',
-              boxShadow: '0 20px 40px -10px rgba(16,185,129,0.2)',
+              borderColor: 'rgba(217, 70, 239, 0.4)',
+              boxShadow: '0 20px 40px -10px rgba(217,70,239,0.2)',
             }}
             whileTap={{ scale: 0.98 }}
             className="group glass-card px-6 py-4 rounded-2xl border border-white/10 flex items-center justify-between gap-4 transition-all duration-300 shrink-0"
           >
             <div>
-              <span className="font-mono text-sm font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+              <span className="font-mono text-sm font-bold text-white group-hover:text-fuchsia-300 transition-colors flex items-center gap-1.5">
                 <span>{t.instagram.handle}</span>
                 <motion.span
                   animate={{ scale: [1, 1.5, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                  className="w-1.5 h-1.5 rounded-full bg-[#84cc16]"
                 />
               </span>
               <span className="text-xs text-slate-400 block mt-0.5">
                 {t.instagram.followers} · {t.instagram.tagline}
               </span>
             </div>
-            <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-black group-hover:bg-emerald-400 group-hover:border-emerald-400 transition-all">
+            <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-black group-hover:bg-[#84cc16] group-hover:border-[#84cc16] transition-all">
               <ArrowUpRight className="w-4 h-4" />
             </div>
           </motion.a>
@@ -127,7 +127,7 @@ export default function InstagramGallery({ t }) {
                   },
                 },
               }}
-              whileHover={{ y: -10, borderColor: 'rgba(52,211,153,0.3)' }}
+              whileHover={{ y: -10, borderColor: 'rgba(217, 70, 239, 0.35)' }}
               transition={{ duration: 0.3 }}
               className="shrink-0 w-[290px] sm:w-[340px] md:w-[370px] glass-card rounded-3xl border border-white/10 overflow-hidden group flex flex-col justify-between"
               style={{ scrollSnapAlign: 'start' }}
@@ -153,12 +153,12 @@ export default function InstagramGallery({ t }) {
                       animate={{ scale: [1, 1.3, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
                     >
-                      <Play className="w-3 h-3 text-emerald-400 fill-emerald-400" />
+                      <Play className="w-3 h-3 text-[#84cc16] fill-[#84cc16]" />
                     </motion.span>
                   ) : post.type.includes('Gallery') || post.type.includes('ألبوم') ? (
-                    <Layers className="w-3 h-3 text-emerald-400" />
+                    <Layers className="w-3 h-3 text-fuchsia-400" />
                   ) : (
-                    <ImageIcon className="w-3 h-3 text-emerald-400" />
+                    <ImageIcon className="w-3 h-3 text-[#84cc16]" />
                   )}
                   <span>{post.type}</span>
                 </span>
@@ -172,7 +172,7 @@ export default function InstagramGallery({ t }) {
                   <motion.div
                     initial={{ scale: 0.7 }}
                     whileHover={{ scale: 1 }}
-                    className="w-12 h-12 rounded-full bg-emerald-400 text-black flex items-center justify-center shadow-2xl"
+                    className="w-12 h-12 rounded-full bg-[#84cc16] text-black flex items-center justify-center shadow-2xl"
                   >
                     <ArrowUpRight className="w-6 h-6" />
                   </motion.div>
@@ -182,7 +182,7 @@ export default function InstagramGallery({ t }) {
               {/* Caption and Date */}
               <div className="p-6 flex flex-col justify-between flex-1">
                 <div>
-                  <h3 className="font-medium text-white text-base mb-2 group-hover:text-emerald-300 transition-colors line-clamp-1">
+                  <h3 className="font-medium text-white text-base mb-2 group-hover:text-fuchsia-200 transition-colors line-clamp-1">
                     {post.title}
                   </h3>
                   <p className="text-xs text-slate-400 font-light leading-relaxed line-clamp-2 mb-4">
@@ -194,7 +194,7 @@ export default function InstagramGallery({ t }) {
                   <span>{post.date}</span>
                   <motion.span
                     whileHover={{ x: 2 }}
-                    className="text-emerald-400 cursor-pointer"
+                    className="text-[#84cc16] cursor-pointer"
                   >
                     {t.instagram.openPost} ↗
                   </motion.span>
@@ -210,7 +210,7 @@ export default function InstagramGallery({ t }) {
           className="flex items-center justify-between pt-6 border-t border-white/10"
         >
           <p className="text-xs font-mono text-slate-400 flex items-center gap-3">
-            <span className="text-emerald-400 font-bold">
+            <span className="text-[#84cc16] font-bold">
               0{scrollIndex + 1} — 0{t.instagram.posts.length}
             </span>
             <span>Real moments of care. A sanctuary for you.</span>
@@ -220,7 +220,7 @@ export default function InstagramGallery({ t }) {
             <motion.button
               type="button"
               onClick={() => scroll('left')}
-              whileHover={{ scale: 1.1, borderColor: 'rgba(52,211,153,0.4)' }}
+              whileHover={{ scale: 1.1, borderColor: 'rgba(132,204,22,0.4)' }}
               whileTap={{ scale: 0.95 }}
               className="p-3 rounded-full glass-card border border-white/10 text-slate-300 hover:text-white transition-colors"
               aria-label="Previous Instagram posts"
@@ -230,7 +230,7 @@ export default function InstagramGallery({ t }) {
             <motion.button
               type="button"
               onClick={() => scroll('right')}
-              whileHover={{ scale: 1.1, borderColor: 'rgba(52,211,153,0.4)' }}
+              whileHover={{ scale: 1.1, borderColor: 'rgba(132,204,22,0.4)' }}
               whileTap={{ scale: 0.95 }}
               className="p-3 rounded-full glass-card border border-white/10 text-slate-300 hover:text-white transition-colors"
               aria-label="Next Instagram posts"

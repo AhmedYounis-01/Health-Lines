@@ -30,7 +30,7 @@ function FloatingParticles() {
       {Array.from({ length: 12 }).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-emerald-400/30"
+          className={`absolute w-1 h-1 rounded-full ${i % 2 === 0 ? 'bg-[#84cc16]/40' : 'bg-[#d946ef]/40'}`}
           style={{
             left: `${10 + (i * 7.5) % 80}%`,
             top: `${20 + (i * 11) % 60}%`,
@@ -83,13 +83,13 @@ export default function BodyScienceChapter({ t }) {
     >
       {/* Cinematic Looping Ambient Video Background */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-body-science.webm"
+        videoSrc="/videos/pt-body-science.mp4"
         posterSrc="/assets/water-nature.jpg"
         alt="Musculoskeletal Palpation Examination & Biomechanics"
-        glowClass="bg-emerald-500/15"
-        glowSecondaryClass="bg-teal-500/10"
-        brightness="brightness-[0.34]"
-        contrast="contrast-[1.12]"
+        glowClass="bg-[#84cc16]/20"
+        glowSecondaryClass="bg-[#9d237a]/20"
+        brightness="brightness-[0.75]"
+        contrast="contrast-[1.05]"
       />
 
       {/* Floating Particles */}
@@ -98,13 +98,13 @@ export default function BodyScienceChapter({ t }) {
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header copy */}
         <motion.div variants={slideUp} className="max-w-3xl mb-14">
-          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-emerald-300 uppercase mb-4 flex items-center gap-2">
-            <Activity className="w-4 h-4 text-emerald-300" />
+          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-[#84cc16] uppercase mb-4 flex items-center gap-2">
+            <Activity className="w-4 h-4 text-[#84cc16]" />
             <span>{t.science.eyebrow}</span>
           </p>
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-6">
             {t.science.titlePrefix}{' '}
-            <em className="italic font-light text-emerald-200">{t.science.titleEmphasis}</em>
+            <em className="italic font-light text-[#a3e635]">{t.science.titleEmphasis}</em>
           </h2>
           <ScrollReadingText text={t.science.readingText} />
         </motion.div>
@@ -127,24 +127,24 @@ export default function BodyScienceChapter({ t }) {
                 }}
                 whileHover={{
                   y: -8,
-                  borderColor: 'rgba(52, 211, 153, 0.4)',
-                  boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.2)',
+                  borderColor: 'rgba(132, 204, 22, 0.4)',
+                  boxShadow: '0 25px 50px -12px rgba(132, 204, 22, 0.2)',
                 }}
                 transition={{ duration: 0.3 }}
                 className="glass-card p-6 rounded-2xl border border-white/10 flex flex-col justify-between group relative overflow-hidden"
               >
                 {/* Glow reveal on hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/0 to-emerald-500/0 group-hover:from-emerald-500/5 group-hover:to-transparent transition-all duration-500 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#84cc16]/0 to-transparent group-hover:from-[#84cc16]/10 group-hover:to-transparent transition-all duration-500 rounded-2xl" />
 
                 <div>
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: -5 }}
                     transition={{ type: 'spring', stiffness: 300 }}
-                    className="w-10 h-10 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5"
+                    className="w-10 h-10 rounded-xl bg-[#84cc16]/15 border border-[#84cc16]/30 flex items-center justify-center text-[#84cc16] mb-5"
                   >
                     <Icon className="w-5 h-5 stroke-[1.5]" />
                   </motion.div>
-                  <h3 className="text-lg font-medium text-white mb-3 group-hover:text-emerald-300 transition-colors">
+                  <h3 className="text-lg font-medium text-white mb-3 group-hover:text-[#a3e635] transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-slate-300 font-light text-xs md:text-sm leading-relaxed">
@@ -152,8 +152,8 @@ export default function BodyScienceChapter({ t }) {
                   </p>
                 </div>
                 <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span>BIO-BALANCE</span>
-                  <span>0{idx + 1}</span>
+                  <span className="text-[#d946ef]">BIO-BALANCE</span>
+                  <span className="text-[#84cc16]">0{idx + 1}</span>
                 </div>
               </motion.div>
             );
@@ -166,10 +166,10 @@ export default function BodyScienceChapter({ t }) {
           className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400"
         >
           <span>{t.science.sourceNote}</span>
-          <div className="flex items-center gap-4 font-mono uppercase text-emerald-400 shrink-0">
+          <div className="flex items-center gap-4 font-mono uppercase text-[#84cc16] shrink-0">
             <motion.span
               whileHover={{ x: 4 }}
-              className="hover:text-emerald-300 transition-colors cursor-pointer"
+              className="hover:text-lime-300 transition-colors cursor-pointer"
             >
               Clinical Quality Guidelines ↗
             </motion.span>

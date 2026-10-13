@@ -10,12 +10,11 @@ import VelaShapeChapter from './components/VelaShapeChapter';
 import LymphaticChapter from './components/LymphaticChapter';
 import BodyScienceChapter from './components/BodyScienceChapter';
 import SanctuaryBookingChapter from './components/SanctuaryBookingChapter';
-import InstagramGallery from './components/InstagramGallery';
+import DepartmentsChapter from './components/DepartmentsChapter';
 import MorphoFooter from './components/MorphoFooter';
 import BookingModal from './components/BookingModal';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
-import SmoothScroll from './components/SmoothScroll';
 
 export default function App() {
   const [lang, setLang] = useState('ar');
@@ -37,9 +36,15 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Prevent page scroll while the booking modal is open
+  useEffect(() => {
+    document.body.style.overflow = isBookingOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isBookingOpen]);
+
   // Track active chapter as user scrolls
   useEffect(() => {
-    const chapterIds = ['hero', 'therapy', 'velashape', 'lymphatic', 'science', 'sanctuary', 'instagram'];
+    const chapterIds = ['hero', 'therapy', 'velashape', 'lymphatic', 'science', 'sanctuary', 'departments'];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight * 0.4;
       for (const id of chapterIds) {
@@ -62,9 +67,6 @@ export default function App() {
 
   return (
     <>
-      {/* Weighted Cinematic Smooth Scroll (Lenis) */}
-      <SmoothScroll isPaused={isBookingOpen} />
-
       {/* Custom Cursor — desktop only */}
       <CustomCursor />
 
@@ -79,14 +81,14 @@ export default function App() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[99999] bg-[#0b0f15] flex items-center justify-center"
+            className="fixed inset-0 z-[99999] bg-[#0c0912] flex items-center justify-center"
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 1.1, opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="w-12 h-12 rounded-full border-2 border-emerald-400/30 border-t-emerald-400 animate-spin"
+              className="w-12 h-12 rounded-full border-2 border-[#9d237a]/30 border-t-[#84cc16] animate-spin"
             />
           </motion.div>
         )}
@@ -96,7 +98,7 @@ export default function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`min-h-screen bg-[#0b0f15] text-[#e2e8f0] relative selection:bg-emerald-500/30 selection:text-emerald-200 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}
+        className={`min-h-screen bg-[#0c0912] text-[#e2e8f0] relative selection:bg-[#9d237a]/40 selection:text-fuchsia-200 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}
       >
         {/* Floating Notch Header */}
         <MorphoHeader
@@ -155,9 +157,10 @@ export default function App() {
             onOpenBooking={() => setIsBookingOpen(true)}
           />
 
-          {/* Chapter 07: Instagram Live Showcase (@healthlinescenter) */}
-          <InstagramGallery
+          {/* Chapter 07: Clinical Departments & Rehabilitation Programs */}
+          <DepartmentsChapter
             t={t}
+            onOpenBooking={() => setIsBookingOpen(true)}
           />
         </main>
 

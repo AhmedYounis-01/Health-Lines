@@ -66,8 +66,8 @@ export default function TherapyChapter({ t, onOpenBooking }) {
         alt="Physical Therapy Spine & Joint Mobility Assessment"
         glowClass="bg-[#9d237a]/25"
         glowSecondaryClass="bg-[#84cc16]/20"
-        brightness="brightness-[0.38]"
-        contrast="contrast-[1.14]"
+        brightness="brightness-[0.75]"
+        contrast="contrast-[1.05]"
       />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">

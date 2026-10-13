@@ -76,8 +76,8 @@ export default function HeroChapter({ t, onScrollNext }) {
         alt="Health Lines Rehabilitation Sanctuary Suite"
         glowClass="bg-[#9d237a]/30"
         glowSecondaryClass="bg-[#84cc16]/20"
-        brightness="brightness-[0.4]"
-        contrast="contrast-[1.12]"
+        brightness="brightness-[0.50]"
+        contrast="contrast-[1.05]"
         parallaxY={bgY}
       />
 

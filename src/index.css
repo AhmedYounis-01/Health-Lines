@@ -96,6 +96,14 @@ html.lenis, html.lenis body {
   font-family: var(--font-serif);
 }
 
+html[dir="rtl"] .font-editorial,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3 {
+  font-family: var(--font-arabic), sans-serif;
+  letter-spacing: normal;
+}
+
 .font-arabic-calligraphic {
   font-family: var(--font-arabic);
 }

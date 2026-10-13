@@ -20,7 +20,7 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
     { id: 'lymphatic', label: t.nav.lymphatic },
     { id: 'science', label: t.nav.body },
     { id: 'sanctuary', label: t.nav.sanctuary },
-    { id: 'instagram', label: t.nav.instagram },
+    { id: 'departments', label: t.nav.departments },
   ];
 
   return (
