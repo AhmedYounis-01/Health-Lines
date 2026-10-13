@@ -43,7 +43,7 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
             <span className="font-editorial text-lg md:text-xl font-medium tracking-widest text-white group-hover:text-fuchsia-300 transition-colors">
               HEALTH LINES
             </span>
-            <span className="text-[10px] font-arabic font-medium text-lime-400 tracking-wider">
+            <span className="text-[10px] font-medium text-lime-400 tracking-wider">
               {lang === 'ar' ? 'مركز خطوط الصحة للعلاج الطبيعي' : 'Rehabilitation & Wellness'}
             </span>
           </div>

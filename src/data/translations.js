@@ -72,6 +72,8 @@ export const translations = {
           stats: "Private 1-on-1 certified female therapists",
         },
       ],
+      protocolBadge: "Women's Physical Rehabilitation Protocol",
+      suiteNote: "Jeddah Clinic · 100% Private Women's Suites",
       frameNote: "A CLINICAL STUDY OF RESTORATION · HEALTH LINES",
     },
 
@@ -174,7 +176,11 @@ export const translations = {
       evaluationDetail: "100% Certified Specialist",
       privacyLabel: "Session Setting",
       privacyDetail: "Private Closed Suites",
+      badgeStaff: "100% Certified Female Staff & Specialists",
+      badgeEvaluation: "Comprehensive Clinical Assessment for Every Case",
+      badgePrivacy: "Private Closed Suites with Utmost Discretion",
       bookDepartmentCTA: "Book This Program via WhatsApp",
+      bookAppointmentAria: "Book Appointment",
       helpText: "Unsure which therapeutic program fits your condition?",
       helpCTA: "Book a consultation to determine the ideal rehabilitation plan",
       categories: [
@@ -476,6 +482,8 @@ export const translations = {
           stats: "خصوصية تامة ١٠٠٪ مع أخصائيات علاج طبيعي نسائي",
         },
       ],
+      protocolBadge: "بروتوكول التأهيل والعلاج الطبيعي النسائي",
+      suiteNote: "مركز جدة · أجنحة نسائية مغلقة بالكامل",
       frameNote: "رعاية طبية نسائية متخصصة · خطوط الصحة بجدة",
     },
 
@@ -578,7 +586,11 @@ export const translations = {
       evaluationDetail: "أخصائية معتمدة 100%",
       privacyLabel: "طبيعة الجلسات",
       privacyDetail: "أجنحة نسائية خاصة ومغلقة",
+      badgeStaff: "100% كادر وأخصائيات نسائيات معتمدات",
+      badgeEvaluation: "كشف وتقييم سريري شامل لكل حالة",
+      badgePrivacy: "أجنحة خاصة مغلقة بأعلى درجات الخصوصية",
       bookDepartmentCTA: "احجزي جلستكِ لهذه الحالة عبر الواتساب",
+      bookAppointmentAria: "حجز موعد",
       helpText: "محتارة أي برنامج علاجي يناسب حالتكِ؟",
       helpCTA: "احجزي كشف واستشارة لتحديد البرنامج العلاجي المناسب مع الأخصائية",
       categories: [

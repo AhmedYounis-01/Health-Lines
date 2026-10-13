@@ -92,15 +92,15 @@ export default function DepartmentsChapter({ t, onOpenBooking }) {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#9d237a]/15 border border-[#9d237a]/30 text-xs font-medium text-fuchsia-200">
               <ShieldCheck className="w-4 h-4 text-lime-400" />
-              <span>100% كادر وأخصائيات نسائيات معتمدات</span>
+              <span>{dept.badgeStaff || '100% Certified Female Staff & Specialists'}</span>
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-lime-950/30 border border-lime-500/25 text-xs font-medium text-lime-300">
               <Activity className="w-4 h-4 text-lime-400" />
-              <span>كشف وتقييم سريري شامل لكل حالة</span>
+              <span>{dept.badgeEvaluation || 'Comprehensive Clinical Assessment for Every Case'}</span>
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-xs font-medium text-slate-300">
               <HeartHandshake className="w-4 h-4 text-fuchsia-300" />
-              <span>أجنحة خاصة مغلقة بأعلى درجات الخصوصية</span>
+              <span>{dept.badgePrivacy || 'Private Closed Suites with Utmost Discretion'}</span>
             </span>
           </div>
         </motion.header>
@@ -232,7 +232,7 @@ export default function DepartmentsChapter({ t, onOpenBooking }) {
                         <button
                           type="button"
                           onClick={onOpenBooking}
-                          aria-label="حجز موعد"
+                          aria-label={dept.bookAppointmentAria || "Book Appointment"}
                           className="p-3 rounded-xl border border-white/10 hover:border-white/30 text-slate-300 hover:text-white transition-all bg-white/[0.03] cursor-pointer"
                         >
                           <Calendar className="w-4 h-4" />

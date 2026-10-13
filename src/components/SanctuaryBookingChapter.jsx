@@ -84,8 +84,11 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
   const bgRef = useRef(null);
   const sectionRef = useRef(null);
 
+  const isAr = typeof document !== 'undefined' && (document.documentElement.lang === 'ar' || !document.documentElement.lang);
   const whatsappUrl = `https://wa.me/966599530955?text=${encodeURIComponent(
-    'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة للعلاج الطبيعي ونحت القوام.'
+    isAr
+      ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة للعلاج الطبيعي ونحت القوام.'
+      : 'Hello, I would like to inquire and schedule a consultation at Health Lines Center.'
   )}`;
 
   // GSAP Parallax

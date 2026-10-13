@@ -24,16 +24,53 @@ const slideUp = {
 };
 
 // Counter that animates to a target value when in view
-function AnimatedCounter({ value, delay = 0 }) {
+function AnimatedCounter({ value, delay = 0, className = '' }) {
   const ref = useRef(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // Parse numeric prefix
-    const num = parseFloat(String(value).replace(/[^0-9.]/g, ''));
-    const prefix = String(value).replace(/[0-9.]/g, '').replace(/\d/g, '').trim();
-    if (isNaN(num)) return;
+
+    const valStr = String(value).trim();
+
+    // Support ranges like "700-2000" or "700 - 2000"
+    if (valStr.includes('-')) {
+      const parts = valStr.split('-').map((s) => s.trim());
+      const min = parseFloat(parts[0].replace(/[^0-9.]/g, ''));
+      const max = parseFloat(parts[1].replace(/[^0-9.]/g, ''));
+
+      if (!isNaN(min) && !isNaN(max)) {
+        const ctx = gsap.context(() => {
+          const counter = { val1: 0, val2: 0 };
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+              gsap.to(counter, {
+                val1: min,
+                val2: max,
+                duration: 1.8,
+                delay,
+                ease: 'power3.out',
+                onUpdate: () => {
+                  el.textContent = `${Math.round(counter.val1)} - ${Math.round(counter.val2)}`;
+                },
+              });
+            },
+          });
+        });
+        return () => ctx.revert();
+      }
+    }
+
+    // Single number
+    const num = parseFloat(valStr.replace(/[^0-9.]/g, ''));
+    const prefix = valStr.replace(/[0-9.]/g, '').replace(/\d/g, '').trim();
+    if (isNaN(num)) {
+      el.textContent = valStr;
+      return;
+    }
 
     const ctx = gsap.context(() => {
       const counter = { val: 0 };
@@ -58,7 +95,7 @@ function AnimatedCounter({ value, delay = 0 }) {
   }, [value, delay]);
 
   return (
-    <span ref={ref} className="font-editorial text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-tight">
+    <span ref={ref} className={className || "font-editorial text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-tight"}>
       0
     </span>
   );
@@ -126,39 +163,51 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
         </motion.div>
 
         {/* Technical Data Cards with animated counters */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-          {t.velashape.specs.map((item, idx) => (
-            <motion.div
-              key={idx}
-              variants={{
-                hidden: { opacity: 0, y: 30, scale: 0.95 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: { duration: 0.6, delay: idx * 0.1, ease: EXPO_OUT },
-                },
-              }}
-              whileHover={{ y: -6, borderColor: 'rgba(217, 70, 239, 0.4)', boxShadow: '0 20px 40px -10px rgba(217,70,239,0.15)' }}
-              transition={{ duration: 0.3 }}
-              className="glass-card p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between group"
-            >
-              <div className="mb-6">
-                <span className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1">
-                  {item.detail}
-                </span>
-                <span className="text-sm font-semibold text-white group-hover:text-fuchsia-200 transition-colors">
-                  {item.name}
-                </span>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <AnimatedCounter value={item.value} delay={idx * 0.15} />
-                <span className="text-xs font-mono text-[#84cc16]">
-                  {item.unit}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12">
+          {t.velashape.specs.map((item, idx) => {
+            const isRange = String(item.value).includes('-') || String(item.value).length > 4;
+            return (
+              <motion.div
+                key={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.95 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { duration: 0.6, delay: idx * 0.1, ease: EXPO_OUT },
+                  },
+                }}
+                whileHover={{ y: -6, borderColor: 'rgba(217, 70, 239, 0.4)', boxShadow: '0 20px 40px -10px rgba(217,70,239,0.15)' }}
+                transition={{ duration: 0.3 }}
+                className="glass-card p-4 sm:p-5 md:p-6 rounded-2xl border border-white/10 flex flex-col justify-between group overflow-hidden"
+              >
+                <div className="mb-4 sm:mb-6">
+                  <span className="text-[11px] sm:text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1 truncate">
+                    {item.detail}
+                  </span>
+                  <span className="text-xs sm:text-sm font-semibold text-white group-hover:text-fuchsia-200 transition-colors line-clamp-1">
+                    {item.name}
+                  </span>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-1.5 flex-wrap">
+                  <AnimatedCounter
+                    value={item.value}
+                    delay={idx * 0.15}
+                    className={`font-editorial font-light text-white tracking-tight leading-none ${
+                      isRange
+                        ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal'
+                        : 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
+                    }`}
+                  />
+                  <span className="text-[11px] sm:text-xs font-mono text-[#84cc16] font-medium mt-1 sm:mt-0 whitespace-nowrap">
+                    {item.unit}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Target Area Interactive Selector */}

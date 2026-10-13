@@ -141,7 +141,7 @@ export default function TherapyChapter({ t, onOpenBooking }) {
 
                 <div className="flex items-center gap-3 text-xs font-mono text-lime-400 uppercase tracking-widest mb-4">
                   <ShieldCheck className="w-4 h-4 text-lime-400" />
-                  <span className="font-arabic font-medium">بروتوكول التأهيل والعلاج الطبيعي النسائي</span>
+                  <span className="font-medium">{t.therapy.protocolBadge || "Women's Physical Rehabilitation Protocol"}</span>
                 </div>
 
                 <h3 className="text-2xl md:text-3xl font-editorial text-white mb-4">
@@ -159,17 +159,17 @@ export default function TherapyChapter({ t, onOpenBooking }) {
                   className="p-4 rounded-xl bg-[#221033]/60 border border-fuchsia-500/30 flex items-center gap-3 text-sm text-fuchsia-200 mb-8"
                 >
                   <CheckCircle2 className="w-5 h-5 text-lime-400 shrink-0" />
-                  <span className="font-arabic font-medium">{currentTab.stats}</span>
+                  <span className="font-medium">{currentTab.stats}</span>
                 </motion.div>
 
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10">
-                  <span className="text-xs font-arabic text-slate-400">
-                    مركز جدة · أجنحة نسائية مغلقة بالكامل
+                  <span className="text-xs text-slate-400">
+                    {t.therapy.suiteNote || "Jeddah Clinic · 100% Private Women's Suites"}
                   </span>
                   <button
                     type="button"
                     onClick={onOpenBooking}
-                    className="inline-flex items-center gap-2 text-xs font-arabic font-bold uppercase tracking-wider text-lime-400 hover:text-lime-300 transition-colors group"
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-400 hover:text-lime-300 transition-colors group cursor-pointer"
                   >
                     <span>{t.bookConsultation}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
