@@ -77,7 +77,7 @@ export default function AmbientSound({ t }) {
       type="button"
       onClick={toggleSound}
       aria-label={isPlaying ? t.soundOff : t.soundOn}
-      className="fixed bottom-5 right-5 rtl:right-auto rtl:left-5 z-40 flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full glass-card border border-white/10 hover:border-[#84cc16]/40 text-[11px] sm:text-xs tracking-wider uppercase transition-all duration-300 hover:scale-105 shadow-xl text-slate-300 hover:text-white backdrop-blur-md"
+      className="fixed bottom-24 left-6 z-40 flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full glass-card border border-white/10 hover:border-[#84cc16]/40 text-[11px] sm:text-xs tracking-wider uppercase transition-all duration-300 hover:scale-105 shadow-xl text-slate-300 hover:text-white backdrop-blur-md cursor-pointer"
     >
       {isPlaying ? (
         <>

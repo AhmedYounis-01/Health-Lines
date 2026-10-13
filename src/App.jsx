@@ -15,6 +15,8 @@ import MorphoFooter from './components/MorphoFooter';
 import BookingModal from './components/BookingModal';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
+import LocalChatBot from './components/LocalChatBot';
 
 export default function App() {
   const [lang, setLang] = useState('ar');
@@ -177,6 +179,12 @@ export default function App() {
           t={t}
           lang={lang}
         />
+
+        {/* Floating WhatsApp Contact Button (Bottom-Left) */}
+        <FloatingWhatsApp lang={lang} />
+
+        {/* Local Intelligent Clinic Chatbot (Bottom-Right) */}
+        <LocalChatBot lang={lang} />
       </motion.div>
     </>
   );
