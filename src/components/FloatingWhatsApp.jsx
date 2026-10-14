@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { siteConfig } from '../config/siteConfig';
 
 export default function FloatingWhatsApp({ lang = 'ar' }) {
   const isAr = lang === 'ar';
-  const phone = '966599530955';
   const text = isAr
     ? 'السلام عليكم، أود الاستفسار وحجز موعد في مركز خطوط الصحة للسيدات.'
     : 'Hello, I would like to inquire and book an appointment at Health Lines Center.';
-  const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+  const whatsappUrl = siteConfig.buildWhatsAppUrl(text);
 
   return (
     <aside aria-label="WhatsApp Contact" className="fixed bottom-6 left-6 z-50 flex items-center group">

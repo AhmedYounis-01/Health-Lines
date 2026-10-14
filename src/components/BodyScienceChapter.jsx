@@ -83,7 +83,7 @@ export default function BodyScienceChapter({ t }) {
     >
       {/* Cinematic Looping Ambient Video Background */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-body-science.mp4"
+        videoSrc={['/videos/pt-body-science.webm', '/videos/pt-body-science.mp4']}
         posterSrc="/assets/water-nature.jpg"
         alt="Musculoskeletal Palpation Examination & Biomechanics"
         glowClass="bg-[#84cc16]/20"

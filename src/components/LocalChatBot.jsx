@@ -8,26 +8,25 @@ import {
   RotateCcw, 
   MessageCircle, 
   ShieldCheck, 
-  ChevronDown,
   ArrowUpRight,
-  Clock,
-  MapPin,
-  Heart,
   CheckCircle2,
   Stethoscope
 } from 'lucide-react';
 import { matchUserQuery } from '../utils/chatbotEngine.js';
-import { CLINIC_INFO } from '../data/chatbotKnowledge.js';
+import { siteConfig } from '../config/siteConfig.js';
+
+let messageCounter = 0;
+const generateId = (prefix) => `${prefix}-${Date.now()}-${++messageCounter}`;
+const getFormattedTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 export default function LocalChatBot({ lang = 'ar' }) {
   const isAr = lang === 'ar';
-  const clinicPhone = CLINIC_INFO.whatsapp;
   
   const [isOpen, setIsOpen] = useState(false);
   const [hasDismissedPrompt, setHasDismissedPrompt] = useState(false);
   const [showWelcomeBubble, setShowWelcomeBubble] = useState(false);
   
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState(() => [
     {
       id: 'welcome',
       sender: 'bot',
@@ -58,14 +57,14 @@ Feel free to ask any question or tap a suggested topic below:`,
       whatsappPrompt: isAr
         ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة.'
         : 'Hello, I would like to inquire and book a consultation at Health Lines Center.',
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: getFormattedTime()
     }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Show gentle welcome speech bubble after 2.5s if not opened yet
+  // Show gentle welcome speech bubble after 2.4s if not opened yet
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!isOpen && !hasDismissedPrompt) {
@@ -102,19 +101,23 @@ Feel free to ask any question or tap a suggested topic below:`,
   useEffect(() => {
     if (isOpen) {
       scrollToBottom();
-      setShowWelcomeBubble(false);
     }
   }, [messages, isOpen, isTyping]);
+
+  const handleOpenChat = () => {
+    setIsOpen(true);
+    setShowWelcomeBubble(false);
+  };
 
   const handleSendMessage = (textToSend = null) => {
     const userText = (textToSend || input).trim();
     if (!userText) return;
 
     const userMessage = {
-      id: `u-${Date.now()}`,
+      id: generateId('u'),
       sender: 'user',
       text: userText,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: getFormattedTime()
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -125,7 +128,7 @@ Feel free to ask any question or tap a suggested topic below:`,
     setTimeout(() => {
       const match = matchUserQuery(userText, lang);
       const botMessage = {
-        id: `b-${Date.now()}`,
+        id: generateId('b'),
         sender: 'bot',
         title: match?.title || (isAr ? 'استشارة طبية' : 'Clinical Consultation'),
         text: match?.reply || '',
@@ -133,7 +136,7 @@ Feel free to ask any question or tap a suggested topic below:`,
           ? `السلام عليكم، أود الاستفسار من الأخصائية بخصوص: (${userText})`
           : `Hello, I would like to consult the specialist regarding: (${userText})`),
         isFallback: match?.isFallback || false,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        time: getFormattedTime()
       };
       setIsTyping(false);
       setMessages((prev) => [...prev, botMessage]);
@@ -144,14 +147,14 @@ Feel free to ask any question or tap a suggested topic below:`,
     const text = customPrompt || (isAr
       ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة.'
       : 'Hello, I would like to inquire and book an appointment at Health Lines Center.');
-    const url = `https://wa.me/${clinicPhone}?text=${encodeURIComponent(text)}`;
+    const url = siteConfig.buildWhatsAppUrl(text);
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handleResetChat = () => {
     setMessages([
       {
-        id: `welcome-reset-${Date.now()}`,
+        id: generateId('welcome-reset'),
         sender: 'bot',
         title: isAr ? 'محادثة جديدة 🌸' : 'New Session 🌸',
         text: isAr
@@ -160,7 +163,7 @@ Feel free to ask any question or tap a suggested topic below:`,
         whatsappPrompt: isAr
           ? 'السلام عليكم، أود الاستفسار وحجز موعد في مركز خطوط الصحة.'
           : 'Hello, I would like to inquire and book an appointment at Health Lines Center.',
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        time: getFormattedTime()
       }
     ]);
   };
@@ -174,7 +177,7 @@ Feel free to ask any question or tap a suggested topic below:`,
         {!isOpen && (
           <motion.button
             type="button"
-            onClick={() => setIsOpen(true)}
+            onClick={handleOpenChat}
             initial={{ opacity: 0, x: 14, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 25 }}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Menu, X, Globe, HeartPulse } from 'lucide-react';
+import { Calendar, Menu, X, Globe } from 'lucide-react';
 
 export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
   const [isScrolled, setIsScrolled] = useState(false);

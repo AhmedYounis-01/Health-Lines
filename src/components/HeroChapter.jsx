@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, HeartPulse } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
 import { gsap } from 'gsap';
@@ -71,7 +71,7 @@ export default function HeroChapter({ t, onScrollNext }) {
     >
       {/* Cinematic Physical Therapy Ambient Video Background - 100% Female Clinic */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-hero-clinic.mp4"
+        videoSrc={['/videos/pt-hero-clinic.webm', '/videos/pt-hero-clinic.mp4']}
         posterSrc="/assets/hero-sanctuary.jpg"
         alt="Health Lines Rehabilitation Sanctuary Suite"
         glowClass="bg-[#9d237a]/30"
@@ -79,6 +79,7 @@ export default function HeroChapter({ t, onScrollNext }) {
         brightness="brightness-[0.50]"
         contrast="contrast-[1.05]"
         parallaxY={bgY}
+        priority={true}
       />
 
       {/* Scrolling content with subtle parallax */}

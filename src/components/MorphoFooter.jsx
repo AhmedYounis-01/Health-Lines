@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUp, ArrowUpRight, ArrowRight, Phone, MessageSquare, MapPin } from 'lucide-react';
 import InstagramIcon from './InstagramIcon';
+import { siteConfig } from '../config/siteConfig';
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -157,10 +158,10 @@ export default function MorphoFooter({ t, onOpenBooking }) {
 
             <div className="flex items-center gap-4 mt-6">
               {[
-                { href: 'https://maps.app.goo.gl/o9go6Z1e452RcqRh8', icon: MapPin, label: 'Google Maps' },
-                { href: 'https://www.instagram.com/healthlinescenter/', icon: InstagramIcon, label: 'Instagram' },
-                { href: 'https://wa.me/966599530955', icon: MessageSquare, label: 'WhatsApp' },
-                { href: 'tel:0126918000', icon: Phone, label: 'Call Center' },
+                { href: siteConfig.location.googleMapsUrl, icon: MapPin, label: 'Google Maps' },
+                { href: siteConfig.social.instagram, icon: InstagramIcon, label: 'Instagram' },
+                { href: siteConfig.buildWhatsAppUrl(), icon: MessageSquare, label: 'WhatsApp' },
+                { href: `tel:${siteConfig.contact.phone}`, icon: Phone, label: 'Call Center' },
               ].map(({ href, icon: Icon, label }, i) => (
                 <motion.a
                   key={label}

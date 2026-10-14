@@ -7,22 +7,28 @@ export default function AmbientSound({ t }) {
   const fadeIntervalRef = useRef(null);
 
   useEffect(() => {
-    // Create audio instance with soothing spa ambient music
-    const audio = new Audio('/audio/placid-ambient.ogg');
-    audio.loop = true;
-    audio.preload = 'metadata';
-    audio.volume = 0;
-    audioRef.current = audio;
-
     return () => {
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-      audio.pause();
-      audio.src = '';
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+        audioRef.current = null;
+      }
     };
   }, []);
 
+  const getOrCreateAudio = () => {
+    if (!audioRef.current) {
+      const audio = new Audio('/audio/placid-ambient.ogg');
+      audio.loop = true;
+      audio.volume = 0;
+      audioRef.current = audio;
+    }
+    return audioRef.current;
+  };
+
   const startAmbientAudio = () => {
-    const audio = audioRef.current;
+    const audio = getOrCreateAudio();
     if (!audio) return;
 
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);

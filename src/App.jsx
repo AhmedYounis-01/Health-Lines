@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { translations } from './data/translations';
+import { ClinicContextProvider } from './context/ClinicContext';
+import { useClinicContext } from './context/useClinicContext';
+import SmoothScroll from './components/SmoothScroll';
 import MorphoHeader from './components/MorphoHeader';
 import ChapterNav from './components/ChapterNav';
 import AmbientSound from './components/AmbientSound';
@@ -18,19 +20,9 @@ import CustomCursor from './components/CustomCursor';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import LocalChatBot from './components/LocalChatBot';
 
-export default function App() {
-  const [lang, setLang] = useState('ar');
-  const [activeChapter, setActiveChapter] = useState('hero');
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
+function MainApp() {
+  const { lang, setLang, t, activeChapter, setActiveChapter, isBookingOpen, openBooking } = useClinicContext();
   const [isLoaded, setIsLoaded] = useState(false);
-
-  const t = translations[lang] || translations.ar;
-
-  // Set HTML dir attribute dynamically
-  useEffect(() => {
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-  }, [lang]);
 
   // Page load entrance
   useEffect(() => {
@@ -65,10 +57,13 @@ export default function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [setActiveChapter]);
 
   return (
     <>
+      {/* Weighted cinematic smooth scroll inertia */}
+      <SmoothScroll isPaused={isBookingOpen} />
+
       {/* Custom Cursor — desktop only */}
       <CustomCursor />
 
@@ -108,7 +103,7 @@ export default function App() {
           setLang={setLang}
           t={t}
           activeChapter={activeChapter}
-          onOpenBooking={() => setIsBookingOpen(true)}
+          onOpenBooking={openBooking}
         />
 
         {/* Side Vertical Chapter Progress Indicator */}
@@ -134,13 +129,13 @@ export default function App() {
           {/* Chapter 02: Physical Therapy & Spine */}
           <TherapyChapter
             t={t}
-            onOpenBooking={() => setIsBookingOpen(true)}
+            onOpenBooking={openBooking}
           />
 
           {/* Chapter 03: VelaShape III & Contouring */}
           <VelaShapeChapter
             t={t}
-            onOpenBooking={() => setIsBookingOpen(true)}
+            onOpenBooking={openBooking}
           />
 
           {/* Chapter 04: Lymphatic Detox & Cellular Renewal */}
@@ -156,29 +151,24 @@ export default function App() {
           {/* Chapter 06: The Jeddah Sanctuary & Clinic */}
           <SanctuaryBookingChapter
             t={t}
-            onOpenBooking={() => setIsBookingOpen(true)}
+            onOpenBooking={openBooking}
           />
 
           {/* Chapter 07: Clinical Departments & Rehabilitation Programs */}
           <DepartmentsChapter
             t={t}
-            onOpenBooking={() => setIsBookingOpen(true)}
+            onOpenBooking={openBooking}
           />
         </main>
 
         {/* Luxury Outro Footer */}
         <MorphoFooter
           t={t}
-          onOpenBooking={() => setIsBookingOpen(true)}
+          onOpenBooking={openBooking}
         />
 
         {/* Interactive Consultation Booking Modal */}
-        <BookingModal
-          isOpen={isBookingOpen}
-          onClose={() => setIsBookingOpen(false)}
-          t={t}
-          lang={lang}
-        />
+        <BookingModal />
 
         {/* Floating WhatsApp Contact Button (Bottom-Left) */}
         <FloatingWhatsApp lang={lang} />
@@ -187,5 +177,13 @@ export default function App() {
         <LocalChatBot lang={lang} />
       </motion.div>
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <ClinicContextProvider>
+      <MainApp />
+    </ClinicContextProvider>
   );
 }

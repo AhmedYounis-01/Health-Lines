@@ -12,6 +12,22 @@ dist
 dist-ssr
 *.local
 
+# Environment & Secrets
+.env
+.env.*
+*.pem
+*.key
+*.cert
+
+# Speckit & Specs
+.agents/
+.specify/
+specs/
+
+# Temporary & Scratch files
+*.tmp
+*.temp
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

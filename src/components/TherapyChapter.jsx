@@ -61,7 +61,7 @@ export default function TherapyChapter({ t, onOpenBooking }) {
     >
       {/* Cinematic Looping Ambient Video Background - Female Physiotherapy */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-therapy-spine.mp4"
+        videoSrc={['/videos/pt-therapy-spine.webm', '/videos/pt-therapy-spine.mp4']}
         posterSrc="/assets/spine-biomechanics.jpg"
         alt="Physical Therapy Spine & Joint Mobility Assessment"
         glowClass="bg-[#9d237a]/25"

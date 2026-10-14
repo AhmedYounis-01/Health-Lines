@@ -139,7 +139,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
     >
       {/* Cinematic Looping Ambient Video Background */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-velashape-contour.mp4"
+        videoSrc={['/videos/pt-velashape-contour.webm', '/videos/pt-velashape-contour.mp4']}
         posterSrc="/assets/velashape-tech.jpg"
         alt="VelaShape III Medical Device Suite & Vibration Dynamics"
         glowClass="bg-[#9d237a]/25"

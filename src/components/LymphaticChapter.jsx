@@ -67,7 +67,7 @@ export default function LymphaticChapter({ t }) {
     >
       {/* Cinematic Looping Ambient Video Background */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-lymphatic-drainage.mp4"
+        videoSrc={['/videos/pt-lymphatic-drainage.webm', '/videos/pt-lymphatic-drainage.mp4']}
         posterSrc="/assets/lymphatic-massage.jpg"
         alt="Tranquil Lymphatic Drainage Manual Therapy Suite"
         glowClass="bg-[#9d237a]/25"

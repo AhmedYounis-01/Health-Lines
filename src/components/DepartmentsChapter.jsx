@@ -9,6 +9,7 @@ import {
   Activity,
   HeartHandshake
 } from 'lucide-react';
+import { siteConfig } from '../config/siteConfig';
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -25,31 +26,32 @@ const cardVariants = {
 export default function DepartmentsChapter({ t, onOpenBooking }) {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const dept = t.departments;
-  if (!dept) return null;
+  const dept = t?.departments;
+  const deptItems = dept?.items;
 
-  // Filtered department condition items
+  // Filtered department condition items - called unconditionally
   const filteredItems = useMemo(() => {
-    if (activeCategory === 'all') return dept.items;
-    return dept.items.filter((item) => item.category === activeCategory);
-  }, [dept.items, activeCategory]);
+    if (!deptItems) return [];
+    if (activeCategory === 'all') return deptItems;
+    return deptItems.filter((item) => item.category === activeCategory);
+  }, [deptItems, activeCategory]);
 
-  // Compute item count per category for tabs
+  // Compute item count per category for tabs - called unconditionally
   const categoryCounts = useMemo(() => {
-    const counts = { all: dept.items.length };
-    dept.items.forEach((item) => {
+    if (!deptItems) return { all: 0 };
+    const counts = { all: deptItems.length };
+    deptItems.forEach((item) => {
       counts[item.category] = (counts[item.category] || 0) + 1;
     });
     return counts;
-  }, [dept.items]);
+  }, [deptItems]);
+
+  if (!dept) return null;
 
   const handleBookCondition = (conditionTitle) => {
     const isAr = document.documentElement.lang === 'ar' || !document.documentElement.lang;
-    const phone = '966599530955';
-    const text = isAr
-      ? `السلام عليكم، أود الاستفسار وحجز استشارة وجلسة علاجية في مركز خطوط الصحة بخصوص: (${conditionTitle}). هل يمكن تزويدي بالمواعيد المتاحة؟`
-      : `Hello, I would like to inquire and book a therapeutic consultation at Health Lines Center regarding: (${conditionTitle}). What appointment slots are available?`;
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    const message = siteConfig.buildConditionInquiry(conditionTitle, isAr ? 'ar' : 'en');
+    const whatsappUrl = siteConfig.buildWhatsAppUrl(message);
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
