@@ -250,6 +250,25 @@ html[dir="rtl"] h6 {
   50% { transform: translate(-40px, 30px); }
 }
 
+/* ===== Mobile Hardware Acceleration & Weak Device Optimization ===== */
+@media (max-width: 768px) {
+  .atmosphere-glow {
+    filter: blur(50px) !important;
+    opacity: 0.22 !important;
+    transform: translateZ(0);
+  }
+  .glass-card {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    background: rgba(18, 12, 28, 0.88) !important;
+  }
+  .glass-notch {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    background: rgba(18, 12, 28, 0.94) !important;
+  }
+}
+
 /* ===== Reduced motion — respect user preference ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

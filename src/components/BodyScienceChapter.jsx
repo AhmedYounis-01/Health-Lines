@@ -19,29 +19,29 @@ const sectionVariants = {
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 40, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: 35, filter: 'blur(6px)' },
   visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EXPO_OUT } },
 };
 
-// Floating particle dots
+// Floating particle dots (lightweight, runs off main thread with CSS transforms)
 function FloatingParticles() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {Array.from({ length: 12 }).map((_, i) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      {Array.from({ length: 8 }).map((_, i) => (
         <motion.div
           key={i}
           className={`absolute w-1 h-1 rounded-full ${i % 2 === 0 ? 'bg-[#84cc16]/40' : 'bg-[#d946ef]/40'}`}
           style={{
-            left: `${10 + (i * 7.5) % 80}%`,
-            top: `${20 + (i * 11) % 60}%`,
+            left: `${15 + (i * 11) % 75}%`,
+            top: `${20 + (i * 13) % 60}%`,
           }}
           animate={{
-            y: [0, -20, 0],
-            opacity: [0.2, 0.6, 0.2],
+            y: [0, -18, 0],
+            opacity: [0.2, 0.55, 0.2],
           }}
           transition={{
-            duration: 4 + (i % 3) * 2,
-            delay: i * 0.3,
+            duration: 4.5 + (i % 3) * 2,
+            delay: i * 0.4,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
@@ -67,7 +67,7 @@ export default function BodyScienceChapter({ t }) {
         scrub: 1.5,
       },
     });
-    tl.fromTo(bgRef.current, { y: '-8%' }, { y: '8%', ease: 'none' });
+    tl.fromTo(bgRef.current, { y: '-6%' }, { y: '6%', ease: 'none' });
     return () => tl.kill();
   }, []);
 
@@ -81,31 +81,54 @@ export default function BodyScienceChapter({ t }) {
       whileInView="visible"
       viewport={{ once: true, margin: '-8%' }}
     >
-      {/* Cinematic Looping Ambient Video Background */}
+      {/* High-Performance Atmospheric Image Background — Female Rehabilitation & Body Vitality */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-body-science.mp4"
-        posterSrc="/assets/water-nature.jpg"
-        alt="Musculoskeletal Palpation Examination & Biomechanics"
+        posterSrc="/assets/bodyscience-female-vitality.jpg"
+        alt="Female Physiotherapist guiding female client in body alignment and posture vitality"
         glowClass="bg-[#84cc16]/20"
         glowSecondaryClass="bg-[#9d237a]/20"
-        brightness="brightness-[0.75]"
-        contrast="contrast-[1.05]"
+        brightness="brightness-[0.70]"
+        contrast="contrast-[1.08]"
       />
 
       {/* Floating Particles */}
       <FloatingParticles />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        {/* Header copy */}
+        {/* Header copy with animated text reveal */}
         <motion.div variants={slideUp} className="max-w-3xl mb-14">
-          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-[#84cc16] uppercase mb-4 flex items-center gap-2">
-            <Activity className="w-4 h-4 text-[#84cc16]" />
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EXPO_OUT }}
+            className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-[#84cc16] uppercase mb-4 flex items-center gap-2"
+          >
+            <Activity className="w-4 h-4 text-[#84cc16] animate-pulse" />
             <span>{t.science.eyebrow}</span>
-          </p>
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-6">
-            {t.science.titlePrefix}{' '}
-            <em className="italic font-light text-[#a3e635]">{t.science.titleEmphasis}</em>
+          </motion.p>
+
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.14] mb-6">
+            <motion.span
+              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EXPO_OUT }}
+              className="inline-block"
+            >
+              {t.science.titlePrefix}{' '}
+            </motion.span>
+            <motion.em
+              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
+              className="italic font-light text-[#a3e635] inline-block"
+            >
+              {t.science.titleEmphasis}
+            </motion.em>
           </h2>
+
           <ScrollReadingText text={t.science.readingText} />
         </motion.div>
 
@@ -117,43 +140,43 @@ export default function BodyScienceChapter({ t }) {
               <motion.div
                 key={idx}
                 variants={{
-                  hidden: { opacity: 0, y: 50, scale: 0.93 },
+                  hidden: { opacity: 0, y: 40, scale: 0.95 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     scale: 1,
-                    transition: { duration: 0.65, delay: idx * 0.1, ease: EXPO_OUT },
+                    transition: { duration: 0.6, delay: idx * 0.08, ease: EXPO_OUT },
                   },
                 }}
                 whileHover={{
-                  y: -8,
-                  borderColor: 'rgba(132, 204, 22, 0.4)',
+                  y: -6,
+                  borderColor: 'rgba(132, 204, 22, 0.45)',
                   boxShadow: '0 25px 50px -12px rgba(132, 204, 22, 0.2)',
                 }}
-                transition={{ duration: 0.3 }}
-                className="glass-card p-6 rounded-2xl border border-white/10 flex flex-col justify-between group relative overflow-hidden"
+                transition={{ duration: 0.25 }}
+                className="glass-card p-6 rounded-2xl border border-white/10 flex flex-col justify-between group relative overflow-hidden shadow-xl backdrop-blur-xl"
               >
                 {/* Glow reveal on hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#84cc16]/0 to-transparent group-hover:from-[#84cc16]/10 group-hover:to-transparent transition-all duration-500 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#84cc16]/0 to-transparent group-hover:from-[#84cc16]/15 group-hover:to-transparent transition-all duration-500 rounded-2xl pointer-events-none" />
 
                 <div>
                   <motion.div
-                    whileHover={{ scale: 1.15, rotate: -5 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                    className="w-10 h-10 rounded-xl bg-[#84cc16]/15 border border-[#84cc16]/30 flex items-center justify-center text-[#84cc16] mb-5"
+                    whileHover={{ scale: 1.12, rotate: -4 }}
+                    transition={{ type: 'spring', stiffness: 350 }}
+                    className="w-10 h-10 rounded-xl bg-[#84cc16]/20 border border-[#84cc16]/35 flex items-center justify-center text-[#84cc16] mb-5 shadow-sm"
                   >
                     <Icon className="w-5 h-5 stroke-[1.5]" />
                   </motion.div>
-                  <h3 className="text-lg font-medium text-white mb-3 group-hover:text-[#a3e635] transition-colors">
+                  <h3 className="text-lg font-medium text-white mb-3 group-hover:text-[#a3e635] transition-colors font-arabic">
                     {item.title}
                   </h3>
-                  <p className="text-slate-300 font-light text-xs md:text-sm leading-relaxed">
+                  <p className="text-slate-200 font-light text-xs md:text-sm leading-relaxed font-arabic">
                     {item.desc}
                   </p>
                 </div>
                 <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span className="text-[#d946ef]">BIO-BALANCE</span>
-                  <span className="text-[#84cc16]">0{idx + 1}</span>
+                  <span className="text-[#d946ef] font-semibold">BIO-BALANCE</span>
+                  <span className="text-lime-400 font-bold">0{idx + 1}</span>
                 </div>
               </motion.div>
             );
@@ -163,16 +186,13 @@ export default function BodyScienceChapter({ t }) {
         {/* Citations */}
         <motion.div
           variants={slideUp}
-          className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400"
+          className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-arabic backdrop-blur-md"
         >
-          <span>{t.science.sourceNote}</span>
-          <div className="flex items-center gap-4 font-mono uppercase text-[#84cc16] shrink-0">
-            <motion.span
-              whileHover={{ x: 4 }}
-              className="hover:text-lime-300 transition-colors cursor-pointer"
-            >
+          <span className="leading-relaxed">{t.science.sourceNote}</span>
+          <div className="flex items-center gap-4 font-mono uppercase text-[#84cc16] shrink-0 font-bold">
+            <span className="hover:text-lime-300 transition-colors">
               Clinical Quality Guidelines ↗
-            </motion.span>
+            </span>
           </div>
         </motion.div>
       </div>

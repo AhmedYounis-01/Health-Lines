@@ -19,7 +19,7 @@ const sectionVariants = {
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 40, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: 35, filter: 'blur(6px)' },
   visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EXPO_OUT } },
 };
 
@@ -40,19 +40,20 @@ export default function LymphaticChapter({ t }) {
         scrub: 1.5,
       },
     });
-    tl.fromTo(bgRef.current, { y: '-8%' }, { y: '8%', ease: 'none' });
+    tl.fromTo(bgRef.current, { y: '-6%' }, { y: '6%', ease: 'none' });
     return () => tl.kill();
   }, []);
 
   // GSAP wave animation
   useEffect(() => {
     if (!waveRef.current) return;
-    gsap.to(waveRef.current, {
+    const tween = gsap.to(waveRef.current, {
       x: '-50%',
       duration: 18,
       repeat: -1,
       ease: 'none',
     });
+    return () => tween.kill();
   }, []);
 
   return (
@@ -65,15 +66,14 @@ export default function LymphaticChapter({ t }) {
       whileInView="visible"
       viewport={{ once: true, margin: '-8%' }}
     >
-      {/* Cinematic Looping Ambient Video Background */}
+      {/* High-Performance Atmospheric Image Background — Female Lymphatic Drainage Therapy */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-lymphatic-drainage.mp4"
-        posterSrc="/assets/lymphatic-massage.jpg"
-        alt="Tranquil Lymphatic Drainage Manual Therapy Suite"
+        posterSrc="/assets/lymphatic-female-drainage.jpg"
+        alt="Certified Female Lymphatic Drainage Specialist in Private Clinic Suite Jeddah"
         glowClass="bg-[#9d237a]/25"
         glowSecondaryClass="bg-[#84cc16]/20"
-        brightness="brightness-[0.75]"
-        contrast="contrast-[1.05]"
+        brightness="brightness-[0.70]"
+        contrast="contrast-[1.08]"
       />
 
       {/* Animated gentle wave overlay */}
@@ -93,16 +93,40 @@ export default function LymphaticChapter({ t }) {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        {/* Header copy */}
+        {/* Header copy with animated text reveal */}
         <motion.div variants={slideUp} className="max-w-3xl mb-14">
-          <p className="text-xs md:text-sm font-mono tracking-[0.25em] text-fuchsia-300 uppercase mb-4 flex items-center gap-2">
-            <Droplets className="w-4 h-4 text-fuchsia-300" />
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EXPO_OUT }}
+            className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-fuchsia-300 uppercase mb-4 flex items-center gap-2"
+          >
+            <Droplets className="w-4 h-4 text-fuchsia-300 animate-pulse" />
             <span>{t.lymphatic.eyebrow}</span>
-          </p>
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-6">
-            {t.lymphatic.titlePrefix}{' '}
-            <em className="italic font-light text-fuchsia-200">{t.lymphatic.titleEmphasis}</em>
+          </motion.p>
+
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.14] mb-6">
+            <motion.span
+              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EXPO_OUT }}
+              className="inline-block"
+            >
+              {t.lymphatic.titlePrefix}{' '}
+            </motion.span>
+            <motion.em
+              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
+              className="italic font-light text-fuchsia-200 inline-block"
+            >
+              {t.lymphatic.titleEmphasis}
+            </motion.em>
           </h2>
+
           <ScrollReadingText text={t.lymphatic.readingText} />
         </motion.div>
 
@@ -114,41 +138,41 @@ export default function LymphaticChapter({ t }) {
               <motion.div
                 key={idx}
                 variants={{
-                  hidden: { opacity: 0, y: 50, scale: 0.95 },
+                  hidden: { opacity: 0, y: 40, scale: 0.96 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     scale: 1,
-                    transition: { duration: 0.65, delay: idx * 0.12, ease: EXPO_OUT },
+                    transition: { duration: 0.6, delay: idx * 0.1, ease: EXPO_OUT },
                   },
                 }}
                 whileHover={{
-                  y: -8,
-                  borderColor: 'rgba(217, 70, 239, 0.4)',
-                  boxShadow: '0 25px 50px -10px rgba(217,70,239,0.15)',
+                  y: -6,
+                  borderColor: 'rgba(217, 70, 239, 0.45)',
+                  boxShadow: '0 25px 50px -10px rgba(217,70,239,0.2)',
                 }}
-                transition={{ duration: 0.3 }}
-                className="glass-card p-8 rounded-3xl border border-white/10 relative overflow-hidden group"
+                transition={{ duration: 0.25 }}
+                className="glass-card p-8 rounded-3xl border border-white/10 relative overflow-hidden group shadow-xl backdrop-blur-xl"
               >
                 {/* Glow on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#9d237a]/0 to-transparent group-hover:from-[#9d237a]/10 group-hover:to-transparent transition-all duration-500 rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#9d237a]/0 to-transparent group-hover:from-[#9d237a]/15 group-hover:to-transparent transition-all duration-500 rounded-3xl pointer-events-none" />
 
                 <motion.div
-                  whileHover={{ scale: 1.15, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                  className="w-12 h-12 rounded-2xl bg-[#9d237a]/20 border border-[#9d237a]/40 flex items-center justify-center text-fuchsia-300 mb-6"
+                  whileHover={{ scale: 1.12, rotate: 4 }}
+                  transition={{ type: 'spring', stiffness: 350 }}
+                  className="w-12 h-12 rounded-2xl bg-[#9d237a]/25 border border-[#9d237a]/40 flex items-center justify-center text-fuchsia-300 mb-6 shadow-md"
                 >
-                  <IconComponent className="w-6 h-6" />
+                  <IconComponent className="w-6 h-6 text-fuchsia-300" />
                 </motion.div>
 
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-medium text-white group-hover:text-fuchsia-200 transition-colors">
+                  <h3 className="text-xl font-medium text-white group-hover:text-fuchsia-200 transition-colors font-arabic">
                     {pillar.title}
                   </h3>
-                  <span className="text-xs font-mono text-[#84cc16]">0{idx + 1}</span>
+                  <span className="text-xs font-mono text-lime-400 font-semibold">0{idx + 1}</span>
                 </div>
 
-                <p className="text-slate-300 font-light text-sm md:text-base leading-relaxed">
+                <p className="text-slate-200 font-light text-sm md:text-base leading-relaxed font-arabic">
                   {pillar.text}
                 </p>
               </motion.div>
@@ -156,22 +180,22 @@ export default function LymphaticChapter({ t }) {
           })}
         </div>
 
-        {/* Healing Quote Callout */}
+        {/* Healing Quote Callout with animated text & glowing border */}
         <motion.div
           variants={slideUp}
-          className="mt-14 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-[#9d237a]/20 via-[#629131]/15 to-[#9d237a]/20 border border-[#9d237a]/30 text-center relative overflow-hidden"
+          className="mt-14 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-[#9d237a]/25 via-[#629131]/20 to-[#9d237a]/25 border border-[#9d237a]/35 text-center relative overflow-hidden backdrop-blur-xl shadow-2xl"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,70,239,0.08)_0%,transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,70,239,0.12)_0%,transparent_70%)] pointer-events-none" />
           <motion.p
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: EXPO_OUT }}
-            className="font-editorial text-xl md:text-2xl italic text-slate-200 max-w-3xl mx-auto relative z-10 leading-relaxed"
+            className="font-editorial text-xl md:text-2xl italic text-slate-100 max-w-3xl mx-auto relative z-10 leading-relaxed font-arabic"
           >
             {t.lymphatic.quote || '"When the lymph moves freely, inflammation dissipates and true cellular regeneration begins."'}
           </motion.p>
-          <span className="block text-xs font-mono text-[#84cc16] mt-3 tracking-widest uppercase relative z-10">
+          <span className="block text-xs font-mono text-lime-400 mt-3 tracking-widest uppercase relative z-10 font-bold">
             {t.lymphatic.quoteAuthor || 'Health Lines Clinical Philosophy · Jeddah'}
           </span>
         </motion.div>

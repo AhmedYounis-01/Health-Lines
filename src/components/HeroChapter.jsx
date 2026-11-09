@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, HeartPulse } from 'lucide-react';
+import { ArrowDown, Sparkles } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
 import { gsap } from 'gsap';
@@ -43,8 +43,8 @@ export default function HeroChapter({ t, onScrollNext }) {
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   // GSAP atmosphere glow drift
@@ -53,8 +53,8 @@ export default function HeroChapter({ t, onScrollNext }) {
     if (!glows) return;
     glows.forEach((el, i) => {
       gsap.to(el, {
-        x: i % 2 === 0 ? 40 : -40,
-        y: i % 2 === 0 ? -30 : 30,
+        x: i % 2 === 0 ? 30 : -30,
+        y: i % 2 === 0 ? -25 : 25,
         duration: 12 + i * 4,
         repeat: -1,
         yoyo: true,
@@ -69,16 +69,17 @@ export default function HeroChapter({ t, onScrollNext }) {
       id="hero"
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-20 pb-16 px-6"
     >
-      {/* Cinematic Physical Therapy Ambient Video Background - 100% Female Clinic */}
+      {/* Chapter 01: Hero Video Background (1 of only 2 videos on the site) */}
       <ChapterVideoBackground
         videoSrc="/videos/pt-hero-clinic.mp4"
         posterSrc="/assets/hero-sanctuary.jpg"
         alt="Health Lines Rehabilitation Sanctuary Suite"
         glowClass="bg-[#9d237a]/30"
         glowSecondaryClass="bg-[#84cc16]/20"
-        brightness="brightness-[0.50]"
+        brightness="brightness-[0.55]"
         contrast="contrast-[1.05]"
         parallaxY={bgY}
+        isPriority={true}
       />
 
       {/* Scrolling content with subtle parallax */}
@@ -90,7 +91,7 @@ export default function HeroChapter({ t, onScrollNext }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.7, filter: 'blur(12px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 1, ease: EXPO_OUT }}
+          transition={{ duration: 0.9, ease: EXPO_OUT }}
           className="mb-8"
         >
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-fuchsia-400/40 bg-white/95 p-3 flex items-center justify-center relative shadow-2xl shadow-fuchsia-500/30 group">
@@ -99,6 +100,8 @@ export default function HeroChapter({ t, onScrollNext }) {
             <img
               src="/assets/logo.png"
               alt="Health Lines Logo"
+              width="96"
+              height="96"
               className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
             />
           </div>
@@ -108,25 +111,26 @@ export default function HeroChapter({ t, onScrollNext }) {
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: EXPO_OUT }}
-          className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-lime-400 uppercase mb-5"
+          transition={{ duration: 0.7, delay: 0.15, ease: EXPO_OUT }}
+          className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-lime-400 uppercase mb-5 flex items-center gap-2"
         >
-          {t.hero.eyebrow}
+          <Sparkles className="w-3.5 h-3.5 text-lime-400 animate-pulse" />
+          <span>{t.hero.eyebrow}</span>
         </motion.p>
 
         {/* Headline with word-split animation */}
         <h1 className="font-editorial text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-normal text-white tracking-tight leading-[1.15] mb-6 sm:mb-8">
           <WordSplit
             text={t.hero.titlePrefix}
-            delay={0.3}
+            delay={0.25}
             className="text-white"
           />
           {' '}
           <motion.em
             initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ delay: 0.55, duration: 0.7, ease: EXPO_OUT }}
-            className="italic font-light text-fuchsia-300 not-italic"
+            transition={{ delay: 0.5, duration: 0.7, ease: EXPO_OUT }}
+            className="italic font-light text-fuchsia-300 inline-block"
             style={{ fontStyle: 'italic' }}
           >
             {t.hero.titleEmphasis}
@@ -137,7 +141,7 @@ export default function HeroChapter({ t, onScrollNext }) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.55 }}
           className="max-w-2xl mb-12"
         >
           <ScrollReadingText text={t.hero.readingText} />
@@ -147,7 +151,7 @@ export default function HeroChapter({ t, onScrollNext }) {
         <motion.a
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.75 }}
+          transition={{ duration: 0.7, delay: 0.7 }}
           whileHover={{ scale: 1.05, borderColor: 'rgba(217, 70, 239, 0.6)' }}
           href="#therapy"
           onClick={(e) => {
@@ -156,7 +160,7 @@ export default function HeroChapter({ t, onScrollNext }) {
               onScrollNext();
             }
           }}
-          className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-fuchsia-400/30 bg-[#160d22]/60 hover:bg-[#9d237a]/25 hover:border-lime-400/50 backdrop-blur-md text-xs font-mono tracking-widest uppercase text-slate-200 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-fuchsia-500/20"
+          className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-fuchsia-400/30 bg-[#160d22]/60 hover:bg-[#9d237a]/25 hover:border-lime-400/50 backdrop-blur-md text-xs font-mono tracking-widest uppercase text-slate-200 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-fuchsia-500/20 cursor-pointer"
         >
           <motion.span
             animate={{ y: [0, 4, 0] }}
@@ -172,7 +176,7 @@ export default function HeroChapter({ t, onScrollNext }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
+        transition={{ delay: 1, duration: 0.8 }}
         className="absolute bottom-6 right-8 rtl:right-auto rtl:left-8 hidden sm:flex items-center gap-2 text-[11px] font-mono tracking-widest text-slate-400 uppercase"
       >
         <span className="font-arabic">{t.hero.badge}</span>
