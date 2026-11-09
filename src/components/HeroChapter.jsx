@@ -35,8 +35,9 @@ function WordSplit({ text, className, delay = 0 }) {
   );
 }
 
-export default function HeroChapter({ t, onScrollNext }) {
+export default function HeroChapter({ lang, t, onScrollNext }) {
   const sectionRef = useRef(null);
+  const isAr = lang === 'ar' || t.langCode === 'العربية';
 
   // Parallax on background image
   const { scrollYProgress } = useScroll({
@@ -87,24 +88,47 @@ export default function HeroChapter({ t, onScrollNext }) {
         className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center"
         style={{ y: contentY, opacity }}
       >
-        {/* Emblem - Official Brand Logo with Pulsing Glow */}
+        {/* Animated Contact Us Interactive Hero CTA (Replaces Center Logo) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7, filter: 'blur(12px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, scale: 0.85, y: -15, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.9, ease: EXPO_OUT }}
           className="mb-8"
         >
-          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-fuchsia-400/40 bg-white/95 p-3 flex items-center justify-center relative shadow-2xl shadow-fuchsia-500/30 group">
-            <span className="absolute inset-0 rounded-full border border-fuchsia-400/50 pulse-ring" />
-            <span className="absolute inset-0 rounded-full border border-lime-400/40 pulse-ring" style={{ animationDelay: '0.9s' }} />
-            <img
-              src="/assets/logo.png"
-              alt="Health Lines Logo"
-              width="96"
-              height="96"
-              className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
+          <motion.a
+            href="#sanctuary"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById('sanctuary');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+            className="group cursor-pointer inline-flex items-center gap-3 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-gradient-to-r from-fuchsia-950/70 via-[#150f24]/85 to-emerald-950/70 border border-fuchsia-400/40 hover:border-lime-400 text-white shadow-[0_10px_35px_rgba(157,35,122,0.35)] hover:shadow-[0_15px_45px_rgba(132,204,22,0.5)] backdrop-blur-2xl transition-all duration-300 relative overflow-hidden"
+          >
+            {/* Shimmer light sweep on hover */}
+            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+
+            {/* Pulsing Live Concierge Beacon */}
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-80" />
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-lime-400 shadow-[0_0_10px_#84cc16]" />
+            </span>
+
+            {/* Interactive CTA Label */}
+            <div className="flex items-center gap-2">
+              <span className={`text-xs sm:text-sm font-semibold tracking-wide text-white group-hover:text-lime-300 transition-colors ${isAr ? 'font-arabic' : 'font-sans'}`}>
+                {t.hero?.contactBadge || (isAr ? 'تواصلِ معنا مباشرة · استشارة فورية 24/7' : 'Contact Our Sanctuary · Instant Consultation 24/7')}
+              </span>
+            </div>
+
+            {/* Glowing Arrow Pill */}
+            <span className="w-6 h-6 rounded-full bg-white/10 group-hover:bg-lime-400/20 border border-white/10 group-hover:border-lime-400/40 flex items-center justify-center transition-all duration-300">
+              <ArrowDown className="w-3.5 h-3.5 text-lime-400 group-hover:translate-y-0.5 transition-transform" />
+            </span>
+          </motion.a>
         </motion.div>
 
         {/* Eyebrow */}

@@ -14,13 +14,23 @@ export const translations = {
     altLangCode: "العربية",
     
     nav: {
-      story: "Philosophy",
+      home: "Home",
+      about: "About Us",
+      services: "Our Services",
+      center: "Joint Force Center",
+      centerBrand: "Health Lines Center",
+      team: "Medical Team",
+      virtualSessions: "Virtual Therapy Sessions",
+      customPrograms: "Book Custom Programs",
+      blog: "Blog",
+      contact: "Contact Us",
+      story: "Home",
       therapy: "Physical Therapy",
       sculpt: "Body Sculpting",
       lymphatic: "Lymphatic Detox",
       body: "Health Science",
-      sanctuary: "Sanctuary",
-      departments: "Clinical Departments",
+      sanctuary: "About Us",
+      departments: "Our Services",
     },
 
     chapters: [
@@ -34,6 +44,7 @@ export const translations = {
     ],
 
     hero: {
+      contactBadge: "Contact Our Sanctuary · Instant Consultation 24/7",
       eyebrow: "HEALTH LINES · FROM JEDDAH, TO YOUR VITALITY",
       titlePrefix: "Before the",
       titleEmphasis: "first movement.",
@@ -424,13 +435,23 @@ export const translations = {
     altLangCode: "EN",
 
     nav: {
-      story: "حكايتنا",
+      home: "الرئيسية",
+      about: "من نحن",
+      services: "خدماتنا",
+      center: "مركز جوينت فورس",
+      centerBrand: "مركز خطوط الصحة",
+      team: "الفريق الطبي",
+      virtualSessions: "جلسات علاجية افتراضية",
+      customPrograms: "أحجز برامج علاجية مخصصة",
+      blog: "المدونة",
+      contact: "تواصل معنا",
+      story: "الرئيسية",
       therapy: "العلاج الطبيعي",
       sculpt: "نحت القوام",
       lymphatic: "المساج اللمفاوي",
       body: "صحة الجسد",
-      sanctuary: "مقرنا بجدة",
-      departments: "الأقسام الطبية",
+      sanctuary: "من نحن",
+      departments: "خدماتنا",
     },
 
     chapters: [
@@ -444,6 +465,7 @@ export const translations = {
     ],
 
     hero: {
+      contactBadge: "تواصلِ معنا مباشرة · استشارة فورية 24/7",
       eyebrow: "مركز خطوط الصحة · من قلب جدة، لجمال قوامكِ وعافيتكِ التامة",
       titlePrefix: "قبل أول خطوة،",
       titleEmphasis: "صحتكِ تبدأ هنا.",

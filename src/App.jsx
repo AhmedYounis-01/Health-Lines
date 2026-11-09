@@ -124,6 +124,7 @@ export default function App() {
         <main>
           {/* Chapter 01: Hero / Awakening */}
           <HeroChapter
+            lang={lang}
             t={t}
             onScrollNext={() => {
               const nextEl = document.getElementById('therapy');
