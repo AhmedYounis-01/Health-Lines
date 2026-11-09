@@ -72,7 +72,7 @@ export default function HeroChapter({ lang, t, onScrollNext }) {
     >
       {/* Chapter 01: Hero Video Background (1 of only 2 videos on the site) */}
       <ChapterVideoBackground
-        videoSrc="/videos/pt-hero-clinic.mp4"
+        videoSrc={['/videos/pt-hero-clinic.webm', '/videos/pt-hero-clinic.mp4']}
         posterSrc="/assets/hero-sanctuary.jpg"
         alt="Health Lines Rehabilitation Sanctuary Suite"
         glowClass="bg-[#9d237a]/30"
@@ -80,7 +80,7 @@ export default function HeroChapter({ lang, t, onScrollNext }) {
         brightness="brightness-[0.55]"
         contrast="contrast-[1.05]"
         parallaxY={bgY}
-        isPriority={true}
+        priority={true}
       />
 
       {/* Scrolling content with subtle parallax */}

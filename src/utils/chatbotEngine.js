@@ -4,7 +4,7 @@
  * multi-keyword scoring, and contextual clinical fallbacks.
  */
 
-import { CHATBOT_KNOWLEDGE_AR, CHATBOT_KNOWLEDGE_EN, CLINIC_INFO } from '../data/chatbotKnowledge.js';
+import { CHATBOT_KNOWLEDGE_AR, CHATBOT_KNOWLEDGE_EN } from '../data/chatbotKnowledge.js';
 
 /**
  * Normalizes Arabic text for flexible matching:

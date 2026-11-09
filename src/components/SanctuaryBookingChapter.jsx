@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Phone, MessageSquare, Calendar, ShieldCheck, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
+import { siteConfig } from '../config/siteConfig';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -88,11 +89,11 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
   const sectionRef = useRef(null);
 
   const isAr = typeof document !== 'undefined' && (document.documentElement.lang === 'ar' || !document.documentElement.lang);
-  const whatsappUrl = `https://wa.me/966599530955?text=${encodeURIComponent(
+  const whatsappUrl = siteConfig.buildWhatsAppUrl(
     isAr
       ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة للعلاج الطبيعي ونحت القوام.'
       : 'Hello, I would like to inquire and schedule a consultation at Health Lines Center.'
-  )}`;
+  );
 
   return (
     <motion.section
@@ -215,7 +216,7 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
               </motion.a>
 
               <motion.a
-                href="https://maps.app.goo.gl/o9go6Z1e452RcqRh8"
+                href={siteConfig.location.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.03, borderColor: 'rgba(217,70,239,0.5)' }}
@@ -227,7 +228,7 @@ export default function SanctuaryBookingChapter({ t, onOpenBooking }) {
               </motion.a>
 
               <motion.a
-                href="tel:0126918000"
+                href={`tel:${siteConfig.contact.phone}`}
                 whileHover={{ scale: 1.03 }}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass-card border border-white/10 hover:border-white/20 text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
               >

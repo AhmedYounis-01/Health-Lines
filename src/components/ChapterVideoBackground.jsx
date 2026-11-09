@@ -3,11 +3,10 @@ import { motion } from 'framer-motion';
 
 /**
  * High-Performance Cinematic Background (Media / Video / Image)
- * Optimized for weak mobile devices and low-bandwidth connections:
- * - When videoSrc is provided (Hero and About only): uses lightweight IntersectionObserver
- *   to pause playback when out of view, reducing CPU & GPU usage to 0%.
- * - When videoSrc is omitted (Therapy, VelaShape, Lymphatic, Science): renders pure optimized
- *   WebP/JPEG imagery with lazy decoding, saving 24+ MB of network traffic.
+ * Features:
+ * - True Lazy DOM Mounting: Off-screen chapters never mount <video> until user approaches in viewport.
+ * - Priority flag: Hero chapter mounts immediately for instant above-the-fold impact.
+ * - When videoSrc is omitted: renders pure optimized WebP/JPEG imagery with lazy decoding.
  * - Multi-layer luxury dark gradients ensuring medical legibility and high contrast.
  * - Subtle atmospheric colored glows matching each clinical specialty.
  */
@@ -22,13 +21,52 @@ export default function ChapterVideoBackground({
   parallaxY = null,
   scale = 'scale-105',
   isPriority = false,
+  priority = false,
+  proximityMargin = '350px 0px 350px 0px',
 }) {
+  const isPriorityEffective = isPriority || priority;
   const videoRef = useRef(null);
   const containerRef = useRef(null);
+  const [shouldMountVideo, setShouldMountVideo] = useState(isPriorityEffective);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
+  // Proximity observer: Mount <video> DOM node only when user approaches the chapter
   useEffect(() => {
     if (!videoSrc) return;
+    if (isPriorityEffective) {
+      setShouldMountVideo(true);
+      return;
+    }
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const mountObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldMountVideo(true);
+            mountObserver.disconnect();
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: proximityMargin,
+        threshold: 0,
+      }
+    );
+
+    mountObserver.observe(container);
+
+    return () => {
+      mountObserver.disconnect();
+    };
+  }, [videoSrc, isPriorityEffective, proximityMargin]);
+
+  // Playback observer: Manage play/pause when mounted video enters/leaves the viewport
+  useEffect(() => {
+    if (!videoSrc || !shouldMountVideo) return;
 
     const video = videoRef.current;
     const container = containerRef.current;
@@ -36,8 +74,7 @@ export default function ChapterVideoBackground({
 
     let isSubscribed = true;
 
-    // Use IntersectionObserver to play video only when inside or near the viewport
-    const observer = new IntersectionObserver(
+    const playbackObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!isSubscribed) return;
@@ -52,12 +89,12 @@ export default function ChapterVideoBackground({
       },
       {
         root: null,
-        rootMargin: '150px 0px 150px 0px',
+        rootMargin: '120px 0px 120px 0px',
         threshold: 0.05,
       }
     );
 
-    observer.observe(container);
+    playbackObserver.observe(container);
 
     const handleLoadedData = () => {
       if (isSubscribed) setIsVideoLoaded(true);
@@ -66,10 +103,10 @@ export default function ChapterVideoBackground({
 
     return () => {
       isSubscribed = false;
-      observer.disconnect();
+      playbackObserver.disconnect();
       video.removeEventListener('loadeddata', handleLoadedData);
     };
-  }, [videoSrc]);
+  }, [videoSrc, shouldMountVideo]);
 
   const webpSrc = posterSrc ? posterSrc.replace(/\.jpg$/, '.webp').replace(/\.jpeg$/, '.webp') : null;
 
@@ -87,9 +124,9 @@ export default function ChapterVideoBackground({
             <img
               src={posterSrc}
               alt={alt}
-              loading={isPriority ? 'eager' : 'lazy'}
+              loading={isPriorityEffective ? 'eager' : 'lazy'}
               decoding="async"
-              fetchPriority={isPriority ? 'high' : 'auto'}
+              fetchPriority={isPriorityEffective ? 'high' : 'auto'}
               className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-700 ${
                 videoSrc && isVideoLoaded ? 'opacity-0' : 'opacity-100'
               }`}
@@ -97,15 +134,15 @@ export default function ChapterVideoBackground({
           </picture>
         )}
 
-        {/* Video Layer — Only rendered when videoSrc is explicitly passed (Hero & About) */}
-        {videoSrc && (
+        {/* Video Layer — Rendered when videoSrc is passed and approached */}
+        {videoSrc && shouldMountVideo && (
           <video
             ref={videoRef}
             poster={posterSrc}
             muted
             loop
             playsInline
-            preload="metadata"
+            preload={isPriorityEffective ? 'metadata' : 'none'}
             aria-hidden="true"
             className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-700 ${
               isVideoLoaded ? 'opacity-100' : 'opacity-0'
@@ -135,8 +172,8 @@ export default function ChapterVideoBackground({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#0c0912_92%)] opacity-60" />
 
         {/* Atmospheric Medical Color Glows */}
-        <div className={`atmosphere-glow w-[500px] h-[500px] -top-24 -left-24 ${glowClass}`} />
-        <div className={`atmosphere-glow w-[600px] h-[600px] -bottom-32 -right-32 ${glowSecondaryClass}`} />
+        <div className={`atmosphere-glow w-[520px] h-[520px] -top-24 -left-24 ${glowClass}`} />
+        <div className={`atmosphere-glow w-[620px] h-[620px] -bottom-32 -right-32 ${glowSecondaryClass}`} />
       </motion.div>
     </div>
   );
