@@ -5,12 +5,13 @@ import MorphoHeader from './components/MorphoHeader';
 import ChapterNav from './components/ChapterNav';
 import AmbientSound from './components/AmbientSound';
 import HeroChapter from './components/HeroChapter';
+import AboutChapter from './components/AboutChapter';
+import DepartmentsChapter from './components/DepartmentsChapter';
 import TherapyChapter from './components/TherapyChapter';
 import VelaShapeChapter from './components/VelaShapeChapter';
 import LymphaticChapter from './components/LymphaticChapter';
 import BodyScienceChapter from './components/BodyScienceChapter';
-import SanctuaryBookingChapter from './components/SanctuaryBookingChapter';
-import DepartmentsChapter from './components/DepartmentsChapter';
+import ContactChapter from './components/ContactChapter';
 import MorphoFooter from './components/MorphoFooter';
 import BookingModal from './components/BookingModal';
 import ScrollProgressBar from './components/ScrollProgressBar';
@@ -46,7 +47,16 @@ export default function App() {
 
   // Track active chapter as user scrolls
   useEffect(() => {
-    const chapterIds = ['hero', 'therapy', 'velashape', 'lymphatic', 'science', 'sanctuary', 'departments'];
+    const chapterIds = [
+      'hero',
+      'about',
+      'departments',
+      'therapy',
+      'velashape',
+      'lymphatic',
+      'science',
+      'contact',
+    ];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight * 0.4;
       for (const id of chapterIds) {
@@ -122,46 +132,55 @@ export default function App() {
 
         {/* Main Scrollytelling Journey */}
         <main>
-          {/* Chapter 01: Hero / Awakening */}
+          {/* Chapter 01: Hero / Awakening -> الرئيسية */}
           <HeroChapter
             lang={lang}
             t={t}
             onScrollNext={() => {
-              const nextEl = document.getElementById('therapy');
+              const nextEl = document.getElementById('about');
               if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
             }}
           />
 
-          {/* Chapter 02: Physical Therapy & Spine */}
+          {/* Chapter 02: About Us / Sanctuary -> من نحن */}
+          <AboutChapter
+            t={t}
+            onExploreServices={() => {
+              const nextEl = document.getElementById('departments');
+              if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
+
+          {/* Chapter 03: Clinical Departments & Rehabilitation Programs -> خدماتنا */}
+          <DepartmentsChapter
+            t={t}
+            onOpenBooking={() => setIsBookingOpen(true)}
+          />
+
+          {/* Chapter 04: Physical Therapy & Spine */}
           <TherapyChapter
             t={t}
             onOpenBooking={() => setIsBookingOpen(true)}
           />
 
-          {/* Chapter 03: VelaShape III & Contouring */}
+          {/* Chapter 05: VelaShape III & Contouring */}
           <VelaShapeChapter
             t={t}
             onOpenBooking={() => setIsBookingOpen(true)}
           />
 
-          {/* Chapter 04: Lymphatic Detox & Cellular Renewal */}
+          {/* Chapter 06: Lymphatic Detox & Cellular Renewal */}
           <LymphaticChapter
             t={t}
           />
 
-          {/* Chapter 05: Water, Body & Health Science */}
+          {/* Chapter 07: Water, Body & Health Science -> المدونة */}
           <BodyScienceChapter
             t={t}
           />
 
-          {/* Chapter 06: The Jeddah Sanctuary & Clinic */}
-          <SanctuaryBookingChapter
-            t={t}
-            onOpenBooking={() => setIsBookingOpen(true)}
-          />
-
-          {/* Chapter 07: Clinical Departments & Rehabilitation Programs */}
-          <DepartmentsChapter
+          {/* Chapter 08: The Jeddah Sanctuary & Clinic Contact -> تواصل معنا */}
+          <ContactChapter
             t={t}
             onOpenBooking={() => setIsBookingOpen(true)}
           />

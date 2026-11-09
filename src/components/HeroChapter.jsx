@@ -96,10 +96,10 @@ export default function HeroChapter({ lang, t, onScrollNext }) {
           className="mb-8"
         >
           <motion.a
-            href="#sanctuary"
+            href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              const el = document.getElementById('sanctuary');
+              const el = document.getElementById('contact') || document.getElementById('sanctuary');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
             animate={{ y: [0, -5, 0] }}
@@ -177,7 +177,7 @@ export default function HeroChapter({ lang, t, onScrollNext }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.7 }}
           whileHover={{ scale: 1.05, borderColor: 'rgba(217, 70, 239, 0.6)' }}
-          href="#therapy"
+          href="#about"
           onClick={(e) => {
             if (onScrollNext) {
               e.preventDefault();

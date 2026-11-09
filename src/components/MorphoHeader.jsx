@@ -30,37 +30,32 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
 
   const isAr = lang === 'ar';
 
-  const handleVirtualSession = () => {
-    const text = isAr
-      ? 'السلام عليكم، أود الاستفسار وحجز جلسة علاجية استشارية افتراضية (عن بُعد) مع الأخصائية.'
-      : 'Hello, I would like to inquire and book a virtual consultation session.';
-    const url = `https://wa.me/966599530955?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
   const navItems = [
     { id: 'hero', label: t.nav.home || 'الرئيسية' },
-    { id: 'sanctuary', label: t.nav.about || 'من نحن' },
-    { id: 'departments', label: t.nav.services || 'خدماتنا' },
+    { id: 'about', label: t.nav.about || 'من نحن' },
+    { id: 'services', label: t.nav.services || 'خدماتنا', targetId: 'departments' },
     // Center Dropdown Item
     {
       id: 'center-dropdown',
-      label: t.nav.center || 'مركز جوينت فورس',
+      label: t.nav.center || (isAr ? 'مركز خطوط الصحة' : 'HEALTH LINES'),
       isDropdown: true,
       items: [
         {
-          label: t.nav.team || 'الفريق الطبي',
+          label: t.nav.team || (isAr ? 'الفريق الطبي والأخصائيات' : 'Medical Team & Specialists'),
           action: () => {
             const el = document.getElementById('departments');
             if (el) el.scrollIntoView({ behavior: 'smooth' });
           },
         },
         {
-          label: t.nav.virtualSessions || 'جلسات علاجية افتراضية',
-          action: handleVirtualSession,
+          label: t.nav.techDevices || (isAr ? 'الأجهزة والتقنيات العلاجية' : 'Therapeutic Technologies'),
+          action: () => {
+            const el = document.getElementById('velashape') || document.getElementById('therapy');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          },
         },
         {
-          label: t.nav.customPrograms || 'أحجز برامج علاجية مخصصة',
+          label: t.nav.customPrograms || (isAr ? 'أحجز برامج علاجية مخصصة' : 'Book Custom Programs'),
           action: () => {
             if (onOpenBooking) onOpenBooking();
           },
@@ -68,7 +63,7 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
       ],
     },
     { id: 'science', label: t.nav.blog || 'المدونة' },
-    { id: 'contact', label: t.nav.contact || 'تواصل معنا', targetId: 'sanctuary' },
+    { id: 'contact', label: t.nav.contact || 'تواصل معنا' },
   ];
 
   return (
@@ -164,7 +159,8 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                 }
 
                 const targetAnchor = item.targetId || item.id;
-                const isActive = activeChapter === targetAnchor;
+                const isServicesActive = item.id === 'services' && ['services', 'departments', 'therapy', 'velashape', 'lymphatic'].includes(activeChapter);
+                const isActive = activeChapter === item.id || activeChapter === targetAnchor || isServicesActive;
 
                 return (
                   <a
