@@ -1,12 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Droplets, HeartHandshake, Sparkles, Feather } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -14,39 +11,23 @@ const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: EXPO_OUT, staggerChildren: 0.12 },
+    transition: { duration: 0.65, ease: EXPO_OUT, staggerChildren: 0.1 },
   },
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 35, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EXPO_OUT } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EXPO_OUT } },
 };
 
-export default function LymphaticChapter({ t }) {
+function LymphaticChapter({ t }) {
   const icons = [Droplets, HeartHandshake, Sparkles, Feather];
-  const bgRef = useRef(null);
   const sectionRef = useRef(null);
   const waveRef = useRef(null);
 
-  // GSAP Parallax background
-  useEffect(() => {
-    if (!bgRef.current || !sectionRef.current) return;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      },
-    });
-    tl.fromTo(bgRef.current, { y: '-6%' }, { y: '6%', ease: 'none' });
-    return () => tl.kill();
-  }, []);
-
   // GSAP wave animation
   useEffect(() => {
-    if (!waveRef.current) return;
+    if (!waveRef.current) return undefined;
     const tween = gsap.to(waveRef.current, {
       x: '-50%',
       duration: 18,
@@ -108,19 +89,19 @@ export default function LymphaticChapter({ t }) {
 
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
             <motion.span
-              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: EXPO_OUT }}
+              transition={{ duration: 0.6, ease: EXPO_OUT }}
               className="inline-block"
             >
               {t.lymphatic.titlePrefix}{' '}
             </motion.span>
             <motion.em
-              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
+              transition={{ duration: 0.65, delay: 0.1, ease: EXPO_OUT }}
               className="italic font-light text-[#9d237a] dark:text-fuchsia-200 inline-block"
             >
               {t.lymphatic.titleEmphasis}
@@ -203,3 +184,5 @@ export default function LymphaticChapter({ t }) {
     </motion.section>
   );
 }
+
+export default memo(LymphaticChapter);

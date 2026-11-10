@@ -1,15 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
 import HeroContactDock from './HeroContactDock';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Reusable animation variants
+// Reusable animation variants (GPU-composited opacity + transform only)
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
 // Split a string into words for staggered animation
@@ -20,8 +17,8 @@ function WordSplit({ text, className, delay = 0 }) {
       {words.map((word, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{
             delay: delay + i * 0.07,
             duration: 0.65,
@@ -36,7 +33,7 @@ function WordSplit({ text, className, delay = 0 }) {
   );
 }
 
-export default function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
+function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
   const sectionRef = useRef(null);
   const isAr = lang === 'ar' || t.langCode === 'العربية';
 
@@ -91,9 +88,9 @@ export default function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
       >
         {/* Animated Contact Us Interactive Hero CTA */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85, y: -15, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.9, ease: EXPO_OUT }}
+          initial={{ opacity: 0, scale: 0.92, y: -12 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.75, ease: EXPO_OUT }}
           className="mb-7"
         >
           <motion.a
@@ -152,9 +149,9 @@ export default function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
           />
           {' '}
           <motion.em
-            initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ delay: 0.5, duration: 0.7, ease: EXPO_OUT }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.65, ease: EXPO_OUT }}
             className="italic font-light text-[#9d237a] dark:text-fuchsia-300 inline-block"
             style={{ fontStyle: 'italic' }}
           >
@@ -218,3 +215,5 @@ export default function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
     </section>
   );
 }
+
+export default memo(HeroChapter);

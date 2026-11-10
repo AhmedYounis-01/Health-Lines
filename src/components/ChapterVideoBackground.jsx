@@ -1,16 +1,22 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { memo, useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 /**
  * High-Performance Cinematic Background (Media / Video / Image)
- * Features:
- * - True Lazy DOM Mounting: Off-screen chapters never mount <video> until user approaches in viewport.
- * - Priority flag: Hero chapter mounts immediately for instant above-the-fold impact.
- * - When videoSrc is omitted: renders pure optimized WebP/JPEG imagery with lazy decoding.
- * - Multi-layer luxury dark gradients ensuring medical legibility and high contrast.
- * - Subtle atmospheric colored glows matching each clinical specialty.
+ * Memory & GPU Optimized:
+ * - Renders lightweight WebP/JPEG <picture> with lazy decoding.
+ * - When videoSrc is passed (Hero only): mounts <video> only while within 500px
+ *   of the viewport and releases decoded video frames from RAM when scrolled away.
+ * - Automatically disables <video> when user prefers reduced motion.
  */
-export default function ChapterVideoBackground({
+const WEBP_ENABLED_POSTERS = new Set([
+  '/assets/therapy-female-spine.jpg',
+  '/assets/velashape-female-contour.jpg',
+  '/assets/lymphatic-female-drainage.jpg',
+  '/assets/bodyscience-female-vitality.jpg',
+]);
+
+function ChapterVideoBackground({
   videoSrc = null,
   posterSrc,
   alt = 'Health Lines Center Women Physical Therapy Sanctuary',
@@ -22,55 +28,64 @@ export default function ChapterVideoBackground({
   scale = 'scale-105',
   isPriority = false,
   priority = false,
-  proximityMargin = '350px 0px 350px 0px',
+  retentionMargin = '500px 0px 500px 0px',
 }) {
   const isPriorityEffective = isPriority || priority;
   const videoRef = useRef(null);
   const containerRef = useRef(null);
-  const [shouldMountVideo, setShouldMountVideo] = useState(isPriorityEffective);
+  const [prefersReducedMotion] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+  const [shouldMountVideo, setShouldMountVideo] = useState(
+    Boolean(videoSrc) && isPriorityEffective && !prefersReducedMotion
+  );
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
-  // Proximity observer: Mount <video> DOM node only when user approaches the chapter
+  // Memory Retention Observer: Mount when approaching, unmount & release buffer when far off-screen
   useEffect(() => {
-    if (!videoSrc) return;
-    if (isPriorityEffective) {
-      setShouldMountVideo(true);
-      return;
-    }
+    if (!videoSrc || prefersReducedMotion) return undefined;
 
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) return undefined;
 
-    const mountObserver = new IntersectionObserver(
+    const retentionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setShouldMountVideo(true);
-            mountObserver.disconnect();
+          } else {
+            // Release decoded video frames from RAM/VRAM when scrolled far past Hero
+            const vid = videoRef.current;
+            if (vid) {
+              vid.pause();
+              vid.removeAttribute('src');
+              vid.querySelectorAll('source').forEach((srcEl) => srcEl.removeAttribute('src'));
+              vid.load();
+            }
+            setIsVideoLoaded(false);
+            setShouldMountVideo(false);
           }
         });
       },
       {
         root: null,
-        rootMargin: proximityMargin,
+        rootMargin: retentionMargin,
         threshold: 0,
       }
     );
 
-    mountObserver.observe(container);
+    retentionObserver.observe(container);
+    return () => retentionObserver.disconnect();
+  }, [videoSrc, prefersReducedMotion, retentionMargin]);
 
-    return () => {
-      mountObserver.disconnect();
-    };
-  }, [videoSrc, isPriorityEffective, proximityMargin]);
-
-  // Playback observer: Manage play/pause when mounted video enters/leaves the viewport
+  // Playback Observer: Play only when actually visible in viewport
   useEffect(() => {
-    if (!videoSrc || !shouldMountVideo) return;
+    if (!videoSrc || !shouldMountVideo || prefersReducedMotion) return undefined;
 
     const video = videoRef.current;
     const container = containerRef.current;
-    if (!video || !container) return;
+    if (!video || !container) return undefined;
 
     let isSubscribed = true;
 
@@ -105,10 +120,17 @@ export default function ChapterVideoBackground({
       isSubscribed = false;
       playbackObserver.disconnect();
       video.removeEventListener('loadeddata', handleLoadedData);
+      video.pause();
+      video.removeAttribute('src');
+      video.querySelectorAll('source').forEach((srcEl) => srcEl.removeAttribute('src'));
+      video.load();
     };
-  }, [videoSrc, shouldMountVideo]);
+  }, [videoSrc, shouldMountVideo, prefersReducedMotion]);
 
-  const webpSrc = posterSrc ? posterSrc.replace(/\.jpg$/, '.webp').replace(/\.jpeg$/, '.webp') : null;
+  const webpSrc =
+    posterSrc && WEBP_ENABLED_POSTERS.has(posterSrc)
+      ? posterSrc.replace(/\.jpg$/, '.webp').replace(/\.jpeg$/, '.webp')
+      : null;
 
   return (
     <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
@@ -117,7 +139,7 @@ export default function ChapterVideoBackground({
         className="absolute inset-0 w-full h-full"
         style={parallaxY ? { y: parallaxY } : undefined}
       >
-        {/* Optimized Image Layer (with WebP support and async decoding) */}
+        {/* Optimized Image Layer */}
         {posterSrc && (
           <picture className="absolute inset-0 w-full h-full">
             {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
@@ -127,31 +149,31 @@ export default function ChapterVideoBackground({
               loading={isPriorityEffective ? 'eager' : 'lazy'}
               decoding="async"
               fetchPriority={isPriorityEffective ? 'high' : 'auto'}
-              className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-700 ${
-                videoSrc && isVideoLoaded ? 'opacity-0' : 'opacity-100'
+              className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-500 ${
+                videoSrc && shouldMountVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
               }`}
             />
           </picture>
         )}
 
-        {/* Video Layer — Rendered when videoSrc is passed and approached */}
-        {videoSrc && shouldMountVideo && (
+        {/* Video Layer — Mounted only while within active retention zone */}
+        {videoSrc && shouldMountVideo && !prefersReducedMotion && (
           <video
             ref={videoRef}
             poster={posterSrc}
             muted
             loop
             playsInline
-            preload={isPriorityEffective ? 'metadata' : 'none'}
+            preload="metadata"
             aria-hidden="true"
-            className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-700 ${
+            className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-500 ${
               isVideoLoaded ? 'opacity-100' : 'opacity-0'
             }`}
           >
             {Array.isArray(videoSrc) ? (
-              videoSrc.map((src, i) => (
+              videoSrc.map((src) => (
                 <source
-                  key={i}
+                  key={src}
                   src={src}
                   type={src.endsWith('.webm') ? 'video/webm' : 'video/mp4'}
                 />
@@ -172,9 +194,11 @@ export default function ChapterVideoBackground({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.22)_0%,rgba(250,242,248,0.88)_92%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,#241033_92%)] opacity-75 dark:opacity-65" />
 
         {/* Atmospheric Medical Color Glows */}
-        <div className={`atmosphere-glow w-[520px] h-[520px] -top-24 -left-24 ${glowClass}`} />
-        <div className={`atmosphere-glow w-[620px] h-[620px] -bottom-32 -right-32 ${glowSecondaryClass}`} />
+        <div className={`atmosphere-glow w-[480px] h-[480px] -top-24 -left-24 ${glowClass}`} />
+        <div className={`atmosphere-glow w-[560px] h-[560px] -bottom-32 -right-32 ${glowSecondaryClass}`} />
       </motion.div>
     </div>
   );
 }
+
+export default memo(ChapterVideoBackground);

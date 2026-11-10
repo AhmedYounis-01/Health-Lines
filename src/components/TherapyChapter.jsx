@@ -1,12 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, ShieldCheck, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -14,40 +10,24 @@ const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: EXPO_OUT, staggerChildren: 0.12 },
+    transition: { duration: 0.65, ease: EXPO_OUT, staggerChildren: 0.1 },
   },
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 35, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EXPO_OUT } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EXPO_OUT } },
 };
 
 const slideLeft = {
-  hidden: { opacity: 0, x: -25 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EXPO_OUT } },
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: EXPO_OUT } },
 };
 
-export default function TherapyChapter({ t, onOpenBooking }) {
+function TherapyChapter({ t, onOpenBooking }) {
   const [selectedTab, setSelectedTab] = useState(0);
   const currentTab = t.therapy.tabs[selectedTab] || t.therapy.tabs[0];
-  const bgRef = useRef(null);
   const sectionRef = useRef(null);
-
-  // GSAP Parallax on background image
-  useEffect(() => {
-    if (!bgRef.current || !sectionRef.current) return;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      },
-    });
-    tl.fromTo(bgRef.current, { y: '-6%' }, { y: '6%', ease: 'none' });
-    return () => tl.kill();
-  }, []);
 
   return (
     <motion.section
@@ -85,19 +65,19 @@ export default function TherapyChapter({ t, onOpenBooking }) {
 
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
             <motion.span
-              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: EXPO_OUT }}
+              transition={{ duration: 0.6, ease: EXPO_OUT }}
               className="inline-block"
             >
               {t.therapy.titlePrefix}{' '}
             </motion.span>
             <motion.em
-              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
+              transition={{ duration: 0.65, delay: 0.1, ease: EXPO_OUT }}
               className="italic font-light text-[#9d237a] dark:text-fuchsia-300 inline-block"
             >
               {t.therapy.titleEmphasis}
@@ -156,10 +136,10 @@ export default function TherapyChapter({ t, onOpenBooking }) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedTab}
-                initial={{ opacity: 0, y: 18, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -18, filter: 'blur(4px)' }}
-                transition={{ duration: 0.35, ease: EXPO_OUT }}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.3, ease: EXPO_OUT }}
                 className="glass-card p-8 md:p-10 rounded-3xl border border-[#9d237a]/20 dark:border-fuchsia-400/30 relative overflow-hidden shadow-2xl backdrop-blur-xl"
               >
                 <div className="absolute top-0 right-0 rtl:right-auto rtl:left-0 w-44 h-44 bg-[#9d237a]/10 dark:bg-fuchsia-500/15 rounded-full blur-3xl pointer-events-none" />
@@ -228,3 +208,5 @@ export default function TherapyChapter({ t, onOpenBooking }) {
     </motion.section>
   );
 }
+
+export default memo(TherapyChapter);

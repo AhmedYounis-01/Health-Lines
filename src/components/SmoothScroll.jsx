@@ -6,39 +6,41 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Cinematic weighted smooth scroll engine (powered by Lenis + GSAP ScrollTrigger)
- * Provides the weighted, luxurious resistance requested by the user:
- * "تقل بسيط كدا وانا بعمل scroll لتحت عشان يلحق يبان الفيديو في الخلفيه"
+ * Lightweight, high-FPS smooth scroll engine (Lenis + ScrollTrigger sync).
+ * Uses natural wheel responsiveness (wheelMultiplier: 1.0, lerp: 0.12)
+ * without artificial drag or continuous GSAP ticker lag-locks.
  */
 export default function SmoothScroll({ isPaused = false }) {
   useEffect(() => {
-    // Initialize Lenis with cinematic weighted settings
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) return undefined;
+
     const lenis = new Lenis({
-      duration: 0.10 , // Heavy luxury inertia
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
+      lerp: 0.12,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.82, // Deliberate weighted resistance for video immersion
-      syncTouch: false, // Maintain native smooth touch responsiveness on mobile devices
-      touchMultiplier: 1.0,
+      wheelMultiplier: 1.0,
+      syncTouch: false,
       infinite: false,
     });
 
     window.lenis = lenis;
 
-    // Synchronize Lenis with GSAP ScrollTrigger
-    const scrollUpdate = () => ScrollTrigger.update();
-    lenis.on('scroll', scrollUpdate);
+    const onScroll = () => ScrollTrigger.update();
+    lenis.on('scroll', onScroll);
 
-    const tickerCallback = (time) => {
-      lenis.raf(time * 1000);
+    let rafId = 0;
+    const raf = (time) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     };
+    rafId = requestAnimationFrame(raf);
 
-    gsap.ticker.add(tickerCallback);
-    gsap.ticker.lagSmoothing(0);
-
-    // Smooth scroll for all internal anchor hash links (#therapy, #velashape, etc.)
+    // Smooth scroll for internal anchor links (#about, #departments, etc.)
     const handleAnchorClick = (e) => {
       const anchor = e.target.closest('a[href^="#"]');
       if (!anchor) return;
@@ -49,8 +51,7 @@ export default function SmoothScroll({ isPaused = false }) {
           e.preventDefault();
           lenis.scrollTo(targetEl, {
             offset: 0,
-            duration: 1.4,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            duration: 1.0,
           });
         }
       }
@@ -59,14 +60,15 @@ export default function SmoothScroll({ isPaused = false }) {
     document.addEventListener('click', handleAnchorClick);
 
     return () => {
+      cancelAnimationFrame(rafId);
       document.removeEventListener('click', handleAnchorClick);
-      gsap.ticker.remove(tickerCallback);
+      lenis.off('scroll', onScroll);
       lenis.destroy();
       window.lenis = null;
     };
   }, []);
 
-  // Pause / resume scroll when modals open
+  // Pause / resume scroll when booking modal opens
   useEffect(() => {
     if (window.lenis) {
       if (isPaused) {

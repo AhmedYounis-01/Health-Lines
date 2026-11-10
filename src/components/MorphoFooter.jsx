@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUp, ArrowUpRight, ArrowRight, Phone, MessageSquare, MapPin } from 'lucide-react';
 import InstagramIcon from './InstagramIcon';
@@ -10,16 +10,16 @@ const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: EXPO_OUT, staggerChildren: 0.1 },
+    transition: { duration: 0.65, ease: EXPO_OUT, staggerChildren: 0.08 },
   },
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: EXPO_OUT } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EXPO_OUT } },
 };
 
-export default function MorphoFooter({ t, onOpenBooking }) {
+function MorphoFooter({ t, onOpenBooking }) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -203,3 +203,5 @@ export default function MorphoFooter({ t, onOpenBooking }) {
     </motion.footer>
   );
 }
+
+export default memo(MorphoFooter);

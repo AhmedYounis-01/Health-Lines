@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ChapterNav({ chapters, activeChapter }) {
+function ChapterNav({ chapters, activeChapter }) {
   const currentIndex = Math.max(
     0,
     chapters.findIndex((c) => c.id === activeChapter)
@@ -96,3 +96,5 @@ export default function ChapterNav({ chapters, activeChapter }) {
     </nav>
   );
 }
+
+export default memo(ChapterNav);

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Menu, X, Globe, ChevronDown, Sun, Moon } from 'lucide-react';
 import { useClinicContext } from '../context/useClinicContext';
 
-export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
+function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
   const { theme, toggleTheme } = useClinicContext();
   const isDark = theme === 'dark';
   const [isScrolled, setIsScrolled] = useState(false);
@@ -357,3 +357,5 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
     </>
   );
 }
+
+export default memo(MorphoHeader);

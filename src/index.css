@@ -240,14 +240,17 @@ html[dir="rtl"] h6 {
 .atmosphere-glow {
   position: absolute;
   pointer-events: none;
-  filter: blur(120px);
+  filter: blur(72px);
   border-radius: 9999px;
-  opacity: 0.22;
+  opacity: 0.2;
   mix-blend-mode: multiply;
+  transform: translateZ(0);
+  will-change: transform;
+  contain: layout paint;
 }
 
 html.dark .atmosphere-glow {
-  opacity: 0.38;
+  opacity: 0.34;
   mix-blend-mode: screen;
 }
 

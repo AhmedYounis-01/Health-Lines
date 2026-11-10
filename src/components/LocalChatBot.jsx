@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bot, 
@@ -19,7 +19,7 @@ let messageCounter = 0;
 const generateId = (prefix) => `${prefix}-${Date.now()}-${++messageCounter}`;
 const getFormattedTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-export default function LocalChatBot({ lang = 'ar' }) {
+function LocalChatBot({ lang = 'ar' }) {
   const isAr = lang === 'ar';
   
   const [isOpen, setIsOpen] = useState(false);
@@ -478,3 +478,5 @@ Feel free to ask any question or tap a suggested topic below:`,
     </>
   );
 }
+
+export default memo(LocalChatBot);

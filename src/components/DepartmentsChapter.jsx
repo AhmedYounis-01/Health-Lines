@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { memo, useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Sparkles, 
-  MessageCircle, 
-  Calendar, 
-  ShieldCheck, 
-  ChevronRight, 
+import {
+  Sparkles,
+  MessageCircle,
+  Calendar,
+  ShieldCheck,
+  ChevronRight,
   Activity,
   HeartHandshake
 } from 'lucide-react';
@@ -14,16 +14,115 @@ import { siteConfig } from '../config/siteConfig';
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.97 },
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: EXPO_OUT },
+    transition: { duration: 0.55, ease: EXPO_OUT },
   },
 };
 
-export default function DepartmentsChapter({ t, onOpenBooking }) {
+const DepartmentCard = memo(function DepartmentCard({
+  item,
+  index,
+  dept,
+  onBookCondition,
+  onOpenBooking,
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 18, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        duration: 0.4,
+        delay: Math.min(index * 0.035, 0.25),
+        ease: EXPO_OUT,
+      }}
+      whileHover={{ y: -5, transition: { duration: 0.22 } }}
+      className="group relative rounded-3xl glass-card overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-[#9d237a]/45 dark:hover:border-fuchsia-400/45 hover:shadow-2xl hover:shadow-[#9d237a]/15 dark:hover:shadow-fuchsia-950/30"
+    >
+      {/* Image Section with Smooth Zoom */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#f3eaf4] dark:bg-[#2a1339]">
+        <img
+          src={item.image}
+          alt={item.title}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/15 to-transparent dark:from-[#2c123c] dark:via-[#2c123c]/25 dark:to-transparent" />
+
+        {/* Category Pill Tag */}
+        <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">
+          <span className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/85 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/20 dark:border-white/20 text-[#4d7c1b] dark:text-lime-300 shadow-md">
+            {item.subtitle}
+          </span>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          <h3 className="font-editorial text-xl sm:text-2xl text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-200 transition-colors mb-2.5 leading-snug">
+            {item.title}
+          </h3>
+          <p className="text-xs sm:text-sm text-[#4a3b59] dark:text-slate-200 leading-relaxed font-light mb-6 line-clamp-3">
+            {item.desc}
+          </p>
+        </div>
+
+        {/* Clinical Assurance & Protocol Badges */}
+        <div className="pt-4 border-t border-[#9d237a]/10 dark:border-white/10 mb-5 space-y-2.5">
+          <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
+            <span className="flex items-center gap-1.5 text-[#4a3b59] dark:text-slate-200 font-medium">
+              <ShieldCheck className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400 shrink-0" />
+              <span>{dept.evaluationLabel || 'كشف وتقييم سريري'}</span>
+            </span>
+            <span className="text-[#3f6418] dark:text-lime-300 font-semibold text-[11px] px-2.5 py-0.5 rounded-md bg-[#629131]/12 dark:bg-lime-950/45 border border-[#629131]/20 dark:border-lime-500/25">
+              {dept.evaluationDetail || 'أخصائية معتمدة 100%'}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
+            <span className="flex items-center gap-1.5 text-[#4a3b59] dark:text-slate-200 font-medium">
+              <Sparkles className="w-4 h-4 text-[#9d237a] dark:text-fuchsia-300 shrink-0" />
+              <span>{dept.privacyLabel || 'طبيعة الجلسات'}</span>
+            </span>
+            <span className="text-[#861c68] dark:text-fuchsia-200 font-semibold text-[11px] px-2.5 py-0.5 rounded-md bg-[#9d237a]/10 dark:bg-fuchsia-950/40 border border-[#9d237a]/20 dark:border-fuchsia-500/25">
+              {dept.privacyDetail || 'أجنحة نسائية خاصة ومغلقة'}
+            </span>
+          </div>
+        </div>
+
+        {/* Booking CTA Button */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => onBookCondition(item.title)}
+            className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#9d237a] via-fuchsia-600 to-[#629131] hover:brightness-110 text-white font-semibold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4 text-white" />
+            <span>{dept.bookDepartmentCTA}</span>
+          </button>
+
+          {onOpenBooking && (
+            <button
+              type="button"
+              onClick={onOpenBooking}
+              aria-label={dept.bookAppointmentAria || 'Book Appointment'}
+              className="p-3 rounded-xl border border-[#9d237a]/20 dark:border-white/15 hover:border-[#9d237a]/50 dark:hover:border-white/35 text-[#4a3b59] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white transition-all bg-white/70 dark:bg-white/[0.06] cursor-pointer"
+            >
+              <Calendar className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+});
+
+function DepartmentsChapter({ t, onOpenBooking }) {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const dept = t?.departments;
@@ -46,14 +145,14 @@ export default function DepartmentsChapter({ t, onOpenBooking }) {
     return counts;
   }, [deptItems]);
 
-  if (!dept) return null;
-
-  const handleBookCondition = (conditionTitle) => {
+  const handleBookCondition = useCallback((conditionTitle) => {
     const isAr = document.documentElement.lang === 'ar' || !document.documentElement.lang;
     const message = siteConfig.buildConditionInquiry(conditionTitle, isAr ? 'ar' : 'en');
     const whatsappUrl = siteConfig.buildWhatsAppUrl(message);
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-  };
+  }, []);
+
+  if (!dept) return null;
 
   return (
     <motion.section
@@ -157,94 +256,14 @@ export default function DepartmentsChapter({ t, onOpenBooking }) {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             >
               {filteredItems.map((item, index) => (
-                <motion.article
+                <DepartmentCard
                   key={item.id}
-                  initial={{ opacity: 0, y: 22, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{
-                    duration: 0.45,
-                    delay: index * 0.045,
-                    ease: EXPO_OUT,
-                  }}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="group relative rounded-3xl glass-card overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-[#9d237a]/45 dark:hover:border-fuchsia-400/45 hover:shadow-2xl hover:shadow-[#9d237a]/15 dark:hover:shadow-fuchsia-950/30"
-                >
-                  {/* Image Section with Smooth Zoom */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#f3eaf4] dark:bg-[#2a1339]">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/15 to-transparent dark:from-[#2c123c] dark:via-[#2c123c]/25 dark:to-transparent" />
-                    
-                    {/* Category Pill Tag */}
-                    <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">
-                      <span className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/85 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/20 dark:border-white/20 text-[#4d7c1b] dark:text-lime-300 shadow-md">
-                        {item.subtitle}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-editorial text-xl sm:text-2xl text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-200 transition-colors mb-2.5 leading-snug">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#4a3b59] dark:text-slate-200 leading-relaxed font-light mb-6 line-clamp-3">
-                        {item.desc}
-                      </p>
-                    </div>
-
-                    {/* Clinical Assurance & Protocol Badges */}
-                    <div className="pt-4 border-t border-[#9d237a]/10 dark:border-white/10 mb-5 space-y-2.5">
-                      <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
-                        <span className="flex items-center gap-1.5 text-[#4a3b59] dark:text-slate-200 font-medium">
-                          <ShieldCheck className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400 shrink-0" />
-                          <span>{dept.evaluationLabel || 'كشف وتقييم سريري'}</span>
-                        </span>
-                        <span className="text-[#3f6418] dark:text-lime-300 font-semibold text-[11px] px-2.5 py-0.5 rounded-md bg-[#629131]/12 dark:bg-lime-950/45 border border-[#629131]/20 dark:border-lime-500/25">
-                          {dept.evaluationDetail || 'أخصائية معتمدة 100%'}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
-                        <span className="flex items-center gap-1.5 text-[#4a3b59] dark:text-slate-200 font-medium">
-                          <Sparkles className="w-4 h-4 text-[#9d237a] dark:text-fuchsia-300 shrink-0" />
-                          <span>{dept.privacyLabel || 'طبيعة الجلسات'}</span>
-                        </span>
-                        <span className="text-[#861c68] dark:text-fuchsia-200 font-semibold text-[11px] px-2.5 py-0.5 rounded-md bg-[#9d237a]/10 dark:bg-fuchsia-950/40 border border-[#9d237a]/20 dark:border-fuchsia-500/25">
-                          {dept.privacyDetail || 'أجنحة نسائية خاصة ومغلقة'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Booking CTA Button */}
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleBookCondition(item.title)}
-                        className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#9d237a] via-fuchsia-600 to-[#629131] hover:brightness-110 text-white font-semibold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                      >
-                        <MessageCircle className="w-4 h-4 text-white" />
-                        <span>{dept.bookDepartmentCTA}</span>
-                      </button>
-
-                      {onOpenBooking && (
-                        <button
-                          type="button"
-                          onClick={onOpenBooking}
-                          aria-label={dept.bookAppointmentAria || "Book Appointment"}
-                          className="p-3 rounded-xl border border-[#9d237a]/20 dark:border-white/15 hover:border-[#9d237a]/50 dark:hover:border-white/35 text-[#4a3b59] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white transition-all bg-white/70 dark:bg-white/[0.06] cursor-pointer"
-                        >
-                          <Calendar className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </motion.article>
+                  item={item}
+                  index={index}
+                  dept={dept}
+                  onBookCondition={handleBookCondition}
+                  onOpenBooking={onOpenBooking}
+                />
               ))}
             </motion.div>
           </AnimatePresence>
@@ -271,3 +290,5 @@ export default function DepartmentsChapter({ t, onOpenBooking }) {
     </motion.section>
   );
 }
+
+export default memo(DepartmentsChapter);

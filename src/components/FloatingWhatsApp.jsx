@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { siteConfig } from '../config/siteConfig';
 
-export default function FloatingWhatsApp({ lang = 'ar' }) {
+function FloatingWhatsApp({ lang = 'ar' }) {
   const isAr = lang === 'ar';
   const text = isAr
     ? 'السلام عليكم، أود الاستفسار وحجز موعد في مركز خطوط الصحة للسيدات.'
@@ -75,3 +75,5 @@ export default function FloatingWhatsApp({ lang = 'ar' }) {
     </aside>
   );
 }
+
+export default memo(FloatingWhatsApp);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Phone, MapPin, Mail, MessageCircle } from 'lucide-react';
 import InstagramIcon from './InstagramIcon';
@@ -6,83 +6,85 @@ import { siteConfig } from '../config/siteConfig';
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
-export default function HeroContactDock({ t, lang = 'ar', onOpenBooking }) {
+function HeroContactDock({ t, lang = 'ar', onOpenBooking }) {
   const isAr = lang === 'ar';
   const dock = t?.heroDock || {};
 
-  const whatsappText = isAr
-    ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة للعلاج الطبيعي ونحت القوام.'
-    : 'Hello, I would like to inquire and schedule a consultation at Health Lines Center.';
+  const channels = useMemo(() => {
+    const whatsappText = isAr
+      ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة للعلاج الطبيعي ونحت القوام.'
+      : 'Hello, I would like to inquire and schedule a consultation at Health Lines Center.';
 
-  const channels = [
-    {
-      id: 'booking',
-      label: dock.booking || (isAr ? 'احجزي موعد' : 'Book Now'),
-      ariaLabel: dock.booking || (isAr ? 'حجز موعد استشارة' : 'Book Consultation'),
-      icon: Calendar,
-      type: 'button',
-      onClick: onOpenBooking,
-      accentClass:
-        'text-[#9d237a] dark:text-fuchsia-300 group-hover/item:bg-[#9d237a] group-hover/item:text-white dark:group-hover/item:bg-fuchsia-500',
-    },
-    {
-      id: 'whatsapp',
-      label: dock.whatsapp || (isAr ? 'واتساب' : 'WhatsApp'),
-      ariaLabel: `${dock.whatsapp || 'WhatsApp'} — ${siteConfig.contact.displayWhatsapp}`,
-      icon: MessageCircle,
-      href: siteConfig.buildWhatsAppUrl(whatsappText),
-      external: true,
-      accentClass:
-        'text-emerald-700 dark:text-emerald-300 group-hover/item:bg-emerald-600 group-hover/item:text-white',
-    },
-    {
-      id: 'phone',
-      label: dock.phone || (isAr ? 'اتصال' : 'Call'),
-      ariaLabel: `${dock.phone || 'Call'} — ${siteConfig.contact.displayPhone}`,
-      icon: Phone,
-      href: `tel:${siteConfig.contact.phone}`,
-      external: false,
-      accentClass:
-        'text-[#4d7c1b] dark:text-lime-300 group-hover/item:bg-[#629131] group-hover/item:text-white',
-    },
-    {
-      id: 'instagram',
-      label: dock.instagram || (isAr ? 'إنستغرام' : 'Instagram'),
-      ariaLabel: dock.instagram || 'Instagram',
-      icon: InstagramIcon,
-      href: siteConfig.social.instagram,
-      external: true,
-      accentClass:
-        'text-[#9d237a] dark:text-pink-300 group-hover/item:bg-gradient-to-tr group-hover/item:from-[#9d237a] group-hover/item:to-amber-500 group-hover/item:text-white',
-    },
-    {
-      id: 'location',
-      label: dock.location || (isAr ? 'الموقع' : 'Location'),
-      ariaLabel: `${dock.location || 'Location'} — ${siteConfig.location.address[isAr ? 'ar' : 'en']}`,
-      icon: MapPin,
-      href: siteConfig.location.googleMapsUrl,
-      external: true,
-      accentClass:
-        'text-[#4d7c1b] dark:text-lime-300 group-hover/item:bg-[#629131] group-hover/item:text-white',
-    },
-    {
-      id: 'email',
-      label: dock.email || (isAr ? 'البريد' : 'Email'),
-      ariaLabel: `${dock.email || 'Email'} — ${siteConfig.contact.email}`,
-      icon: Mail,
-      href: `mailto:${siteConfig.contact.email}`,
-      external: false,
-      accentClass:
-        'text-[#7c2d73] dark:text-purple-200 group-hover/item:bg-[#9d237a] group-hover/item:text-white',
-    },
-  ];
+    return [
+      {
+        id: 'booking',
+        label: dock.booking || (isAr ? 'احجزي موعد' : 'Book Now'),
+        ariaLabel: dock.booking || (isAr ? 'حجز موعد استشارة' : 'Book Consultation'),
+        icon: Calendar,
+        type: 'button',
+        onClick: onOpenBooking,
+        accentClass:
+          'text-[#9d237a] dark:text-fuchsia-300 group-hover/item:bg-[#9d237a] group-hover/item:text-white dark:group-hover/item:bg-fuchsia-500',
+      },
+      {
+        id: 'whatsapp',
+        label: dock.whatsapp || (isAr ? 'واتساب' : 'WhatsApp'),
+        ariaLabel: `${dock.whatsapp || 'WhatsApp'} — ${siteConfig.contact.displayWhatsapp}`,
+        icon: MessageCircle,
+        href: siteConfig.buildWhatsAppUrl(whatsappText),
+        external: true,
+        accentClass:
+          'text-emerald-700 dark:text-emerald-300 group-hover/item:bg-emerald-600 group-hover/item:text-white',
+      },
+      {
+        id: 'phone',
+        label: dock.phone || (isAr ? 'اتصال' : 'Call'),
+        ariaLabel: `${dock.phone || 'Call'} — ${siteConfig.contact.displayPhone}`,
+        icon: Phone,
+        href: `tel:${siteConfig.contact.phone}`,
+        external: false,
+        accentClass:
+          'text-[#4d7c1b] dark:text-lime-300 group-hover/item:bg-[#629131] group-hover/item:text-white',
+      },
+      {
+        id: 'instagram',
+        label: dock.instagram || (isAr ? 'إنستغرام' : 'Instagram'),
+        ariaLabel: dock.instagram || 'Instagram',
+        icon: InstagramIcon,
+        href: siteConfig.social.instagram,
+        external: true,
+        accentClass:
+          'text-[#9d237a] dark:text-pink-300 group-hover/item:bg-gradient-to-tr group-hover/item:from-[#9d237a] group-hover/item:to-amber-500 group-hover/item:text-white',
+      },
+      {
+        id: 'location',
+        label: dock.location || (isAr ? 'الموقع' : 'Location'),
+        ariaLabel: `${dock.location || 'Location'} — ${siteConfig.location.address[isAr ? 'ar' : 'en']}`,
+        icon: MapPin,
+        href: siteConfig.location.googleMapsUrl,
+        external: true,
+        accentClass:
+          'text-[#4d7c1b] dark:text-lime-300 group-hover/item:bg-[#629131] group-hover/item:text-white',
+      },
+      {
+        id: 'email',
+        label: dock.email || (isAr ? 'البريد' : 'Email'),
+        ariaLabel: `${dock.email || 'Email'} — ${siteConfig.contact.email}`,
+        icon: Mail,
+        href: `mailto:${siteConfig.contact.email}`,
+        external: false,
+        accentClass:
+          'text-[#7c2d73] dark:text-purple-200 group-hover/item:bg-[#9d237a] group-hover/item:text-white',
+      },
+    ];
+  }, [isAr, dock.booking, dock.whatsapp, dock.phone, dock.instagram, dock.location, dock.email, onOpenBooking]);
 
   return (
     <motion.nav
       aria-label={dock.ariaLabel || (isAr ? 'قنوات التواصل المباشرة مع المركز' : 'Direct Clinic Communication Channels')}
-      initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: 0.7, delay: 0.85, ease: EXPO_OUT }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, delay: 0.75, ease: EXPO_OUT }}
       className="mt-6 mb-14 sm:mb-2 w-full sm:w-fit max-w-4xl mx-auto px-1"
     >
       <div className="glass-notch rounded-2xl sm:rounded-full px-2.5 py-2 sm:px-3.5 sm:py-2 border border-[#9d237a]/15 dark:border-fuchsia-300/20 shadow-[0_14px_40px_-10px_rgba(157,35,122,0.18)] dark:shadow-[0_18px_45px_-10px_rgba(157,35,122,0.35)]">
@@ -139,3 +141,5 @@ export default function HeroContactDock({ t, lang = 'ar', onOpenBooking }) {
     </motion.nav>
   );
 }
+
+export default memo(HeroContactDock);

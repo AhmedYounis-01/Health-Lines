@@ -1,12 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowUpRight, Zap } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -14,84 +10,78 @@ const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: EXPO_OUT, staggerChildren: 0.1 },
+    transition: { duration: 0.65, ease: EXPO_OUT, staggerChildren: 0.08 },
   },
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 35, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EXPO_OUT } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EXPO_OUT } },
 };
 
-// Counter that animates smoothly to target value when in view
-function AnimatedCounter({ value, delay = 0, className = '' }) {
+// Lightweight IntersectionObserver counter (zero GSAP ScrollTrigger overhead)
+const AnimatedCounter = memo(function AnimatedCounter({ value, delay = 0, className = '' }) {
   const ref = useRef(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el) return undefined;
 
     const valStr = String(value).trim();
+    const isRange = valStr.includes('-');
+    let min = 0;
+    let max = 0;
+    let singleNum = 0;
+    let prefix = '';
 
-    // Range like "700-2000"
-    if (valStr.includes('-')) {
+    if (isRange) {
       const parts = valStr.split('-').map((s) => s.trim());
-      const min = parseFloat(parts[0].replace(/[^0-9.]/g, ''));
-      const max = parseFloat(parts[1].replace(/[^0-9.]/g, ''));
-
-      if (!isNaN(min) && !isNaN(max)) {
-        const ctx = gsap.context(() => {
-          const counter = { val1: 0, val2: 0 };
-          ScrollTrigger.create({
-            trigger: el,
-            start: 'top 85%',
-            once: true,
-            onEnter: () => {
-              gsap.to(counter, {
-                val1: min,
-                val2: max,
-                duration: 1.8,
-                delay,
-                ease: 'power3.out',
-                onUpdate: () => {
-                  el.textContent = `${Math.round(counter.val1)} - ${Math.round(counter.val2)}`;
-                },
-              });
-            },
-          });
-        });
-        return () => ctx.revert();
+      min = parseFloat(parts[0].replace(/[^0-9.]/g, ''));
+      max = parseFloat(parts[1].replace(/[^0-9.]/g, ''));
+      if (isNaN(min) || isNaN(max)) {
+        el.textContent = valStr;
+        return undefined;
+      }
+    } else {
+      singleNum = parseFloat(valStr.replace(/[^0-9.]/g, ''));
+      prefix = valStr.replace(/[0-9.]/g, '').replace(/\d/g, '').trim();
+      if (isNaN(singleNum)) {
+        el.textContent = valStr;
+        return undefined;
       }
     }
 
-    // Single number
-    const num = parseFloat(valStr.replace(/[^0-9.]/g, ''));
-    const prefix = valStr.replace(/[0-9.]/g, '').replace(/\d/g, '').trim();
-    if (isNaN(num)) {
-      el.textContent = valStr;
-      return;
-    }
+    let rafId = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+        observer.disconnect();
+        const startTime = performance.now() + delay * 1000;
+        const duration = 1100;
+        const step = (now) => {
+          const progress = Math.max(0, Math.min(1, (now - startTime) / duration));
+          const eased = 1 - Math.pow(1 - progress, 3);
+          if (isRange) {
+            el.textContent = `${Math.round(min * eased)} - ${Math.round(max * eased)}`;
+          } else {
+            const current = singleNum * eased;
+            el.textContent =
+              (Number.isInteger(singleNum) ? Math.round(current) : current.toFixed(1)) + prefix;
+          }
+          if (progress < 1) {
+            rafId = requestAnimationFrame(step);
+          }
+        };
+        rafId = requestAnimationFrame(step);
+      },
+      { threshold: 0.2 }
+    );
 
-    const ctx = gsap.context(() => {
-      const counter = { val: 0 };
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 85%',
-        once: true,
-        onEnter: () => {
-          gsap.to(counter, {
-            val: num,
-            duration: 1.8,
-            delay,
-            ease: 'power3.out',
-            onUpdate: () => {
-              el.textContent = (Number.isInteger(num) ? Math.round(counter.val) : counter.val.toFixed(1)) + prefix;
-            },
-          });
-        },
-      });
-    });
-    return () => ctx.revert();
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
+    };
   }, [value, delay]);
 
   return (
@@ -99,11 +89,10 @@ function AnimatedCounter({ value, delay = 0, className = '' }) {
       0
     </span>
   );
-}
+});
 
-export default function VelaShapeChapter({ t, onOpenBooking }) {
+function VelaShapeChapter({ t, onOpenBooking }) {
   const [activeArea, setActiveArea] = useState('waist');
-  const bgRef = useRef(null);
   const sectionRef = useRef(null);
 
   const bodyAreas = t.velashape.areas || [
@@ -111,21 +100,6 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
     { id: 'thighs', label: 'Thighs & Cellulite', est: 'Deep skin smoothing' },
     { id: 'arms', label: 'Upper Arms Firming', est: 'Targeted skin tightening' },
   ];
-
-  // GSAP Parallax
-  useEffect(() => {
-    if (!bgRef.current || !sectionRef.current) return;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      },
-    });
-    tl.fromTo(bgRef.current, { y: '-6%' }, { y: '6%', ease: 'none' });
-    return () => tl.kill();
-  }, []);
 
   return (
     <motion.section
@@ -163,19 +137,19 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
 
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
             <motion.span
-              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: EXPO_OUT }}
+              transition={{ duration: 0.6, ease: EXPO_OUT }}
               className="inline-block"
             >
               {t.velashape.titlePrefix}{' '}
             </motion.span>
             <motion.em
-              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
+              transition={{ duration: 0.65, delay: 0.1, ease: EXPO_OUT }}
               className="italic font-light text-[#9d237a] dark:text-fuchsia-200 inline-block"
             >
               {t.velashape.titleEmphasis}
@@ -291,3 +265,5 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
     </motion.section>
   );
 }
+
+export default memo(VelaShapeChapter);

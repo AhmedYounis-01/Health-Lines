@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, MessageSquare, Calendar, ShieldCheck, Clock, ArrowUpRight } from 'lucide-react';
 import { siteConfig } from '../config/siteConfig';
@@ -9,16 +9,16 @@ const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: EXPO_OUT, staggerChildren: 0.12 },
+    transition: { duration: 0.65, ease: EXPO_OUT, staggerChildren: 0.1 },
   },
 };
 
 const slideUp = {
-  hidden: { opacity: 0, y: 35, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EXPO_OUT } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EXPO_OUT } },
 };
 
-export default function ContactChapter({ t, onOpenBooking }) {
+function ContactChapter({ t, onOpenBooking }) {
   const isAr = typeof document !== 'undefined' && (document.documentElement.lang === 'ar' || !document.documentElement.lang);
   const whatsappUrl = siteConfig.buildWhatsAppUrl(
     isAr
@@ -175,3 +175,5 @@ export default function ContactChapter({ t, onOpenBooking }) {
     </motion.section>
   );
 }
+
+export default memo(ContactChapter);

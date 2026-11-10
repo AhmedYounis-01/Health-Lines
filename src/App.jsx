@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClinicContextProvider } from './context/ClinicContext';
 import { useClinicContext } from './context/useClinicContext';
@@ -37,7 +37,7 @@ function MainApp() {
     return () => { document.body.style.overflow = ''; };
   }, [isBookingOpen]);
 
-  // Track active chapter as user scrolls
+  // Track active chapter cleanly via IntersectionObserver (zero forced layout reflows)
   useEffect(() => {
     const chapterIds = [
       'hero',
@@ -49,25 +49,53 @@ function MainApp() {
       'science',
       'contact',
     ];
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight * 0.4;
-      for (const id of chapterIds) {
-        const el = document.getElementById(id);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveChapter(id);
-            break;
+
+    const elements = chapterIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!elements.length) return undefined;
+
+    const visibilityMap = new Map();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibilityMap.set(entry.target.id, entry.intersectionRatio);
+        });
+
+        let bestId = null;
+        let bestRatio = 0;
+        for (const id of chapterIds) {
+          const ratio = visibilityMap.get(id) || 0;
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
           }
         }
+        if (bestId) {
+          setActiveChapter(bestId);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '-25% 0px -35% 0px',
+        threshold: [0, 0.15, 0.35, 0.6],
       }
-    };
+    );
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, [setActiveChapter]);
+
+  const scrollToAbout = useCallback(() => {
+    const nextEl = document.getElementById('about');
+    if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const scrollToDepartments = useCallback(() => {
+    const nextEl = document.getElementById('departments');
+    if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   return (
     <>
@@ -132,19 +160,13 @@ function MainApp() {
             lang={lang}
             t={t}
             onOpenBooking={openBooking}
-            onScrollNext={() => {
-              const nextEl = document.getElementById('about');
-              if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onScrollNext={scrollToAbout}
           />
 
           {/* Chapter 02: About Us / Sanctuary -> من نحن */}
           <AboutChapter
             t={t}
-            onExploreServices={() => {
-              const nextEl = document.getElementById('departments');
-              if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onExploreServices={scrollToDepartments}
           />
 
           {/* Chapter 03: Clinical Departments & Rehabilitation Programs -> خدماتنا */}
