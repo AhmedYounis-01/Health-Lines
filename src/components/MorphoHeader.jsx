@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Menu, X, Globe, ChevronDown, Stethoscope, Video, CalendarCheck } from 'lucide-react';
+import { Calendar, Menu, X, Globe, ChevronDown, Sun, Moon } from 'lucide-react';
+import { useClinicContext } from '../context/useClinicContext';
 
 export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
+  const { theme, toggleTheme } = useClinicContext();
+  const isDark = theme === 'dark';
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -70,31 +73,33 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 md:px-8 py-3 flex items-center justify-between ${
-          isScrolled ? 'bg-[#0b0f15]/85 backdrop-blur-xl border-b border-white/5 py-2.5 shadow-2xl' : 'bg-transparent'
+          isScrolled
+            ? 'glass-header py-2.5 shadow-xl shadow-[#9d237a]/5 dark:shadow-black/30'
+            : 'bg-transparent'
         }`}
       >
         {/* Brand Logo */}
         <a
           href="#hero"
-          className="flex items-center gap-3 group focus:outline-none focus:ring-1 focus:ring-fuchsia-400/50 rounded-xl"
+          className="flex items-center gap-3 group focus:outline-none focus:ring-1 focus:ring-[#9d237a]/50 dark:focus:ring-fuchsia-400/50 rounded-xl"
           aria-label={t.siteTitle}
         >
-          <div className="w-10 h-10 rounded-full bg-white p-1 border border-fuchsia-400/40 flex items-center justify-center group-hover:border-lime-400/80 transition-all shadow-lg shadow-fuchsia-500/15 overflow-hidden">
+          <div className="w-10 h-10 rounded-full bg-white p-1 border border-[#9d237a]/30 dark:border-fuchsia-400/40 flex items-center justify-center group-hover:border-[#629131] dark:group-hover:border-lime-400/80 transition-all shadow-lg shadow-[#9d237a]/15 overflow-hidden">
             <img src="/assets/logo.png" alt="Health Lines Logo" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col">
-            <span className="font-editorial text-lg md:text-xl font-medium tracking-widest text-white group-hover:text-fuchsia-300 transition-colors">
+            <span className="font-editorial text-lg md:text-xl font-semibold tracking-widest text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-300 transition-colors">
               HEALTH LINES
             </span>
-            <span className="text-[10px] font-medium text-lime-400 tracking-wider">
+            <span className="text-[10px] font-semibold text-[#4d7c1b] dark:text-lime-400 tracking-wider">
               {isAr ? 'مركز خطوط الصحة للعلاج الطبيعي' : 'Rehabilitation & Wellness'}
             </span>
           </div>
         </a>
 
-        {/* Center Navigation Bar (Desktop) — Exact Titles & Dropdown from Image */}
+        {/* Center Navigation Bar (Desktop) */}
         <div className="hidden lg:flex items-center">
-          <div className="relative glass-notch px-6 py-2 rounded-full flex items-center gap-7 border border-white/10 shadow-2xl">
+          <div className="relative glass-notch px-6 py-2 rounded-full flex items-center gap-7">
             <nav className="flex items-center gap-6 text-sm font-arabic font-medium tracking-wide">
               {navItems.map((item) => {
                 if (item.isDropdown) {
@@ -110,18 +115,22 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                         type="button"
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                         className={`flex items-center gap-1.5 py-1.5 transition-colors cursor-pointer ${
-                          dropdownOpen ? 'text-white font-semibold' : 'text-slate-200 hover:text-white'
+                          dropdownOpen
+                            ? 'text-[#9d237a] dark:text-white font-semibold'
+                            : 'text-[#4a3b59] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white'
                         }`}
                       >
                         <span>{item.label}</span>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform duration-300 ${
-                            dropdownOpen ? 'rotate-180 text-lime-400' : 'text-slate-400'
+                            dropdownOpen
+                              ? 'rotate-180 text-[#629131] dark:text-lime-400'
+                              : 'text-[#6b5c7a] dark:text-slate-400'
                           }`}
                         />
                       </button>
 
-                      {/* Dropdown Menu — styled to match the image */}
+                      {/* Dropdown Menu */}
                       <AnimatePresence>
                         {dropdownOpen && (
                           <motion.div
@@ -129,7 +138,7 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.96 }}
                             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="absolute top-full -right-4 mt-2 w-56 rounded-2xl bg-[#14121a]/98 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl overflow-hidden z-50 text-right rtl:text-right"
+                            className="absolute top-full -right-4 mt-2 w-56 rounded-2xl bg-white/95 dark:bg-[#311342]/95 border border-[#9d237a]/15 dark:border-fuchsia-300/20 shadow-[0_20px_50px_rgba(31,18,43,0.16)] dark:shadow-[0_20px_50px_rgba(12,4,20,0.65)] backdrop-blur-2xl overflow-hidden z-50 text-right rtl:text-right"
                           >
                             <div className="py-1">
                               {item.items.map((subItem, sIdx) => {
@@ -142,8 +151,8 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                                       setDropdownOpen(false);
                                       subItem.action();
                                     }}
-                                    className={`w-full px-5 py-3.5 text-center text-sm font-arabic font-medium text-slate-200 hover:text-white hover:bg-white/[0.08] transition-all cursor-pointer ${
-                                      !isLast ? 'border-b border-dashed border-white/10' : ''
+                                    className={`w-full px-5 py-3.5 text-center text-sm font-arabic font-medium text-[#1f122b] dark:text-slate-100 hover:text-[#9d237a] dark:hover:text-white hover:bg-[#9d237a]/8 dark:hover:bg-white/10 transition-all cursor-pointer ${
+                                      !isLast ? 'border-b border-dashed border-[#9d237a]/15 dark:border-white/10' : ''
                                     }`}
                                   >
                                     {subItem.label}
@@ -166,15 +175,17 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                   <a
                     key={item.id}
                     href={`#${targetAnchor}`}
-                    className={`relative py-1.5 transition-colors duration-200 hover:text-white ${
-                      isActive ? 'text-white font-semibold' : 'text-slate-200'
+                    className={`relative py-1.5 transition-colors duration-200 hover:text-[#9d237a] dark:hover:text-white ${
+                      isActive
+                        ? 'text-[#9d237a] dark:text-white font-semibold'
+                        : 'text-[#4a3b59] dark:text-slate-200'
                     }`}
                   >
                     <span>{item.label}</span>
                     {isActive && (
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-fuchsia-500 to-lime-400 rounded-full"
+                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#9d237a] to-[#629131] dark:from-fuchsia-400 dark:to-lime-400 rounded-full"
                       />
                     )}
                   </a>
@@ -184,26 +195,47 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
           </div>
         </div>
 
-        {/* Right Actions: Language Switch & Booking CTA */}
-        <div className="flex items-center gap-3">
+        {/* Right Actions: Theme Switch, Language Switch & Booking CTA */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Theme Switcher */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full glass-card hover:border-[#9d237a]/40 dark:hover:border-fuchsia-400/45 text-xs font-medium text-[#1f122b] dark:text-slate-200 transition-all duration-200 cursor-pointer"
+            aria-label={isDark ? (t.theme?.toLight || 'Switch to Light Mode') : (t.theme?.toDark || 'Switch to Dark Mode')}
+            title={isDark ? (t.theme?.toLight || 'Switch to Light Mode') : (t.theme?.toDark || 'Switch to Dark Mode')}
+          >
+            {isDark ? (
+              <>
+                <Sun className="w-3.5 h-3.5 text-lime-300" />
+                <span className="hidden md:inline font-arabic">{t.theme?.labelLight || 'فاتح'}</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-3.5 h-3.5 text-[#9d237a]" />
+                <span className="hidden md:inline font-arabic">{t.theme?.labelDark || 'ليلي'}</span>
+              </>
+            )}
+          </button>
+
           {/* Language Switcher */}
           <button
             type="button"
             onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card hover:border-fuchsia-400/40 text-xs font-medium text-slate-300 hover:text-white transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card hover:border-[#9d237a]/40 dark:hover:border-fuchsia-400/40 text-xs font-medium text-[#4a3b59] dark:text-slate-200 hover:text-[#1f122b] dark:hover:text-white transition-all duration-200 cursor-pointer"
             aria-label="Toggle language"
           >
-            <Globe className="w-3.5 h-3.5 text-lime-400" />
-            <span className={lang === 'en' ? 'text-fuchsia-400 font-bold' : ''}>EN</span>
-            <span className="text-slate-600">/</span>
-            <span className={lang === 'ar' ? 'text-fuchsia-400 font-bold font-arabic' : 'font-arabic'}>عربي</span>
+            <Globe className="w-3.5 h-3.5 text-[#629131] dark:text-lime-400" />
+            <span className={lang === 'en' ? 'text-[#9d237a] dark:text-fuchsia-300 font-bold' : ''}>EN</span>
+            <span className="text-[#9d237a]/30 dark:text-slate-500">/</span>
+            <span className={lang === 'ar' ? 'text-[#9d237a] dark:text-fuchsia-300 font-bold font-arabic' : 'font-arabic'}>عربي</span>
           </button>
 
           {/* Book Consultation Button */}
           <button
             type="button"
             onClick={onOpenBooking}
-            className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#9d237a] via-fuchsia-600 to-[#629131] hover:brightness-110 text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-fuchsia-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+            className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#9d237a] via-fuchsia-600 to-[#629131] hover:brightness-110 text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-[#9d237a]/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
           >
             <Calendar className="w-3.5 h-3.5 text-white" />
             <span>{t.bookConsultation}</span>
@@ -213,7 +245,7 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-full glass-card text-slate-300 hover:text-white border border-white/10 cursor-pointer"
+            className="lg:hidden p-2 rounded-full glass-card text-[#1f122b] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white cursor-pointer"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -229,28 +261,28 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#0c0912]/98 backdrop-blur-2xl pt-24 px-6 flex flex-col justify-between pb-10 lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 theme-page-bg backdrop-blur-2xl pt-24 px-6 flex flex-col justify-between pb-10 lg:hidden overflow-y-auto"
           >
             <nav className="flex flex-col gap-4 text-base font-arabic font-medium">
               {navItems.map((item) => {
                 if (item.isDropdown) {
                   return (
-                    <div key={item.id} className="border-b border-white/10 pb-3">
+                    <div key={item.id} className="border-b border-[#9d237a]/15 dark:border-white/10 pb-3">
                       <button
                         type="button"
                         onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                        className="w-full py-2.5 flex items-center justify-between text-white font-semibold cursor-pointer"
+                        className="w-full py-2.5 flex items-center justify-between text-[#1f122b] dark:text-white font-semibold cursor-pointer"
                       >
                         <span>{item.label}</span>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform duration-300 ${
-                            mobileDropdownOpen ? 'rotate-180 text-lime-400' : 'text-slate-400'
+                            mobileDropdownOpen ? 'rotate-180 text-[#629131] dark:text-lime-400' : 'text-[#6b5c7a] dark:text-slate-400'
                           }`}
                         />
                       </button>
 
                       {mobileDropdownOpen && (
-                        <div className="mt-2 mr-3 pr-3 border-r border-fuchsia-500/30 flex flex-col gap-2">
+                        <div className="mt-2 mr-3 pr-3 border-r border-[#9d237a]/30 dark:border-fuchsia-400/30 flex flex-col gap-2">
                           {item.items.map((sub, sIdx) => (
                             <button
                               key={sIdx}
@@ -259,7 +291,7 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                                 setMobileMenuOpen(false);
                                 sub.action();
                               }}
-                              className="text-right rtl:text-right py-2 text-sm text-slate-300 hover:text-white border-b border-dashed border-white/5 last:border-b-0"
+                              className="text-right rtl:text-right py-2 text-sm text-[#4a3b59] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white border-b border-dashed border-[#9d237a]/10 dark:border-white/10 last:border-b-0"
                             >
                               {sub.label}
                             </button>
@@ -276,28 +308,46 @@ export default function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBo
                     key={item.id}
                     href={`#${targetAnchor}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 border-b border-white/10 flex items-center justify-between text-white hover:text-lime-300"
+                    className="py-2.5 border-b border-[#9d237a]/15 dark:border-white/10 flex items-center justify-between text-[#1f122b] dark:text-white hover:text-[#9d237a] dark:hover:text-lime-300"
                   >
                     <span>{item.label}</span>
-                    <span className="text-xs text-slate-500 rtl:rotate-180">→</span>
+                    <span className="text-xs text-[#6b5c7a] dark:text-slate-400 rtl:rotate-180">→</span>
                   </a>
                 );
               })}
             </nav>
 
-            <div className="flex flex-col gap-4 pt-6">
+            <div className="flex flex-col gap-3 pt-6">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="w-full py-3 rounded-xl glass-card text-[#1f122b] dark:text-white font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {isDark ? (
+                  <>
+                    <Sun className="w-4 h-4 text-lime-300" />
+                    <span>{t.theme?.toLight || 'التبديل للوضع الفاتح'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-4 h-4 text-[#9d237a]" />
+                    <span>{t.theme?.toDark || 'التبديل للوضع الليلي'}</span>
+                  </>
+                )}
+              </button>
+
               <button
                 type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenBooking();
                 }}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#9d237a] to-lime-600 text-white font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#9d237a] to-[#629131] text-white font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
               >
                 <Calendar className="w-4 h-4 text-white" />
                 <span>{t.bookConsultation}</span>
               </button>
-              <div className="text-center text-xs text-slate-400 font-arabic">
+              <div className="text-center text-xs text-[#6b5c7a] dark:text-slate-300 font-arabic">
                 {t.location}
               </div>
             </div>

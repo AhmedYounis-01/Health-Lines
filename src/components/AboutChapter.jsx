@@ -69,16 +69,16 @@ function StatCard({ num, label, idx }) {
           transition: { duration: 0.6, delay: idx * 0.08, ease: EXPO_OUT },
         },
       }}
-      whileHover={{ y: -6, borderColor: 'rgba(217, 70, 239, 0.45)', boxShadow: '0 20px 40px -10px rgba(217,70,239,0.2)' }}
-      className="glass-card p-6 md:p-8 rounded-2xl border border-white/10 text-center shadow-xl backdrop-blur-xl"
+      whileHover={{ y: -6, borderColor: 'rgba(157, 35, 122, 0.45)', boxShadow: '0 20px 40px -10px rgba(157,35,122,0.18)' }}
+      className="glass-card p-6 md:p-8 rounded-2xl text-center shadow-xl backdrop-blur-xl"
     >
       <div
         ref={ref}
-        className="font-editorial text-3xl md:text-5xl font-light text-lime-400 mb-2 font-mono"
+        className="font-editorial text-3xl md:text-5xl font-light text-[#629131] dark:text-lime-400 mb-2 font-mono"
       >
         0
       </div>
-      <div className="text-xs font-arabic text-slate-300 uppercase tracking-wider font-medium">{label}</div>
+      <div className="text-xs font-arabic text-[#4a3b59] dark:text-slate-200 uppercase tracking-wider font-medium">{label}</div>
     </motion.div>
   );
 }
@@ -90,7 +90,7 @@ export default function AboutChapter({ t, onExploreServices }) {
     <motion.section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-white/5"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-[#9d237a]/10 dark:border-white/10"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -101,10 +101,10 @@ export default function AboutChapter({ t, onExploreServices }) {
         videoSrc="/videos/hero-ambience.mp4"
         posterSrc="/assets/hero-sanctuary.jpg"
         alt="Health Lines Clinic Interior Jeddah Sanctuary"
-        glowClass="bg-[#9d237a]/25"
-        glowSecondaryClass="bg-[#84cc16]/20"
-        brightness="brightness-[0.45]"
-        contrast="contrast-[1.08]"
+        glowClass="bg-[#9d237a]/20 dark:bg-[#9d237a]/30"
+        glowSecondaryClass="bg-[#629131]/15 dark:bg-[#84cc16]/25"
+        brightness="brightness-[0.9] dark:brightness-[0.55]"
+        contrast="contrast-[1.03] dark:contrast-[1.08]"
       />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
@@ -115,13 +115,13 @@ export default function AboutChapter({ t, onExploreServices }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EXPO_OUT }}
-            className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-lime-400 uppercase mb-4 flex items-center gap-2"
+            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#4d7c1b] dark:text-lime-400 uppercase mb-4 flex items-center gap-2"
           >
-            <Sparkles className="w-4 h-4 text-lime-400 animate-pulse" />
+            <Sparkles className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400 animate-pulse" />
             <span>{t.sanctuary.eyebrow}</span>
           </motion.p>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.14] mb-6">
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
             <motion.span
               initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -136,7 +136,7 @@ export default function AboutChapter({ t, onExploreServices }) {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
               transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
-              className="italic font-light text-fuchsia-200 inline-block"
+              className="italic font-light text-[#9d237a] dark:text-fuchsia-200 inline-block"
             >
               {t.sanctuary.titleEmphasis}
             </motion.em>
@@ -162,10 +162,10 @@ export default function AboutChapter({ t, onExploreServices }) {
                 onExploreServices();
               }
             }}
-            className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#9d237a]/30 via-fuchsia-950/40 to-lime-950/30 border border-fuchsia-400/40 hover:border-lime-400 text-white font-medium text-xs sm:text-sm font-arabic tracking-wide shadow-xl backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] cursor-pointer"
+            className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white/85 dark:bg-gradient-to-r dark:from-[#9d237a]/45 dark:via-[#49195e]/60 dark:to-[#273824]/50 border border-[#9d237a]/30 dark:border-fuchsia-400/40 hover:border-[#629131] dark:hover:border-lime-400 text-[#1f122b] dark:text-white font-semibold text-xs sm:text-sm font-arabic tracking-wide shadow-xl backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] cursor-pointer"
           >
             <span>{t.langCode === 'العربية' ? 'استكشفي خدماتنا وبرامجنا العلاجية' : 'Explore Our Therapeutic Services'}</span>
-            <ArrowDown className="w-4 h-4 text-lime-400 group-hover:translate-y-0.5 transition-transform" />
+            <ArrowDown className="w-4 h-4 text-[#629131] dark:text-lime-400 group-hover:translate-y-0.5 transition-transform" />
           </a>
         </motion.div>
       </div>

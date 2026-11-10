@@ -75,7 +75,7 @@ export default function BodyScienceChapter({ t }) {
     <motion.section
       ref={sectionRef}
       id="science"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-white/5"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-[#9d237a]/10 dark:border-white/10"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -85,10 +85,10 @@ export default function BodyScienceChapter({ t }) {
       <ChapterVideoBackground
         posterSrc="/assets/bodyscience-female-vitality.jpg"
         alt="Female Physiotherapist guiding female client in body alignment and posture vitality"
-        glowClass="bg-[#84cc16]/20"
-        glowSecondaryClass="bg-[#9d237a]/20"
-        brightness="brightness-[0.70]"
-        contrast="contrast-[1.08]"
+        glowClass="bg-[#629131]/15 dark:bg-[#84cc16]/25"
+        glowSecondaryClass="bg-[#9d237a]/15 dark:bg-[#9d237a]/25"
+        brightness="brightness-[0.94] dark:brightness-[0.72]"
+        contrast="contrast-[1.03] dark:contrast-[1.08]"
       />
 
       {/* Floating Particles */}
@@ -102,13 +102,13 @@ export default function BodyScienceChapter({ t }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EXPO_OUT }}
-            className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-[#84cc16] uppercase mb-4 flex items-center gap-2"
+            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#4d7c1b] dark:text-[#84cc16] uppercase mb-4 flex items-center gap-2"
           >
-            <Activity className="w-4 h-4 text-[#84cc16] animate-pulse" />
+            <Activity className="w-4 h-4 text-[#4d7c1b] dark:text-[#84cc16] animate-pulse" />
             <span>{t.science.eyebrow}</span>
           </motion.p>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.14] mb-6">
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
             <motion.span
               initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -123,7 +123,7 @@ export default function BodyScienceChapter({ t }) {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
               transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
-              className="italic font-light text-[#a3e635] inline-block"
+              className="italic font-light text-[#4d7c1b] dark:text-[#a3e635] inline-block"
             >
               {t.science.titleEmphasis}
             </motion.em>
@@ -150,33 +150,33 @@ export default function BodyScienceChapter({ t }) {
                 }}
                 whileHover={{
                   y: -6,
-                  borderColor: 'rgba(132, 204, 22, 0.45)',
-                  boxShadow: '0 25px 50px -12px rgba(132, 204, 22, 0.2)',
+                  borderColor: 'rgba(98, 145, 49, 0.45)',
+                  boxShadow: '0 25px 50px -12px rgba(98, 145, 49, 0.2)',
                 }}
                 transition={{ duration: 0.25 }}
-                className="glass-card p-6 rounded-2xl border border-white/10 flex flex-col justify-between group relative overflow-hidden shadow-xl backdrop-blur-xl"
+                className="glass-card p-6 rounded-2xl flex flex-col justify-between group relative overflow-hidden shadow-xl backdrop-blur-xl"
               >
                 {/* Glow reveal on hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#84cc16]/0 to-transparent group-hover:from-[#84cc16]/15 group-hover:to-transparent transition-all duration-500 rounded-2xl pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#629131]/0 to-transparent group-hover:from-[#629131]/10 dark:group-hover:from-[#84cc16]/15 group-hover:to-transparent transition-all duration-500 rounded-2xl pointer-events-none" />
 
                 <div>
                   <motion.div
                     whileHover={{ scale: 1.12, rotate: -4 }}
                     transition={{ type: 'spring', stiffness: 350 }}
-                    className="w-10 h-10 rounded-xl bg-[#84cc16]/20 border border-[#84cc16]/35 flex items-center justify-center text-[#84cc16] mb-5 shadow-sm"
+                    className="w-10 h-10 rounded-xl bg-[#629131]/15 dark:bg-[#84cc16]/20 border border-[#629131]/30 dark:border-[#84cc16]/35 flex items-center justify-center text-[#4d7c1b] dark:text-[#84cc16] mb-5 shadow-sm"
                   >
                     <Icon className="w-5 h-5 stroke-[1.5]" />
                   </motion.div>
-                  <h3 className="text-lg font-medium text-white mb-3 group-hover:text-[#a3e635] transition-colors font-arabic">
+                  <h3 className="text-lg font-medium text-[#1f122b] dark:text-white mb-3 group-hover:text-[#4d7c1b] dark:group-hover:text-[#a3e635] transition-colors font-arabic">
                     {item.title}
                   </h3>
-                  <p className="text-slate-200 font-light text-xs md:text-sm leading-relaxed font-arabic">
+                  <p className="text-[#4a3b59] dark:text-slate-200 font-light text-xs md:text-sm leading-relaxed font-arabic">
                     {item.desc}
                   </p>
                 </div>
-                <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span className="text-[#d946ef] font-semibold">BIO-BALANCE</span>
-                  <span className="text-lime-400 font-bold">0{idx + 1}</span>
+                <div className="pt-6 mt-6 border-t border-[#9d237a]/10 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-[#6b5c7a] dark:text-slate-400">
+                  <span className="text-[#9d237a] dark:text-[#e879f9] font-semibold">BIO-BALANCE</span>
+                  <span className="text-[#4d7c1b] dark:text-lime-400 font-bold">0{idx + 1}</span>
                 </div>
               </motion.div>
             );
@@ -186,11 +186,11 @@ export default function BodyScienceChapter({ t }) {
         {/* Citations */}
         <motion.div
           variants={slideUp}
-          className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-arabic backdrop-blur-md"
+          className="p-5 rounded-2xl glass-card flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#4a3b59] dark:text-slate-300 font-arabic backdrop-blur-md"
         >
           <span className="leading-relaxed">{t.science.sourceNote}</span>
-          <div className="flex items-center gap-4 font-mono uppercase text-[#84cc16] shrink-0 font-bold">
-            <span className="hover:text-lime-300 transition-colors">
+          <div className="flex items-center gap-4 font-mono uppercase text-[#4d7c1b] dark:text-[#84cc16] shrink-0 font-bold">
+            <span className="hover:text-[#9d237a] dark:hover:text-lime-300 transition-colors">
               Clinical Quality Guidelines ↗
             </span>
           </div>

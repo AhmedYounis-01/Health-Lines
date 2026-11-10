@@ -16,7 +16,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
       {/* Chapter Counter Badge */}
       <motion.div
         layout
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card border border-white/10 text-xs font-mono text-[#84cc16] mb-2 shadow-lg"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card text-xs font-mono text-[#4d7c1b] dark:text-[#84cc16] mb-2 shadow-lg"
       >
         <AnimatePresence mode="wait">
           <motion.span
@@ -25,17 +25,17 @@ export default function ChapterNav({ chapters, activeChapter }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.3 }}
-            className="font-bold text-[#84cc16]"
+            className="font-bold text-[#4d7c1b] dark:text-[#84cc16]"
           >
             {currentChapter.num}
           </motion.span>
         </AnimatePresence>
-        <span className="text-slate-500">/</span>
-        <span className="text-slate-400">{chapters[chapters.length - 1].num}</span>
+        <span className="text-[#9d237a]/40 dark:text-slate-400">/</span>
+        <span className="text-[#6b5c7a] dark:text-slate-300">{chapters[chapters.length - 1].num}</span>
       </motion.div>
 
       {/* Chapters list */}
-      <div className="relative flex flex-col gap-3 pl-3 rtl:pl-0 rtl:pr-3 border-l rtl:border-l-0 rtl:border-r border-white/10">
+      <div className="relative flex flex-col gap-3 pl-3 rtl:pl-0 rtl:pr-3 border-l rtl:border-l-0 rtl:border-r border-[#9d237a]/20 dark:border-white/15">
         {chapters.map((ch) => {
           const isActive = ch.id === activeChapter;
           return (
@@ -43,7 +43,9 @@ export default function ChapterNav({ chapters, activeChapter }) {
               key={ch.id}
               href={`#${ch.id}`}
               className={`group flex items-center gap-3 transition-all duration-300 ${
-                isActive ? 'text-white' : 'text-slate-500 hover:text-slate-300'
+                isActive
+                  ? 'text-[#1f122b] dark:text-white font-semibold'
+                  : 'text-[#6b5c7a] dark:text-slate-400 hover:text-[#9d237a] dark:hover:text-slate-200'
               }`}
             >
               {/* Animated dot */}
@@ -51,8 +53,8 @@ export default function ChapterNav({ chapters, activeChapter }) {
                 <motion.span
                   animate={
                     isActive
-                      ? { scale: 1.3, backgroundColor: '#84cc16' }
-                      : { scale: 1, backgroundColor: '#475569' }
+                      ? { scale: 1.3, backgroundColor: '#629131' }
+                      : { scale: 1, backgroundColor: '#9d6b95' }
                   }
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className="w-2 h-2 rounded-full block relative"
@@ -66,7 +68,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
                       animate={{ scale: 2.8, opacity: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut' }}
-                      className="absolute inset-0 rounded-full border border-[#84cc16]/50"
+                      className="absolute inset-0 rounded-full border border-[#629131]/55 dark:border-[#84cc16]/50"
                     />
                   )}
                 </AnimatePresence>
@@ -83,7 +85,7 @@ export default function ChapterNav({ chapters, activeChapter }) {
 
               {/* Hover label for inactive */}
               {!isActive && (
-                <span className="text-xs tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute left-8 rtl:left-auto rtl:right-8 bg-[#0b0f15]/90 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/10 whitespace-nowrap pointer-events-none">
+                <span className="text-xs tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute left-8 rtl:left-auto rtl:right-8 glass-notch px-2.5 py-1 rounded-lg text-[#1f122b] dark:text-white whitespace-nowrap pointer-events-none">
                   {ch.label}
                 </span>
               )}

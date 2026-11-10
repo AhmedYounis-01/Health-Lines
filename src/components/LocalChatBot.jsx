@@ -171,7 +171,7 @@ Feel free to ask any question or tap a suggested topic below:`,
   return (
     <>
       {/* Floating Action Area on Bottom-Right */}
-      <aside aria-label="AI Clinic Assistant" className="fixed bottom-6 right-6 z-50 flex items-center">
+      <aside aria-label="AI Clinic Assistant" className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center">
         
         {/* Floating Interactive Pill Label (Desktop & Tablet) */}
         {!isOpen && (
@@ -182,23 +182,23 @@ Feel free to ask any question or tap a suggested topic below:`,
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 25 }}
             whileHover={{ scale: 1.04, x: -2 }}
-            className="hidden md:flex items-center gap-3 ml-3.5 px-4 py-2 rounded-full bg-[#0e0918]/90 border border-fuchsia-500/40 hover:border-lime-400 text-white shadow-[0_10px_35px_rgba(0,0,0,0.55)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
+            className="hidden md:flex items-center gap-3 ml-3.5 px-4 py-2 rounded-full bg-white/90 dark:bg-[#2b123b]/90 border border-[#9d237a]/30 dark:border-fuchsia-400/40 hover:border-[#629131] dark:hover:border-lime-400 text-[#1f122b] dark:text-white shadow-[0_10px_30px_rgba(157,35,122,0.16)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
           >
             <div className="flex flex-col text-right rtl:text-left">
               <div className="flex items-center gap-1.5 justify-end rtl:justify-start">
-                <span className="text-xs font-semibold tracking-wide text-white group-hover/pill:text-lime-300 transition-colors">
+                <span className="text-xs font-semibold tracking-wide text-[#1f122b] dark:text-white group-hover/pill:text-[#9d237a] dark:group-hover/pill:text-lime-300 transition-colors">
                   {isAr ? 'استشيري د. لين' : 'Ask Dr. Leen'}
                 </span>
-                <Sparkles className="w-3.5 h-3.5 text-lime-400 animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-[#629131] dark:text-lime-400 animate-pulse" />
               </div>
-              <span className="text-[10px] text-fuchsia-300/90 font-mono leading-none">
+              <span className="text-[10px] text-[#9d237a] dark:text-fuchsia-300/90 font-mono leading-none">
                 {isAr ? 'مساعدة طبية ذكية 24/7' : 'Smart Clinic AI 24/7'}
               </span>
             </div>
 
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-80" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-lime-400" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#629131] dark:bg-lime-400 opacity-80" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#629131] dark:bg-lime-400" />
             </span>
           </motion.button>
         )}
@@ -211,7 +211,7 @@ Feel free to ask any question or tap a suggested topic below:`,
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="absolute bottom-20 right-0 sm:right-2 w-72 sm:w-80 p-4 rounded-2xl bg-[#120a1f]/95 border border-fuchsia-500/40 text-white shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl z-50 text-right rtl:text-right"
+              className="hidden sm:block absolute bottom-20 right-0 sm:right-2 w-72 sm:w-80 p-4 rounded-2xl bg-white/95 dark:bg-[#2c123c]/95 border border-[#9d237a]/25 dark:border-fuchsia-400/40 text-[#1f122b] dark:text-white shadow-[0_20px_50px_rgba(31,18,43,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] backdrop-blur-2xl z-50 text-right rtl:text-right"
             >
               <button
                 type="button"
@@ -219,21 +219,21 @@ Feel free to ask any question or tap a suggested topic below:`,
                   setShowWelcomeBubble(false);
                   setHasDismissedPrompt(true);
                 }}
-                className="absolute top-2.5 left-2.5 rtl:left-2.5 rtl:right-auto p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                className="absolute top-2.5 left-2.5 rtl:left-2.5 rtl:right-auto p-1 rounded-full text-[#6b5c7a] dark:text-slate-300 hover:text-[#1f122b] dark:hover:text-white hover:bg-[#9d237a]/10 dark:hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
 
               <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#9d237a] to-lime-500 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#9d237a] to-[#629131] flex items-center justify-center">
                   <Stethoscope className="w-3.5 h-3.5 text-white" />
                 </div>
-                <h4 className="text-xs font-semibold text-lime-300">
+                <h4 className="text-xs font-semibold text-[#4d7c1b] dark:text-lime-300">
                   {isAr ? 'د. لين ترحب بكِ 🌸' : 'Dr. Leen Welcomes You 🌸'}
                 </h4>
               </div>
 
-              <p className="text-xs text-slate-200 leading-relaxed mb-3">
+              <p className="text-xs text-[#4a3b59] dark:text-slate-200 leading-relaxed mb-3">
                 {isAr
                   ? 'أهلاً بكِ في مركز خطوط الصحة! هل تحتاجين مساعدة في اختيار جلسة العلاج الطبيعي أو نحت القوام المناسبة لكِ؟'
                   : 'Welcome to Health Lines! Need help choosing the right physical therapy or body sculpting treatment?'}
@@ -245,9 +245,9 @@ Feel free to ask any question or tap a suggested topic below:`,
                   setShowWelcomeBubble(false);
                   setIsOpen(true);
                 }}
-                className="w-full py-1.5 px-3 rounded-xl bg-gradient-to-r from-[#9d237a] to-[#629131] hover:brightness-110 text-white text-xs font-medium flex items-center justify-center gap-1.5 shadow-md shadow-fuchsia-950/50 transition-all cursor-pointer"
+                className="w-full py-1.5 px-3 rounded-xl bg-gradient-to-r from-[#9d237a] to-[#629131] hover:brightness-110 text-white text-xs font-medium flex items-center justify-center gap-1.5 shadow-md shadow-[#9d237a]/25 transition-all cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-lime-300" />
+                <Sparkles className="w-3.5 h-3.5 text-lime-200" />
                 <span>{isAr ? 'ابدأي الاستشارة الآن' : 'Start Consultation Now'}</span>
               </button>
             </motion.div>
@@ -288,7 +288,7 @@ Feel free to ask any question or tap a suggested topic below:`,
           )}
 
           {/* Active online green dot */}
-          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-lime-400 border-2 border-[#0c0912] rounded-full shadow-md z-20" />
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-lime-400 border-2 border-white dark:border-[#271136] rounded-full shadow-md z-20" />
         </motion.button>
       </aside>
 
@@ -300,26 +300,26 @@ Feel free to ask any question or tap a suggested topic below:`,
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.94 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className="fixed bottom-24 right-3 sm:right-6 z-50 w-[94vw] sm:w-[430px] max-w-[440px] h-[610px] max-h-[84vh] rounded-3xl glass-notch border border-white/15 overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.8)] flex flex-col bg-[#110a1c]/95 backdrop-blur-2xl"
+            className="fixed bottom-24 right-3 sm:right-6 z-50 w-[94vw] sm:w-[430px] max-w-[440px] h-[610px] max-h-[84vh] rounded-3xl glass-notch border border-[#9d237a]/20 dark:border-fuchsia-300/25 overflow-hidden shadow-[0_25px_60px_rgba(31,18,43,0.2)] dark:shadow-[0_25px_60px_rgba(10,3,18,0.65)] flex flex-col bg-white/95 dark:bg-[#2a113a]/95 backdrop-blur-2xl"
           >
             {/* Header */}
-            <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-fuchsia-950/70 via-[#1a0e2a] to-lime-950/40">
+            <div className="p-4 sm:p-5 border-b border-[#9d237a]/15 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-[#f9ecf7] via-white to-[#f1f7ea] dark:from-[#49195e]/85 dark:via-[#2f1242] dark:to-[#223522]/75">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#9d237a] to-[#629131] flex items-center justify-center border-2 border-white/20 shadow-md">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#9d237a] to-[#629131] flex items-center justify-center border-2 border-white/60 dark:border-white/25 shadow-md">
                     <Stethoscope className="w-5 h-5 text-white" />
                   </div>
-                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-lime-400 border-2 border-[#120d1c] rounded-full" />
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-lime-400 border-2 border-white dark:border-[#2a113a] rounded-full" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="font-semibold text-white text-sm">
+                    <h3 className="font-semibold text-[#1f122b] dark:text-white text-sm">
                       {isAr ? 'د. لين · المساعد الطبي الذكي' : 'Dr. Leen · Smart Clinic AI'}
                     </h3>
-                    <ShieldCheck className="w-4 h-4 text-lime-400" />
+                    <ShieldCheck className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400" />
                   </div>
-                  <p className="text-[11px] text-lime-300 font-mono flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-lime-400 inline-block animate-pulse" />
+                  <p className="text-[11px] text-[#4d7c1b] dark:text-lime-300 font-mono flex items-center gap-1 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#629131] dark:bg-lime-400 inline-block animate-pulse" />
                     <span>{isAr ? 'مركز خطوط الصحة · كادر نسائي ١٠٠٪' : 'Health Lines · 100% Female Sanctuary'}</span>
                   </p>
                 </div>
@@ -332,7 +332,7 @@ Feel free to ask any question or tap a suggested topic below:`,
                   type="button"
                   onClick={() => handleTransferToWhatsApp()}
                   title={isAr ? 'تحويل فوري إلى الواتساب' : 'Direct WhatsApp Concierge'}
-                  className="p-2 rounded-xl text-emerald-400 hover:text-emerald-300 hover:bg-emerald-950/40 transition-colors cursor-pointer"
+                  className="p-2 rounded-xl text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 dark:hover:bg-emerald-950/40 transition-colors cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
                 </button>
@@ -342,7 +342,7 @@ Feel free to ask any question or tap a suggested topic below:`,
                   type="button"
                   onClick={handleResetChat}
                   title={isAr ? 'بدء محادثة جديدة' : 'Reset Chat'}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  className="p-2 rounded-xl text-[#6b5c7a] dark:text-slate-300 hover:text-[#1f122b] dark:hover:text-white hover:bg-[#9d237a]/10 dark:hover:bg-white/10 transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
@@ -351,7 +351,7 @@ Feel free to ask any question or tap a suggested topic below:`,
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  className="p-2 rounded-xl text-[#6b5c7a] dark:text-slate-300 hover:text-[#1f122b] dark:hover:text-white hover:bg-[#9d237a]/10 dark:hover:bg-white/10 transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -359,13 +359,13 @@ Feel free to ask any question or tap a suggested topic below:`,
             </div>
 
             {/* Quick Suggestion Chips Bar */}
-            <div className="px-3 py-2 border-b border-white/5 bg-black/40 overflow-x-auto scrollbar-none flex gap-1.5">
+            <div className="px-3 py-2 border-b border-[#9d237a]/10 dark:border-white/10 bg-[#faf5fa] dark:bg-[#220e30]/75 overflow-x-auto scrollbar-none flex gap-1.5">
               {quickChips.map((chip, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => handleSendMessage(chip.text)}
-                  className="px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap bg-white/[0.04] hover:bg-fuchsia-950/50 border border-white/10 hover:border-fuchsia-500/40 text-slate-300 hover:text-white transition-all cursor-pointer shrink-0"
+                  className="px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap bg-white dark:bg-white/[0.08] hover:bg-[#9d237a]/10 dark:hover:bg-fuchsia-800/45 border border-[#9d237a]/15 dark:border-white/15 hover:border-[#9d237a]/45 dark:hover:border-fuchsia-400/50 text-[#4a3b59] dark:text-slate-200 hover:text-[#1f122b] dark:hover:text-white transition-all cursor-pointer shrink-0"
                 >
                   {chip.label}
                 </button>
@@ -373,7 +373,7 @@ Feel free to ask any question or tap a suggested topic below:`,
             </div>
 
             {/* Message Thread List */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 scrollbar-thin scrollbar-thumb-white/10">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 scrollbar-thin scrollbar-thumb-[#9d237a]/20 dark:scrollbar-thumb-white/15">
               {messages.map((msg) => {
                 const isBot = msg.sender === 'bot';
                 return (
@@ -386,14 +386,14 @@ Feel free to ask any question or tap a suggested topic below:`,
                     <div
                       className={`max-w-[88%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                         isBot
-                          ? 'bg-[#1e1430]/95 border border-white/10 text-slate-100 rounded-tl-sm shadow-md'
-                          : 'bg-gradient-to-r from-[#9d237a] to-fuchsia-700 text-white rounded-tr-sm shadow-md'
+                          ? 'bg-[#f8f2f9] dark:bg-[#3a184e]/90 border border-[#9d237a]/15 dark:border-white/15 text-[#1f122b] dark:text-slate-100 rounded-tl-sm shadow-sm'
+                          : 'bg-gradient-to-r from-[#9d237a] to-[#7c1d63] text-white rounded-tr-sm shadow-md'
                       }`}
                     >
                       {/* Optional Title for Bot Card */}
                       {isBot && msg.title && (
-                        <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-white/10 text-xs font-semibold text-lime-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-lime-400 shrink-0" />
+                        <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-[#9d237a]/15 dark:border-white/10 text-xs font-semibold text-[#4d7c1b] dark:text-lime-300">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#4d7c1b] dark:text-lime-400 shrink-0" />
                           <span>{msg.title}</span>
                         </div>
                       )}
@@ -404,11 +404,11 @@ Feel free to ask any question or tap a suggested topic below:`,
 
                       {/* Bot Message WhatsApp Direct Transfer CTA */}
                       {isBot && msg.whatsappPrompt && (
-                        <div className="mt-3 pt-2.5 border-t border-white/10">
+                        <div className="mt-3 pt-2.5 border-t border-[#9d237a]/15 dark:border-white/10">
                           <button
                             type="button"
                             onClick={() => handleTransferToWhatsApp(msg.whatsappPrompt)}
-                            className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#128C7E] to-[#25D366] hover:brightness-110 text-white font-medium text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/40 transition-all cursor-pointer"
+                            className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#128C7E] to-[#25D366] hover:brightness-110 text-white font-medium text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/20 transition-all cursor-pointer"
                           >
                             <MessageCircle className="w-3.5 h-3.5 text-white" />
                             <span>
@@ -421,7 +421,7 @@ Feel free to ask any question or tap a suggested topic below:`,
                         </div>
                       )}
                     </div>
-                    <span className="text-[10px] text-slate-500 font-mono mt-1 px-1">
+                    <span className="text-[10px] text-[#6b5c7a] dark:text-slate-400 font-mono mt-1 px-1">
                       {msg.time}
                     </span>
                   </motion.div>
@@ -430,13 +430,13 @@ Feel free to ask any question or tap a suggested topic below:`,
 
               {/* Bot Typing Indicator */}
               {isTyping && (
-                <div className="flex items-center gap-2 text-xs text-slate-400 p-2">
+                <div className="flex items-center gap-2 text-xs text-[#4a3b59] dark:text-slate-300 p-2">
                   <div className="flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-[#9d237a] animate-bounce" />
-                    <span className="w-2 h-2 rounded-full bg-lime-400 animate-bounce delay-150" />
+                    <span className="w-2 h-2 rounded-full bg-[#629131] dark:bg-lime-400 animate-bounce delay-150" />
                     <span className="w-2 h-2 rounded-full bg-[#9d237a] animate-bounce delay-300" />
                   </div>
-                  <span className="text-[11px] font-mono text-lime-300/80">
+                  <span className="text-[11px] font-mono text-[#4d7c1b] dark:text-lime-300/90">
                     {isAr ? 'د. لين تبحث في السجلات الطبية...' : 'Dr. Leen is consulting clinical data...'}
                   </span>
                 </div>
@@ -450,7 +450,7 @@ Feel free to ask any question or tap a suggested topic below:`,
                 e.preventDefault();
                 handleSendMessage();
               }}
-              className="p-3 border-t border-white/10 bg-black/50 flex items-center gap-2"
+              className="p-3 border-t border-[#9d237a]/15 dark:border-white/10 bg-[#faf5fa] dark:bg-[#220e30]/85 flex items-center gap-2"
             >
               <input
                 type="text"
@@ -461,13 +461,13 @@ Feel free to ask any question or tap a suggested topic below:`,
                     ? 'اكتبي سؤالكِ هنا (مثال: ألم أسفل الظهر، فيلاشيب، الموقع...)'
                     : 'Type your question (e.g. lower back, VelaShape, location...)'
                 }
-                className="flex-1 bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-fuchsia-400/70 transition-colors"
+                className="flex-1 bg-white dark:bg-white/[0.08] border border-[#9d237a]/20 dark:border-white/15 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-[#1f122b] dark:text-white placeholder:text-[#6b5c7a]/70 dark:placeholder:text-slate-400 focus:outline-none focus:border-[#9d237a] dark:focus:border-fuchsia-400/70 transition-colors"
               />
               <button
                 type="submit"
                 disabled={!input.trim()}
                 aria-label={isAr ? 'إرسال' : 'Send'}
-                className="p-2.5 rounded-xl bg-gradient-to-r from-[#9d237a] to-[#629131] hover:from-fuchsia-600 hover:to-lime-500 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-all cursor-pointer shadow-md"
+                className="p-2.5 rounded-xl bg-gradient-to-r from-[#9d237a] to-[#629131] hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-all cursor-pointer shadow-md"
               >
                 <Send className="w-4 h-4 rtl:rotate-180" />
               </button>

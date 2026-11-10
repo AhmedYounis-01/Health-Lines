@@ -95,7 +95,7 @@ export default function CustomCursor() {
           opacity: isVisible ? 1 : 0,
         }}
         transition={{ duration: 0.15 }}
-        className="w-1.5 h-1.5 rounded-full bg-lime-400 shadow-md shadow-lime-400 pointer-events-none"
+        className="w-1.5 h-1.5 rounded-full bg-[#629131] dark:bg-lime-400 shadow-md shadow-[#629131]/60 dark:shadow-lime-400 pointer-events-none"
       />
     </div>
   );

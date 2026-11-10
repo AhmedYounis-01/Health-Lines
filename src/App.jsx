@@ -88,14 +88,14 @@ function MainApp() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[99999] bg-[#0c0912] flex items-center justify-center"
+            className="fixed inset-0 z-[99999] theme-page-bg flex items-center justify-center"
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 1.1, opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="w-12 h-12 rounded-full border-2 border-[#9d237a]/30 border-t-[#84cc16] animate-spin"
+              className="w-12 h-12 rounded-full border-2 border-[#9d237a]/30 border-t-[#629131] dark:border-t-[#84cc16] animate-spin"
             />
           </motion.div>
         )}
@@ -105,7 +105,7 @@ function MainApp() {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`min-h-screen bg-[#0c0912] text-[#e2e8f0] relative selection:bg-[#9d237a]/40 selection:text-fuchsia-200 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}
+        className={`min-h-screen theme-page-bg text-[#1f122b] dark:text-[#fdfaff] relative selection:bg-[#9d237a]/25 selection:text-[#9d237a] dark:selection:text-fuchsia-200 transition-colors duration-300 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}
       >
         {/* Floating Notch Header */}
         <MorphoHeader
@@ -131,6 +131,7 @@ function MainApp() {
           <HeroChapter
             lang={lang}
             t={t}
+            onOpenBooking={openBooking}
             onScrollNext={() => {
               const nextEl = document.getElementById('about');
               if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });

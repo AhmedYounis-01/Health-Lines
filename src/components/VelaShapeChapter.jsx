@@ -141,10 +141,10 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
       <ChapterVideoBackground
         posterSrc="/assets/velashape-female-contour.jpg"
         alt="Female Specialist Administering VelaShape III Body Contouring in Private Suite"
-        glowClass="bg-[#9d237a]/25"
-        glowSecondaryClass="bg-[#84cc16]/20"
-        brightness="brightness-[0.70]"
-        contrast="contrast-[1.08]"
+        glowClass="bg-[#9d237a]/20 dark:bg-[#9d237a]/30"
+        glowSecondaryClass="bg-[#629131]/15 dark:bg-[#84cc16]/25"
+        brightness="brightness-[0.94] dark:brightness-[0.72]"
+        contrast="contrast-[1.03] dark:contrast-[1.08]"
       />
 
       <div className="relative z-10 max-w-5xl mx-auto w-full">
@@ -155,13 +155,13 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EXPO_OUT }}
-            className="text-xs md:text-sm font-arabic font-medium tracking-[0.2em] text-fuchsia-300 uppercase mb-4 flex items-center gap-2"
+            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#9d237a] dark:text-fuchsia-300 uppercase mb-4 flex items-center gap-2"
           >
-            <Sparkles className="w-4 h-4 text-fuchsia-300 animate-pulse" />
+            <Sparkles className="w-4 h-4 text-[#9d237a] dark:text-fuchsia-300 animate-pulse" />
             <span>{t.velashape.eyebrow}</span>
           </motion.p>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.14] mb-6">
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
             <motion.span
               initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -176,7 +176,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
               transition={{ duration: 0.75, delay: 0.12, ease: EXPO_OUT }}
-              className="italic font-light text-fuchsia-200 inline-block"
+              className="italic font-light text-[#9d237a] dark:text-fuchsia-200 inline-block"
             >
               {t.velashape.titleEmphasis}
             </motion.em>
@@ -201,15 +201,15 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
                     transition: { duration: 0.55, delay: idx * 0.08, ease: EXPO_OUT },
                   },
                 }}
-                whileHover={{ y: -6, borderColor: 'rgba(217, 70, 239, 0.45)', boxShadow: '0 20px 40px -10px rgba(217,70,239,0.2)' }}
+                whileHover={{ y: -6, borderColor: 'rgba(157, 35, 122, 0.45)', boxShadow: '0 20px 40px -10px rgba(157,35,122,0.18)' }}
                 transition={{ duration: 0.25 }}
-                className="glass-card p-4 sm:p-5 md:p-6 rounded-2xl border border-white/10 flex flex-col justify-between group overflow-hidden shadow-lg backdrop-blur-xl"
+                className="glass-card p-4 sm:p-5 md:p-6 rounded-2xl flex flex-col justify-between group overflow-hidden shadow-lg backdrop-blur-xl"
               >
                 <div className="mb-4 sm:mb-6">
-                  <span className="text-[11px] sm:text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1 truncate">
+                  <span className="text-[11px] sm:text-xs font-mono text-[#6b5c7a] dark:text-slate-300 uppercase tracking-wider block mb-1 truncate">
                     {item.detail}
                   </span>
-                  <span className="text-xs sm:text-sm font-semibold text-white group-hover:text-fuchsia-200 transition-colors line-clamp-1 font-arabic">
+                  <span className="text-xs sm:text-sm font-semibold text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-200 transition-colors line-clamp-1 font-arabic">
                     {item.name}
                   </span>
                 </div>
@@ -218,13 +218,13 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
                   <AnimatedCounter
                     value={item.value}
                     delay={idx * 0.12}
-                    className={`font-editorial font-light text-white tracking-tight leading-none ${
+                    className={`font-editorial font-light text-[#1f122b] dark:text-white tracking-tight leading-none ${
                       isRange
                         ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal'
                         : 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
                     }`}
                   />
-                  <span className="text-[11px] sm:text-xs font-mono text-lime-400 font-semibold mt-1 sm:mt-0 whitespace-nowrap">
+                  <span className="text-[11px] sm:text-xs font-mono text-[#4d7c1b] dark:text-lime-400 font-semibold mt-1 sm:mt-0 whitespace-nowrap">
                     {item.unit}
                   </span>
                 </div>
@@ -234,13 +234,13 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
         </div>
 
         {/* Target Area Interactive Selector */}
-        <motion.div variants={slideUp} className="glass-card p-6 md:p-8 rounded-2xl border border-white/10 mb-8 backdrop-blur-xl">
+        <motion.div variants={slideUp} className="glass-card p-6 md:p-8 rounded-2xl mb-8 backdrop-blur-xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-lime-400" />
+            <span className="text-xs font-mono uppercase tracking-widest text-[#6b5c7a] dark:text-slate-300 flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-[#4d7c1b] dark:text-lime-400" />
               <span>{t.velashape.targetZonesTitle || 'TARGET CLINICAL ZONES'}</span>
             </span>
-            <span className="text-xs font-mono text-lime-400 font-medium">
+            <span className="text-xs font-mono text-[#4d7c1b] dark:text-lime-400 font-semibold">
               {t.velashape.targetZonesSubtitle || '0% Surgical Incision · Immediate Normal Routine'}
             </span>
           </div>
@@ -257,12 +257,12 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
                   whileTap={{ scale: 0.98 }}
                   className={`p-4 rounded-xl text-left rtl:text-right border transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-[#9d237a]/35 border-[#d946ef]/65 text-white shadow-lg shadow-fuchsia-500/20'
-                      : 'bg-white/[0.02] border-white/5 text-slate-400 hover:border-white/15 hover:text-slate-200'
+                      ? 'bg-[#9d237a]/12 dark:bg-[#9d237a]/45 border-[#9d237a]/50 dark:border-fuchsia-400/65 text-[#1f122b] dark:text-white shadow-lg shadow-[#9d237a]/15 dark:shadow-fuchsia-500/20'
+                      : 'bg-white/60 dark:bg-white/[0.06] border-[#9d237a]/10 dark:border-white/10 text-[#4a3b59] dark:text-slate-300 hover:border-[#9d237a]/30 dark:hover:border-white/25 hover:text-[#1f122b] dark:hover:text-white'
                   }`}
                 >
-                  <p className="font-semibold text-sm text-white mb-1 font-arabic">{area.label}</p>
-                  <p className="text-xs font-mono text-lime-400">{area.est}</p>
+                  <p className="font-semibold text-sm text-[#1f122b] dark:text-white mb-1 font-arabic">{area.label}</p>
+                  <p className="text-xs font-mono text-[#4d7c1b] dark:text-lime-400">{area.est}</p>
                 </motion.button>
               );
             })}
@@ -272,7 +272,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
         {/* Note & CTA */}
         <motion.div
           variants={slideUp}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10 text-xs text-slate-400 font-arabic"
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#9d237a]/10 dark:border-white/10 text-xs text-[#6b5c7a] dark:text-slate-300 font-arabic"
         >
           <p className="font-light text-center sm:text-left rtl:sm:text-right leading-relaxed">
             {t.velashape.note}
@@ -281,7 +281,7 @@ export default function VelaShapeChapter({ t, onOpenBooking }) {
             type="button"
             onClick={onOpenBooking}
             whileHover={{ x: 4 }}
-            className="inline-flex items-center gap-1.5 text-lime-400 hover:text-lime-300 font-mono uppercase tracking-wider shrink-0 cursor-pointer font-bold"
+            className="inline-flex items-center gap-1.5 text-[#9d237a] dark:text-lime-400 hover:text-[#629131] dark:hover:text-lime-300 font-mono uppercase tracking-wider shrink-0 cursor-pointer font-bold"
           >
             <span>{t.bookConsultation}</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

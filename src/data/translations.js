@@ -12,6 +12,23 @@ export const translations = {
     ambientAudio: "Sanctuary Ambience",
     langCode: "EN",
     altLangCode: "العربية",
+
+    theme: {
+      toLight: "Switch to Light Mode",
+      toDark: "Switch to Dark Mode",
+      labelLight: "Light",
+      labelDark: "Dark",
+    },
+
+    heroDock: {
+      ariaLabel: "Direct Clinic Communication Channels",
+      booking: "Book Now",
+      whatsapp: "WhatsApp",
+      phone: "Call",
+      instagram: "Instagram",
+      location: "Location",
+      email: "Email",
+    },
     
     nav: {
       home: "Home",
@@ -434,6 +451,23 @@ export const translations = {
     ambientAudio: "أجواء الاسترخاء والهدوء",
     langCode: "العربية",
     altLangCode: "EN",
+
+    theme: {
+      toLight: "التبديل للوضع الفاتح",
+      toDark: "التبديل للوضع الليلي",
+      labelLight: "فاتح",
+      labelDark: "ليلي",
+    },
+
+    heroDock: {
+      ariaLabel: "قنوات التواصل المباشرة مع المركز",
+      booking: "احجزي موعد",
+      whatsapp: "واتساب",
+      phone: "اتصال",
+      instagram: "إنستغرام",
+      location: "الموقع",
+      email: "البريد",
+    },
 
     nav: {
       home: "الرئيسية",

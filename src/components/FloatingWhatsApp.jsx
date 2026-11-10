@@ -10,7 +10,7 @@ export default function FloatingWhatsApp({ lang = 'ar' }) {
   const whatsappUrl = siteConfig.buildWhatsAppUrl(text);
 
   return (
-    <aside aria-label="WhatsApp Contact" className="fixed bottom-6 left-6 z-50 flex items-center group">
+    <aside aria-label="WhatsApp Contact" className="fixed bottom-5 left-5 sm:bottom-6 sm:left-6 z-50 flex items-center group">
       {/* Floating Interactive Pill Label (Desktop & Tablet) */}
       <motion.a
         href={whatsappUrl}
@@ -20,17 +20,17 @@ export default function FloatingWhatsApp({ lang = 'ar' }) {
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 300, damping: 25 }}
         whileHover={{ scale: 1.04, x: 2 }}
-        className="hidden md:flex items-center gap-2.5 mr-3.5 px-4 py-2 rounded-full bg-[#0c0912]/90 border border-emerald-500/40 hover:border-emerald-400 text-white shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
+        className="hidden md:flex items-center gap-2.5 mr-3.5 px-4 py-2 rounded-full bg-white/90 dark:bg-[#2b123b]/90 border border-emerald-500/35 dark:border-emerald-400/40 hover:border-emerald-500 text-[#1f122b] dark:text-white shadow-[0_8px_30px_rgba(16,185,129,0.18)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
         </span>
         <div className="flex flex-col text-left rtl:text-right">
-          <span className="text-xs font-semibold tracking-wide text-white group-hover/pill:text-emerald-300 transition-colors">
+          <span className="text-xs font-semibold tracking-wide text-[#1f122b] dark:text-white group-hover/pill:text-emerald-700 dark:group-hover/pill:text-emerald-300 transition-colors">
             {isAr ? 'تحدثي معنا واتساب' : 'Chat on WhatsApp'}
           </span>
-          <span className="text-[10px] text-emerald-400/90 font-mono leading-none">
+          <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-mono leading-none">
             {isAr ? 'رد فوري واستفسار مباشر' : 'Fast response 24/7'}
           </span>
         </div>

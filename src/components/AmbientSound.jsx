@@ -206,16 +206,16 @@ export default function AmbientSound({ t }) {
       type="button"
       onClick={toggleSound}
       aria-label={isPlaying ? t.soundOff : t.soundOn}
-      className={`fixed bottom-24 left-6 z-40 flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full glass-card border transition-all duration-300 hover:scale-105 shadow-2xl backdrop-blur-xl cursor-pointer ${
+      className={`fixed bottom-24 sm:bottom-24 left-5 sm:left-6 z-40 flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-full glass-card border transition-all duration-300 hover:scale-105 shadow-xl backdrop-blur-xl cursor-pointer ${
         isPlaying
-          ? 'border-lime-400/50 bg-[#162612]/70 text-lime-300 shadow-[0_0_25px_rgba(132,204,22,0.25)]'
-          : 'border-white/10 hover:border-fuchsia-400/40 bg-[#0c0912]/80 text-slate-300 hover:text-white'
+          ? 'border-[#629131]/55 dark:border-lime-400/50 bg-[#eef7e6]/90 dark:bg-[#22351b]/80 text-[#3f6418] dark:text-lime-300 shadow-[0_0_25px_rgba(98,145,49,0.2)]'
+          : 'border-[#9d237a]/20 dark:border-fuchsia-300/20 hover:border-[#9d237a]/45 dark:hover:border-fuchsia-400/45 text-[#4a3b59] dark:text-slate-200 hover:text-[#1f122b] dark:hover:text-white'
       }`}
     >
       {isBuffering ? (
         <>
-          <Loader2 className="w-3.5 h-3.5 text-lime-400 animate-spin" />
-          <span className="text-[11px] sm:text-xs font-arabic font-medium tracking-wide text-lime-300">
+          <Loader2 className="w-3.5 h-3.5 text-[#629131] dark:text-lime-400 animate-spin" />
+          <span className="text-[11px] sm:text-xs font-arabic font-medium tracking-wide text-[#3f6418] dark:text-lime-300">
             {t.langCode === 'العربية' ? 'جاري التشغيل...' : 'Loading...'}
           </span>
         </>
@@ -223,19 +223,19 @@ export default function AmbientSound({ t }) {
         <>
           {/* Animated sound wave bars */}
           <div className="flex items-center gap-0.5 h-3.5" aria-hidden="true">
-            <span className="w-1 bg-lime-400 rounded-full animate-pulse h-2.5" />
-            <span className="w-1 bg-fuchsia-400 rounded-full animate-pulse h-3.5 delay-75" />
-            <span className="w-1 bg-lime-400 rounded-full animate-pulse h-2 delay-150" />
+            <span className="w-1 bg-[#629131] dark:bg-lime-400 rounded-full animate-pulse h-2.5" />
+            <span className="w-1 bg-[#9d237a] dark:bg-fuchsia-400 rounded-full animate-pulse h-3.5 delay-75" />
+            <span className="w-1 bg-[#629131] dark:bg-lime-400 rounded-full animate-pulse h-2 delay-150" />
           </div>
-          <Volume2 className="w-3.5 h-3.5 text-lime-400" />
-          <span className="text-[11px] sm:text-xs font-arabic font-semibold text-lime-300">
+          <Volume2 className="w-3.5 h-3.5 text-[#629131] dark:text-lime-400" />
+          <span className="text-[11px] sm:text-xs font-arabic font-semibold text-[#3f6418] dark:text-lime-300">
             {t.soundOn}
           </span>
         </>
       ) : (
         <>
-          <VolumeX className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-[11px] sm:text-xs font-arabic font-medium text-slate-300">
+          <VolumeX className="w-3.5 h-3.5 text-[#6b5c7a] dark:text-slate-300" />
+          <span className="text-[11px] sm:text-xs font-arabic font-medium text-[#4a3b59] dark:text-slate-200">
             {t.soundOff}
           </span>
         </>
