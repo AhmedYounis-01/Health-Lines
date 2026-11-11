@@ -69,8 +69,8 @@ function BodyScienceChapter({ t }) {
         alt="Female Physiotherapist guiding female client in body alignment and posture vitality"
         glowClass="bg-[#629131]/15 dark:bg-[#84cc16]/25"
         glowSecondaryClass="bg-[#9d237a]/15 dark:bg-[#9d237a]/25"
-        brightness="brightness-[0.94] dark:brightness-[0.72]"
-        contrast="contrast-[1.03] dark:contrast-[1.08]"
+        brightness="brightness-[1.06] saturate-[0.94] dark:brightness-[0.72] dark:saturate-100"
+        contrast="contrast-[1.02] dark:contrast-[1.08]"
       />
 
       {/* Floating Particles (desktop / capable hardware only) */}
@@ -84,13 +84,13 @@ function BodyScienceChapter({ t }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EXPO_OUT }}
-            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#4d7c1b] dark:text-[#84cc16] uppercase mb-4 flex items-center gap-2"
+            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#355e0d] dark:text-[#84cc16] uppercase mb-4 flex items-center gap-2 w-fit px-3.5 py-1.5 rounded-full bg-white/52 border border-[#629131]/22 backdrop-blur-md shadow-sm dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0 dark:shadow-none"
           >
-            <Activity className="w-4 h-4 text-[#4d7c1b] dark:text-[#84cc16] animate-pulse" />
+            <Activity className="w-4 h-4 text-[#355e0d] dark:text-[#84cc16] animate-pulse" />
             <span>{t.science.eyebrow}</span>
           </motion.p>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#170a24] dark:text-white tracking-tight leading-[1.14] mb-6 light-scrim-text">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ function BodyScienceChapter({ t }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.1, ease: EXPO_OUT }}
-              className="italic font-light text-[#4d7c1b] dark:text-[#a3e635] inline-block"
+              className="italic font-normal dark:font-light text-[#355e0d] dark:text-[#a3e635] inline-block"
             >
               {t.science.titleEmphasis}
             </motion.em>
@@ -149,16 +149,16 @@ function BodyScienceChapter({ t }) {
                   >
                     <Icon className="w-5 h-5 stroke-[1.5]" />
                   </motion.div>
-                  <h3 className="text-lg font-medium text-[#1f122b] dark:text-white mb-3 group-hover:text-[#4d7c1b] dark:group-hover:text-[#a3e635] transition-colors font-arabic">
+                  <h3 className="text-lg font-medium text-[#170a24] dark:text-white mb-3 group-hover:text-[#355e0d] dark:group-hover:text-[#a3e635] transition-colors font-arabic">
                     {item.title}
                   </h3>
-                  <p className="text-[#4a3b59] dark:text-slate-200 font-light text-xs md:text-sm leading-relaxed font-arabic">
+                  <p className="text-[#2e1f3f] dark:text-slate-200 font-normal dark:font-light text-xs md:text-sm leading-relaxed font-arabic">
                     {item.desc}
                   </p>
                 </div>
-                <div className="pt-6 mt-6 border-t border-[#9d237a]/10 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-[#6b5c7a] dark:text-slate-400">
-                  <span className="text-[#9d237a] dark:text-[#e879f9] font-semibold">BIO-BALANCE</span>
-                  <span className="text-[#4d7c1b] dark:text-lime-400 font-bold">0{idx + 1}</span>
+                <div className="pt-6 mt-6 border-t border-[#9d237a]/15 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-[#4d3b62] dark:text-slate-400">
+                  <span className="text-[#861365] dark:text-[#e879f9] font-semibold">BIO-BALANCE</span>
+                  <span className="text-[#355e0d] dark:text-lime-400 font-bold">0{idx + 1}</span>
                 </div>
               </motion.div>
             );
@@ -168,10 +168,10 @@ function BodyScienceChapter({ t }) {
         {/* Citations */}
         <motion.div
           variants={slideUp}
-          className="p-5 rounded-2xl glass-card flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#4a3b59] dark:text-slate-300 font-arabic backdrop-blur-md"
+          className="p-5 rounded-2xl glass-card flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#2e1f3f] dark:text-slate-300 font-arabic backdrop-blur-md"
         >
           <span className="leading-relaxed">{t.science.sourceNote}</span>
-          <div className="flex items-center gap-4 font-mono uppercase text-[#4d7c1b] dark:text-[#84cc16] shrink-0 font-bold">
+          <div className="flex items-center gap-4 font-mono uppercase text-[#355e0d] dark:text-[#84cc16] shrink-0 font-bold">
             <span className="hover:text-[#9d237a] dark:hover:text-lime-300 transition-colors">
               Clinical Quality Guidelines ↗
             </span>

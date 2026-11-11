@@ -45,8 +45,8 @@ function TherapyChapter({ t, onOpenBooking }) {
         alt="Female Physiotherapist providing spine & joint rehabilitation in private Jeddah clinic"
         glowClass="bg-[#9d237a]/20 dark:bg-[#9d237a]/30"
         glowSecondaryClass="bg-[#629131]/15 dark:bg-[#84cc16]/25"
-        brightness="brightness-[0.94] dark:brightness-[0.72]"
-        contrast="contrast-[1.03] dark:contrast-[1.08]"
+        brightness="brightness-[1.05] saturate-[0.94] dark:brightness-[0.72] dark:saturate-100"
+        contrast="contrast-[1.02] dark:contrast-[1.08]"
       />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
@@ -57,13 +57,13 @@ function TherapyChapter({ t, onOpenBooking }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EXPO_OUT }}
-            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#4d7c1b] dark:text-lime-400 uppercase mb-4 flex items-center gap-2"
+            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#355e0d] dark:text-lime-400 uppercase mb-4 flex items-center gap-2 w-fit px-3.5 py-1.5 rounded-full bg-white/52 border border-[#629131]/22 backdrop-blur-md shadow-sm dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0 dark:shadow-none"
           >
-            <Activity className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400 animate-pulse" />
+            <Activity className="w-4 h-4 text-[#355e0d] dark:text-lime-400 animate-pulse" />
             <span>{t.therapy.eyebrow}</span>
           </motion.p>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#1f122b] dark:text-white tracking-tight leading-[1.14] mb-6">
+          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl text-[#170a24] dark:text-white tracking-tight leading-[1.14] mb-6 light-scrim-text">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ function TherapyChapter({ t, onOpenBooking }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.1, ease: EXPO_OUT }}
-              className="italic font-light text-[#9d237a] dark:text-fuchsia-300 inline-block"
+              className="italic font-normal dark:font-light text-[#861365] dark:text-fuchsia-300 inline-block"
             >
               {t.therapy.titleEmphasis}
             </motion.em>
@@ -104,7 +104,7 @@ function TherapyChapter({ t, onOpenBooking }) {
                   className={`text-left rtl:text-right p-5 rounded-2xl transition-all duration-300 border flex items-center justify-between group cursor-pointer ${
                     isActive
                       ? 'glass-card border-[#9d237a]/45 dark:border-fuchsia-400/55 shadow-xl shadow-[#9d237a]/15 dark:shadow-fuchsia-500/20'
-                      : 'bg-white/55 dark:bg-white/[0.06] border-[#9d237a]/10 dark:border-white/10 hover:border-[#9d237a]/35 dark:hover:border-fuchsia-400/35 hover:bg-white/80 dark:hover:bg-white/[0.1]'
+                      : 'bg-white/36 dark:bg-white/[0.06] border-[#9d237a]/16 dark:border-white/10 hover:border-[#9d237a]/35 dark:hover:border-fuchsia-400/35 hover:bg-white/62 dark:hover:bg-white/[0.1] backdrop-blur-md'
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -113,12 +113,12 @@ function TherapyChapter({ t, onOpenBooking }) {
                       className={`text-xs font-mono font-bold w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                         isActive
                           ? 'bg-gradient-to-tr from-[#9d237a] to-fuchsia-500 text-white shadow-md'
-                          : 'bg-[#9d237a]/10 dark:bg-white/10 text-[#6b5c7a] dark:text-slate-300'
+                          : 'bg-[#9d237a]/14 dark:bg-white/10 text-[#4a3260] dark:text-slate-300'
                       }`}
                     >
                       0{idx + 1}
                     </motion.span>
-                    <span className={`text-base font-arabic font-medium tracking-wide ${isActive ? 'text-[#1f122b] dark:text-white font-semibold' : 'text-[#4a3b59] dark:text-slate-200 group-hover:text-[#9d237a] dark:group-hover:text-white'}`}>
+                    <span className={`text-base font-arabic font-medium tracking-wide ${isActive ? 'text-[#170a24] dark:text-white font-semibold' : 'text-[#281938] dark:text-slate-200 group-hover:text-[#861365] dark:group-hover:text-white'}`}>
                       {tab.title}
                     </span>
                   </div>
@@ -145,8 +145,8 @@ function TherapyChapter({ t, onOpenBooking }) {
                 <div className="absolute top-0 right-0 rtl:right-auto rtl:left-0 w-44 h-44 bg-[#9d237a]/10 dark:bg-fuchsia-500/15 rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 rtl:left-auto rtl:right-0 w-36 h-36 bg-[#629131]/10 dark:bg-lime-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                <div className="flex items-center gap-3 text-xs font-mono text-[#4d7c1b] dark:text-lime-400 uppercase tracking-widest mb-4">
-                  <ShieldCheck className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400" />
+                <div className="flex items-center gap-3 text-xs font-mono text-[#355e0d] dark:text-lime-400 uppercase tracking-widest mb-4">
+                  <ShieldCheck className="w-4 h-4 text-[#355e0d] dark:text-lime-400" />
                   <span className="font-semibold">{t.therapy.protocolBadge || "Women's Physical Rehabilitation Protocol"}</span>
                 </div>
 
@@ -154,7 +154,7 @@ function TherapyChapter({ t, onOpenBooking }) {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.05 }}
-                  className="text-2xl md:text-3xl font-editorial text-[#1f122b] dark:text-white mb-4"
+                  className="text-2xl md:text-3xl font-editorial text-[#170a24] dark:text-white mb-4"
                 >
                   {currentTab.title}
                 </motion.h3>
@@ -163,7 +163,7 @@ function TherapyChapter({ t, onOpenBooking }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.35, delay: 0.1 }}
-                  className="text-[#4a3b59] dark:text-slate-200 leading-relaxed text-base md:text-lg mb-8 font-light"
+                  className="text-[#2e1f3f] dark:text-slate-200 leading-relaxed text-base md:text-lg mb-8 font-light"
                 >
                   {currentTab.desc}
                 </motion.p>
@@ -172,21 +172,21 @@ function TherapyChapter({ t, onOpenBooking }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.15 }}
-                  className="p-4 rounded-xl bg-[#9d237a]/8 dark:bg-[#491b5c]/65 border border-[#9d237a]/20 dark:border-fuchsia-400/30 flex items-center gap-3 text-sm text-[#7e1c62] dark:text-fuchsia-200 mb-8 shadow-inner"
+                  className="p-4 rounded-xl bg-[#9d237a]/10 dark:bg-[#491b5c]/65 border border-[#9d237a]/22 dark:border-fuchsia-400/30 flex items-center gap-3 text-sm text-[#741357] dark:text-fuchsia-200 mb-8 shadow-inner"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-[#4d7c1b] dark:text-lime-400 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[#355e0d] dark:text-lime-400 shrink-0" />
                   <span className="font-medium">{currentTab.stats}</span>
                 </motion.div>
 
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#9d237a]/10 dark:border-white/10">
-                  <span className="text-xs text-[#6b5c7a] dark:text-slate-300 flex items-center gap-1.5 font-arabic">
-                    <Sparkles className="w-3.5 h-3.5 text-[#4d7c1b] dark:text-lime-400" />
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#9d237a]/15 dark:border-white/10">
+                  <span className="text-xs text-[#3d2b52] dark:text-slate-300 flex items-center gap-1.5 font-arabic">
+                    <Sparkles className="w-3.5 h-3.5 text-[#355e0d] dark:text-lime-400" />
                     <span>{t.therapy.suiteNote || "Jeddah Clinic · 100% Private Women's Suites"}</span>
                   </span>
                   <button
                     type="button"
                     onClick={onOpenBooking}
-                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#9d237a] dark:text-lime-400 hover:text-[#629131] dark:hover:text-lime-300 transition-colors group cursor-pointer"
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#861365] dark:text-lime-400 hover:text-[#355e0d] dark:hover:text-lime-300 transition-colors group cursor-pointer"
                   >
                     <span>{t.bookConsultation}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
@@ -200,9 +200,11 @@ function TherapyChapter({ t, onOpenBooking }) {
         {/* Frame Note */}
         <motion.div
           variants={slideUp}
-          className="mt-16 text-center text-xs font-mono tracking-widest text-[#6b5c7a] dark:text-slate-400 uppercase"
+          className="mt-16 text-center text-xs font-mono tracking-widest text-[#2e1f3f] dark:text-slate-400 uppercase"
         >
-          {t.therapy.frameNote}
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/48 border border-[#9d237a]/16 backdrop-blur-md dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0">
+            {t.therapy.frameNote}
+          </span>
         </motion.div>
       </div>
     </motion.section>

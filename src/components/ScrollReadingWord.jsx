@@ -15,7 +15,7 @@ function ScrollReadingText({ text, className = '' }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-8%' }}
       transition={{ duration: 0.65, ease: EXPO_OUT }}
-      className={`text-lg md:text-2xl leading-relaxed font-normal text-[#3b2d4a] dark:text-[#ece2f5] ${className}`}
+      className={`text-lg md:text-2xl leading-relaxed font-medium dark:font-normal text-[#1d0f2b] dark:text-[#ece2f5] light-scrim-text ${className}`}
     >
       {text}
     </motion.p>

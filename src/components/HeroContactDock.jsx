@@ -92,12 +92,12 @@ function HeroContactDock({ t, lang = 'ar', onOpenBooking }) {
           {channels.map((channel) => {
             const IconComponent = channel.icon;
             const commonClasses =
-              'group/item flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-1.5 px-1.5 py-2 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-medium text-[#1f122b] dark:text-[#f8f0fc] bg-[#9d237a]/[0.04] sm:bg-transparent dark:bg-white/[0.04] sm:dark:bg-transparent hover:bg-[#9d237a]/10 dark:hover:bg-white/10 transition-all duration-200 cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9d237a] dark:focus-visible:ring-lime-400';
+              'group/item flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-1.5 px-1.5 py-2 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-medium text-[#170a24] dark:text-[#f8f0fc] bg-white/38 sm:bg-transparent dark:bg-white/[0.04] sm:dark:bg-transparent hover:bg-white/62 dark:hover:bg-white/10 transition-all duration-200 cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9d237a] dark:focus-visible:ring-lime-400';
 
             const content = (
               <>
                 <span
-                  className={`w-7 h-7 rounded-full bg-[#9d237a]/10 dark:bg-white/10 flex items-center justify-center shrink-0 transition-all duration-200 ${channel.accentClass}`}
+                  className={`w-7 h-7 rounded-full bg-[#9d237a]/14 dark:bg-white/10 flex items-center justify-center shrink-0 transition-all duration-200 ${channel.accentClass}`}
                 >
                   <IconComponent className="w-3.5 h-3.5" />
                 </span>

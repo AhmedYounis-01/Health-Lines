@@ -20,7 +20,7 @@ function FloatingWhatsApp({ lang = 'ar' }) {
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 300, damping: 25 }}
         whileHover={{ scale: 1.04, x: 2 }}
-        className="hidden md:flex items-center gap-2.5 mr-3.5 px-4 py-2 rounded-full bg-white/90 dark:bg-[#2b123b]/90 border border-emerald-500/35 dark:border-emerald-400/40 hover:border-emerald-500 text-[#1f122b] dark:text-white shadow-[0_8px_30px_rgba(16,185,129,0.18)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
+        className="hidden md:flex items-center gap-2.5 mr-3.5 px-4 py-2 rounded-full bg-white/62 hover:bg-white/82 dark:bg-[#2b123b]/90 border border-emerald-500/35 dark:border-emerald-400/40 hover:border-emerald-500 text-[#170a24] dark:text-white shadow-[0_8px_30px_rgba(16,185,129,0.18)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />

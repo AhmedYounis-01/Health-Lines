@@ -60,11 +60,11 @@ const DepartmentCard = memo(function DepartmentCard({
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/15 to-transparent dark:from-[#2c123c] dark:via-[#2c123c]/25 dark:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/58 via-white/8 to-transparent dark:from-[#2c123c] dark:via-[#2c123c]/25 dark:to-transparent" />
 
         {/* Category Pill Tag */}
         <div className="absolute top-3.5 left-3.5 rtl:left-auto rtl:right-3.5 max-w-[calc(100%-1.75rem)]">
-          <span className="inline-block truncate max-w-full px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/85 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/20 dark:border-white/20 text-[#4d7c1b] dark:text-lime-300 shadow-md">
+          <span className="inline-block truncate max-w-full px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/64 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/22 dark:border-white/20 text-[#355e0d] dark:text-lime-300 shadow-md">
             {item.subtitle}
           </span>
         </div>

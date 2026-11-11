@@ -11,12 +11,12 @@ function ChapterNav({ chapters, activeChapter }) {
   return (
     <nav
       aria-label="Story chapters"
-      className="hidden xl:flex fixed left-8 rtl:left-auto rtl:right-8 top-1/2 -translate-y-1/2 z-40 flex-col items-start gap-4"
+      className="hidden xl:flex fixed left-3 2xl:left-7 rtl:left-auto rtl:right-3 rtl:2xl:right-7 top-1/2 -translate-y-1/2 z-40 flex-col items-start gap-4"
     >
       {/* Chapter Counter Badge */}
       <motion.div
         layout
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card text-xs font-mono text-[#4d7c1b] dark:text-[#84cc16] mb-2 shadow-lg"
+        className="flex items-center gap-1.5 px-2.5 py-1 rounded-full glass-card text-[11px] font-mono text-[#355e0d] dark:text-[#84cc16] mb-1 shadow-md"
       >
         <AnimatePresence mode="wait">
           <motion.span
@@ -25,17 +25,17 @@ function ChapterNav({ chapters, activeChapter }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.3 }}
-            className="font-bold text-[#4d7c1b] dark:text-[#84cc16]"
+            className="font-bold text-[#355e0d] dark:text-[#84cc16]"
           >
             {currentChapter.num}
           </motion.span>
         </AnimatePresence>
-        <span className="text-[#9d237a]/40 dark:text-slate-400">/</span>
-        <span className="text-[#6b5c7a] dark:text-slate-300">{chapters[chapters.length - 1].num}</span>
+        <span className="text-[#9d237a]/45 dark:text-slate-400">/</span>
+        <span className="text-[#4a3260] dark:text-slate-300">{chapters[chapters.length - 1].num}</span>
       </motion.div>
 
       {/* Chapters list */}
-      <div className="relative flex flex-col gap-3 pl-3 rtl:pl-0 rtl:pr-3 border-l rtl:border-l-0 rtl:border-r border-[#9d237a]/20 dark:border-white/15">
+      <div className="relative flex flex-col gap-3 pl-3 rtl:pl-0 rtl:pr-3 border-l rtl:border-l-0 rtl:border-r border-[#9d237a]/25 dark:border-white/15">
         {chapters.map((ch) => {
           const isActive = ch.id === activeChapter;
           return (
@@ -44,8 +44,8 @@ function ChapterNav({ chapters, activeChapter }) {
               href={`#${ch.id}`}
               className={`group flex items-center gap-3 transition-all duration-300 ${
                 isActive
-                  ? 'text-[#1f122b] dark:text-white font-semibold'
-                  : 'text-[#6b5c7a] dark:text-slate-400 hover:text-[#9d237a] dark:hover:text-slate-200'
+                  ? 'text-[#170a24] dark:text-white font-semibold'
+                  : 'text-[#503f63] dark:text-slate-400 hover:text-[#861365] dark:hover:text-slate-200'
               }`}
             >
               {/* Animated dot */}
@@ -74,10 +74,10 @@ function ChapterNav({ chapters, activeChapter }) {
                 </AnimatePresence>
               </div>
 
-              {/* Chapter label */}
+              {/* Chapter label (visible permanently on 2xl+, hover tooltip on xl) */}
               <motion.span
                 animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -4 }}
-                className="text-xs tracking-wider font-medium pointer-events-none"
+                className="hidden 2xl:inline-block text-xs tracking-wider font-medium pointer-events-none px-2 py-0.5 rounded-full bg-white/68 border border-[#9d237a]/18 backdrop-blur-md dark:bg-transparent dark:border-transparent dark:p-0"
                 style={{ originX: 0 }}
               >
                 {ch.label}

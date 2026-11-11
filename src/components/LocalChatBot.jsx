@@ -64,16 +64,33 @@ Feel free to ask any question or tap a suggested topic below:`,
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Show welcome speech bubble only after scrolling past Hero on desktop so HeroContactDock stays unobstructed
+  const hasShownOnScrollRef = useRef(false);
+
+  // Show welcome speech bubble gently once scrolled past Hero, then auto-hide (hides immediately if returning to Hero)
   useEffect(() => {
-    const updateBubble = () => {
-      const scrolledPastHero = window.scrollY > 320;
-      const shouldShow = scrolledPastHero && !isOpen && !hasDismissedPrompt;
-      setShowWelcomeBubble((prev) => (prev === shouldShow ? prev : shouldShow));
+    let hideTimer;
+    const handleScroll = () => {
+      if (isOpen || hasDismissedPrompt) return;
+
+      if (window.scrollY <= 280) {
+        setShowWelcomeBubble(false);
+        return;
+      }
+
+      if (!hasShownOnScrollRef.current && window.scrollY > 360) {
+        hasShownOnScrollRef.current = true;
+        setShowWelcomeBubble(true);
+        hideTimer = setTimeout(() => {
+          setShowWelcomeBubble(false);
+        }, 5500);
+      }
     };
 
-    window.addEventListener('scroll', updateBubble, { passive: true });
-    return () => window.removeEventListener('scroll', updateBubble);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (hideTimer) clearTimeout(hideTimer);
+    };
   }, [isOpen, hasDismissedPrompt]);
 
   // Quick prompt chips
@@ -184,7 +201,7 @@ Feel free to ask any question or tap a suggested topic below:`,
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 25 }}
             whileHover={{ scale: 1.04, x: -2 }}
-            className="hidden md:flex items-center gap-3 ml-3.5 px-4 py-2 rounded-full bg-white/90 dark:bg-[#2b123b]/90 border border-[#9d237a]/30 dark:border-fuchsia-400/40 hover:border-[#629131] dark:hover:border-lime-400 text-[#1f122b] dark:text-white shadow-[0_10px_30px_rgba(157,35,122,0.16)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
+            className="hidden md:flex items-center gap-3 ml-3.5 px-4 py-2 rounded-full bg-white/62 hover:bg-white/82 dark:bg-[#2b123b]/90 border border-[#9d237a]/30 dark:border-fuchsia-400/40 hover:border-[#629131] dark:hover:border-lime-400 text-[#170a24] dark:text-white shadow-[0_10px_30px_rgba(157,35,122,0.16)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 group/pill cursor-pointer"
           >
             <div className="flex flex-col text-right rtl:text-left">
               <div className="flex items-center gap-1.5 justify-end rtl:justify-start">
@@ -213,7 +230,7 @@ Feel free to ask any question or tap a suggested topic below:`,
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="hidden md:block absolute bottom-20 right-0 sm:right-2 w-72 sm:w-80 p-4 rounded-2xl bg-white/95 dark:bg-[#2c123c]/95 border border-[#9d237a]/25 dark:border-fuchsia-400/40 text-[#1f122b] dark:text-white shadow-[0_20px_50px_rgba(31,18,43,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] backdrop-blur-2xl z-50 text-right rtl:text-right"
+              className="hidden md:block absolute bottom-20 right-0 sm:right-2 w-72 sm:w-80 p-4 rounded-2xl bg-white/74 dark:bg-[#2c123c]/95 border border-[#9d237a]/25 dark:border-fuchsia-400/40 text-[#170a24] dark:text-white shadow-[0_20px_50px_rgba(31,18,43,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] backdrop-blur-2xl z-50 text-right rtl:text-right"
             >
               <button
                 type="button"

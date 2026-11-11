@@ -137,7 +137,7 @@ function ContactChapter({ t, onOpenBooking }) {
               hidden: { opacity: 0, y: 20, scale: 0.97 },
               visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: EXPO_OUT, delay: 0.12 } },
             }}
-            className="lg:col-span-5 glass-card p-6 sm:p-8 md:p-10 rounded-3xl flex flex-col justify-between bg-gradient-to-br from-[#9d237a]/10 via-white/85 to-[#629131]/10 dark:from-[#9d237a]/35 dark:via-[#3b1749]/85 dark:to-[#202d20]/90 relative overflow-hidden shadow-2xl backdrop-blur-xl"
+            className="lg:col-span-5 glass-card p-6 sm:p-8 md:p-10 rounded-3xl flex flex-col justify-between bg-gradient-to-br from-[#9d237a]/10 via-white/50 to-[#629131]/10 dark:from-[#9d237a]/35 dark:via-[#3b1749]/85 dark:to-[#202d20]/90 relative overflow-hidden shadow-2xl backdrop-blur-xl"
           >
             <div className="absolute top-0 right-0 rtl:right-auto rtl:left-0 w-48 h-48 bg-[#9d237a]/15 dark:bg-[#9d237a]/30 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10">

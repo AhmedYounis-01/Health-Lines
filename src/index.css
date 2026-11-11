@@ -22,24 +22,24 @@
 
     /* Light Mode Default Tokens */
     --bg-page-base: #fcf9fc;
-    --bg-page-gradient: linear-gradient(155deg, #ffffff 0%, #faf2f8 46%, #f3f8ee 100%);
-    --bg-section-alt: linear-gradient(160deg, #faf5fa 0%, #ffffff 55%, #f4f9ef 100%);
-    --bg-footer: linear-gradient(165deg, #f6edf6 0%, #fdfbfd 55%, #eef5e9 100%);
-    --text-primary: #1f122b;
-    --text-secondary: #4a3b59;
-    --text-muted: #6b5c7a;
-    --glass-header-bg: rgba(255, 255, 255, 0.84);
-    --glass-header-border: rgba(157, 35, 122, 0.14);
-    --glass-notch-bg: rgba(255, 255, 255, 0.88);
-    --glass-notch-border: rgba(157, 35, 122, 0.16);
-    --glass-notch-shadow: 0 18px 40px -15px rgba(157, 35, 122, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    --glass-card-bg: rgba(255, 255, 255, 0.78);
-    --glass-card-hover-bg: rgba(255, 255, 255, 0.94);
-    --glass-card-border: rgba(157, 35, 122, 0.14);
-    --glass-card-shadow: 0 20px 45px -15px rgba(31, 18, 43, 0.1);
-    --reading-active: #1f122b;
-    --reading-active-glow: 0 0 16px rgba(157, 35, 122, 0.18);
-    --reading-inactive: rgba(74, 59, 89, 0.42);
+    --bg-page-gradient: linear-gradient(155deg, #fdfbfd 0%, #f5e6f5 46%, #ebf5e3 100%);
+    --bg-section-alt: linear-gradient(160deg, #f8edf8 0%, #fdfafd 52%, #edf6e6 100%);
+    --bg-footer: linear-gradient(165deg, #f3e4f3 0%, #faf5fa 55%, #e8f3e0 100%);
+    --text-primary: #170a24;
+    --text-secondary: #2e1f3f;
+    --text-muted: #503f63;
+    --glass-header-bg: rgba(255, 255, 255, 0.54);
+    --glass-header-border: rgba(157, 35, 122, 0.2);
+    --glass-notch-bg: rgba(255, 255, 255, 0.44);
+    --glass-notch-border: rgba(157, 35, 122, 0.22);
+    --glass-notch-shadow: 0 18px 40px -15px rgba(157, 35, 122, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    --glass-card-bg: rgba(255, 255, 255, 0.56);
+    --glass-card-hover-bg: rgba(255, 255, 255, 0.76);
+    --glass-card-border: rgba(157, 35, 122, 0.24);
+    --glass-card-shadow: 0 20px 45px -15px rgba(31, 18, 43, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    --reading-active: #170a24;
+    --reading-active-glow: 0 0 16px rgba(157, 35, 122, 0.22);
+    --reading-inactive: rgba(46, 31, 63, 0.46);
     --scrollbar-track: #f8f2f8;
     --scrollbar-thumb: #d8b4d2;
     --grain-dot: rgba(157, 35, 122, 0.06);
@@ -256,7 +256,7 @@ html[dir="rtl"] .tracking-\[0\.2em\] {
   pointer-events: none;
   filter: blur(72px);
   border-radius: 9999px;
-  opacity: 0.2;
+  opacity: 0.24;
   mix-blend-mode: multiply;
   transform: translateZ(0);
   will-change: transform;
@@ -266,6 +266,15 @@ html[dir="rtl"] .tracking-\[0\.2em\] {
 html.dark .atmosphere-glow {
   opacity: 0.34;
   mix-blend-mode: screen;
+}
+
+/* Soft luminous halo for Light Mode text sitting over translucent media */
+html:not(.dark) .light-scrim-text {
+  text-shadow: 0 2px 22px rgba(255, 255, 255, 0.96), 0 0 10px rgba(255, 255, 255, 0.92), 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+html.dark .light-scrim-text {
+  text-shadow: none;
 }
 
 /* ===== Scrollytelling reading text effect ===== */
@@ -380,20 +389,24 @@ html.dark .atmosphere-glow {
     -webkit-backdrop-filter: none !important;
   }
   .glass-card {
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.56) !important;
   }
   html.dark .glass-card {
     background: rgba(54, 23, 68, 0.88) !important;
   }
   .glass-notch {
-    background: rgba(255, 255, 255, 0.96) !important;
+    background: rgba(255, 255, 255, 0.62) !important;
   }
   html.dark .glass-notch {
     background: rgba(48, 20, 62, 0.94) !important;
   }
   header.glass-header {
+    background: rgba(255, 255, 255, 0.68) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
+  }
+  html.dark header.glass-header {
+    background: rgba(39, 17, 54, 0.84) !important;
   }
   main > section {
     contain: layout style paint;

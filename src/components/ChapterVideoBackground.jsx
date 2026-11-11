@@ -187,11 +187,11 @@ function ChapterVideoBackground({
           </video>
         )}
 
-        {/* Multi-layer theme-adaptive gradients keeping text crisp & readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fcf9fc]/82 via-[#f7eef7]/62 to-[#fcf9fc]/86 dark:from-[#271136]/72 dark:via-[#3d1649]/45 dark:to-[#212e21]/76 transition-colors duration-500" />
+        {/* Multi-layer theme-adaptive gradients keeping text crisp & underlying media clearly visible in Light Mode */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fcf9fc]/38 via-[#fbf3fb]/14 to-[#fcf9fc]/44 dark:from-[#271136]/72 dark:via-[#3d1649]/45 dark:to-[#212e21]/76 transition-colors duration-500" />
 
         {/* Soft radial vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.22)_0%,rgba(250,242,248,0.88)_92%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,#241033_92%)] opacity-75 dark:opacity-65" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.04)_0%,rgba(249,240,249,0.44)_92%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,#241033_92%)] opacity-55 dark:opacity-65" />
 
         {/* Atmospheric Medical Color Glows */}
         <div className={`atmosphere-glow w-[260px] h-[260px] sm:w-[480px] sm:h-[480px] -top-24 -left-24 ${glowClass}`} />
