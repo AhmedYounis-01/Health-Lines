@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useDeviceProfile } from '../hooks/useDeviceProfile';
 
 export default function CustomCursor() {
+  const { isDesktopFinePointer } = useDeviceProfile();
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -13,6 +15,8 @@ export default function CustomCursor() {
   const springY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    if (!isDesktopFinePointer) return undefined;
+
     const handleMouseMove = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -44,7 +48,9 @@ export default function CustomCursor() {
       document.documentElement.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [cursorX, cursorY, isVisible]);
+  }, [cursorX, cursorY, isVisible, isDesktopFinePointer]);
+
+  if (!isDesktopFinePointer) return null;
 
   // Only render on desktop (hidden on tablet and mobile)
   return (

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useCallback, lazy, Suspense } from 'react';
 import { ClinicContextProvider } from './context/ClinicContext';
 import { useClinicContext } from './context/useClinicContext';
 import SmoothScroll from './components/SmoothScroll';
@@ -15,21 +14,15 @@ import LymphaticChapter from './components/LymphaticChapter';
 import BodyScienceChapter from './components/BodyScienceChapter';
 import ContactChapter from './components/ContactChapter';
 import MorphoFooter from './components/MorphoFooter';
-import BookingModal from './components/BookingModal';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
-import LocalChatBot from './components/LocalChatBot';
+
+const BookingModal = lazy(() => import('./components/BookingModal'));
+const LocalChatBot = lazy(() => import('./components/LocalChatBot'));
 
 function MainApp() {
   const { lang, setLang, t, activeChapter, setActiveChapter, isBookingOpen, openBooking } = useClinicContext();
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  // Page load entrance
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Prevent page scroll while the booking modal is open
   useEffect(() => {
@@ -37,7 +30,8 @@ function MainApp() {
     return () => { document.body.style.overflow = ''; };
   }, [isBookingOpen]);
 
-  // Track active chapter cleanly via IntersectionObserver (zero forced layout reflows)
+  // Track active chapter cleanly via center-band IntersectionObserver
+  // (works reliably for both short sections and multi-screen tall #departments)
   useEffect(() => {
     const chapterIds = [
       'hero',
@@ -56,30 +50,29 @@ function MainApp() {
 
     if (!elements.length) return undefined;
 
-    const visibilityMap = new Map();
+    const intersecting = new Set();
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          visibilityMap.set(entry.target.id, entry.intersectionRatio);
+          if (entry.isIntersecting) {
+            intersecting.add(entry.target.id);
+          } else {
+            intersecting.delete(entry.target.id);
+          }
         });
 
-        let bestId = null;
-        let bestRatio = 0;
-        for (const id of chapterIds) {
-          const ratio = visibilityMap.get(id) || 0;
-          if (ratio > bestRatio) {
-            bestRatio = ratio;
-            bestId = id;
+        for (let i = chapterIds.length - 1; i >= 0; i -= 1) {
+          const id = chapterIds[i];
+          if (intersecting.has(id)) {
+            setActiveChapter(id);
+            return;
           }
-        }
-        if (bestId) {
-          setActiveChapter(bestId);
         }
       },
       {
         root: null,
-        rootMargin: '-25% 0px -35% 0px',
-        threshold: [0, 0.15, 0.35, 0.6],
+        rootMargin: '-38% 0px -58% 0px',
+        threshold: 0,
       }
     );
 
@@ -108,31 +101,7 @@ function MainApp() {
       {/* Scroll Progress Bar */}
       <ScrollProgressBar />
 
-      {/* Cinematic Page Load */}
-      <AnimatePresence>
-        {!isLoaded && (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[99999] theme-page-bg flex items-center justify-center"
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 1.1, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="w-12 h-12 rounded-full border-2 border-[#9d237a]/30 border-t-[#629131] dark:border-t-[#84cc16] animate-spin"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      <div
         className={`min-h-screen theme-page-bg text-[#1f122b] dark:text-[#fdfaff] relative selection:bg-[#9d237a]/25 selection:text-[#9d237a] dark:selection:text-fuchsia-200 transition-colors duration-300 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}
       >
         {/* Floating Notch Header */}
@@ -210,15 +179,21 @@ function MainApp() {
           onOpenBooking={openBooking}
         />
 
-        {/* Interactive Consultation Booking Modal */}
-        <BookingModal />
+        {/* Interactive Consultation Booking Modal (lazy chunk loaded on demand) */}
+        {isBookingOpen && (
+          <Suspense fallback={null}>
+            <BookingModal />
+          </Suspense>
+        )}
 
         {/* Floating WhatsApp Contact Button (Bottom-Left) */}
         <FloatingWhatsApp lang={lang} />
 
-        {/* Local Intelligent Clinic Chatbot (Bottom-Right) */}
-        <LocalChatBot lang={lang} />
-      </motion.div>
+        {/* Local Intelligent Clinic Chatbot (Bottom-Right, split into async chunk) */}
+        <Suspense fallback={null}>
+          <LocalChatBot lang={lang} />
+        </Suspense>
+      </div>
     </>
   );
 }

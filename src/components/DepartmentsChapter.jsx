@@ -10,6 +10,7 @@ import {
   HeartHandshake
 } from 'lucide-react';
 import { siteConfig } from '../config/siteConfig';
+import useDeviceProfile from '../hooks/useDeviceProfile';
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -30,13 +31,18 @@ const DepartmentCard = memo(function DepartmentCard({
   onBookCondition,
   onOpenBooking,
 }) {
+  const webpSrc =
+    item.image && /\.jpe?g$/i.test(item.image)
+      ? item.image.replace(/\.jpe?g$/i, '.webp')
+      : null;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 18, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
-        duration: 0.4,
-        delay: Math.min(index * 0.035, 0.25),
+        duration: 0.35,
+        delay: Math.min(index * 0.03, 0.18),
         ease: EXPO_OUT,
       }}
       whileHover={{ y: -5, transition: { duration: 0.22 } }}
@@ -44,37 +50,40 @@ const DepartmentCard = memo(function DepartmentCard({
     >
       {/* Image Section with Smooth Zoom */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#f3eaf4] dark:bg-[#2a1339]">
-        <img
-          src={item.image}
-          alt={item.title}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-        />
+        <picture className="block w-full h-full">
+          {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
+          <img
+            src={item.image}
+            alt={item.title}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/15 to-transparent dark:from-[#2c123c] dark:via-[#2c123c]/25 dark:to-transparent" />
 
         {/* Category Pill Tag */}
-        <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">
-          <span className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/85 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/20 dark:border-white/20 text-[#4d7c1b] dark:text-lime-300 shadow-md">
+        <div className="absolute top-3.5 left-3.5 rtl:left-auto rtl:right-3.5 max-w-[calc(100%-1.75rem)]">
+          <span className="inline-block truncate max-w-full px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/85 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/20 dark:border-white/20 text-[#4d7c1b] dark:text-lime-300 shadow-md">
             {item.subtitle}
           </span>
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="p-6 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
         <div>
           <h3 className="font-editorial text-xl sm:text-2xl text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-200 transition-colors mb-2.5 leading-snug">
             {item.title}
           </h3>
-          <p className="text-xs sm:text-sm text-[#4a3b59] dark:text-slate-200 leading-relaxed font-light mb-6 line-clamp-3">
+          <p className="text-xs sm:text-sm text-[#4a3b59] dark:text-slate-200 leading-relaxed font-light mb-5 sm:mb-6 line-clamp-3">
             {item.desc}
           </p>
         </div>
 
         {/* Clinical Assurance & Protocol Badges */}
-        <div className="pt-4 border-t border-[#9d237a]/10 dark:border-white/10 mb-5 space-y-2.5">
-          <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
+        <div className="pt-3.5 sm:pt-4 border-t border-[#9d237a]/10 dark:border-white/10 mb-4 sm:mb-5 space-y-2">
+          <div className="flex items-center justify-between gap-2 flex-wrap text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
             <span className="flex items-center gap-1.5 text-[#4a3b59] dark:text-slate-200 font-medium">
               <ShieldCheck className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400 shrink-0" />
               <span>{dept.evaluationLabel || 'كشف وتقييم سريري'}</span>
@@ -84,7 +93,7 @@ const DepartmentCard = memo(function DepartmentCard({
             </span>
           </div>
 
-          <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
+          <div className="flex items-center justify-between gap-2 flex-wrap text-xs p-2.5 rounded-xl bg-[#9d237a]/[0.04] dark:bg-white/[0.06] border border-[#9d237a]/10 dark:border-white/10">
             <span className="flex items-center gap-1.5 text-[#4a3b59] dark:text-slate-200 font-medium">
               <Sparkles className="w-4 h-4 text-[#9d237a] dark:text-fuchsia-300 shrink-0" />
               <span>{dept.privacyLabel || 'طبيعة الجلسات'}</span>
@@ -124,9 +133,12 @@ const DepartmentCard = memo(function DepartmentCard({
 
 function DepartmentsChapter({ t, onOpenBooking }) {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [showAllMobile, setShowAllMobile] = useState(false);
+  const { isMobile } = useDeviceProfile();
 
   const dept = t?.departments;
   const deptItems = dept?.items;
+  const isAr = t?.langCode === 'العربية';
 
   // Filtered department condition items - called unconditionally
   const filteredItems = useMemo(() => {
@@ -134,6 +146,14 @@ function DepartmentsChapter({ t, onOpenBooking }) {
     if (activeCategory === 'all') return deptItems;
     return deptItems.filter((item) => item.category === activeCategory);
   }, [deptItems, activeCategory]);
+
+  // Paginate hero-all grid on mobile to avoid rendering 14 cards simultaneously
+  const displayedItems = useMemo(() => {
+    if (isMobile && activeCategory === 'all' && !showAllMobile) {
+      return filteredItems.slice(0, 6);
+    }
+    return filteredItems;
+  }, [filteredItems, isMobile, activeCategory, showAllMobile]);
 
   // Compute item count per category for tabs - called unconditionally
   const categoryCounts = useMemo(() => {
@@ -145,27 +165,29 @@ function DepartmentsChapter({ t, onOpenBooking }) {
     return counts;
   }, [deptItems]);
 
-  const handleBookCondition = useCallback((conditionTitle) => {
-    const isAr = document.documentElement.lang === 'ar' || !document.documentElement.lang;
-    const message = siteConfig.buildConditionInquiry(conditionTitle, isAr ? 'ar' : 'en');
-    const whatsappUrl = siteConfig.buildWhatsAppUrl(message);
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-  }, []);
+  const handleBookCondition = useCallback(
+    (conditionTitle) => {
+      const message = siteConfig.buildConditionInquiry(conditionTitle, isAr ? 'ar' : 'en');
+      const whatsappUrl = siteConfig.buildWhatsAppUrl(message);
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    },
+    [isAr]
+  );
 
   if (!dept) return null;
 
   return (
     <motion.section
       id="departments"
-      className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden py-28 px-4 sm:px-6 lg:px-8 border-t border-[#9d237a]/10 dark:border-white/10 theme-section-bg"
+      className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden py-20 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-[#9d237a]/10 dark:border-white/10 theme-section-bg"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-6%' }}
     >
-      {/* Subtle background glow effects matching logo plum & lime */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#9d237a]/12 via-fuchsia-400/10 to-transparent dark:from-[#9d237a]/25 dark:via-fuchsia-600/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-10 w-[450px] h-[450px] bg-gradient-to-bl from-[#629131]/12 to-transparent dark:from-[#84cc16]/15 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute inset-0 bg-grain opacity-40 pointer-events-none" />
+      {/* Subtle background glow effects matching logo plum & lime (GPU radial gradient, bounded to viewport) */}
+      <div className="hidden md:block absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(600px,95vw)] h-[min(600px,95vw)] rounded-full bg-[radial-gradient(circle,rgba(157,35,122,0.14)_0%,transparent_68%)] dark:bg-[radial-gradient(circle,rgba(157,35,122,0.26)_0%,transparent_68%)] pointer-events-none" />
+      <div className="hidden md:block absolute bottom-1/4 right-10 w-[min(450px,80vw)] h-[min(450px,80vw)] rounded-full bg-[radial-gradient(circle,rgba(98,145,49,0.12)_0%,transparent_68%)] dark:bg-[radial-gradient(circle,rgba(132,204,22,0.15)_0%,transparent_68%)] pointer-events-none" />
+      <div className="hidden md:block absolute inset-0 bg-grain opacity-40 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Section Header */}
@@ -206,9 +228,9 @@ function DepartmentsChapter({ t, onOpenBooking }) {
           </div>
         </motion.header>
 
-        {/* Category Filter Navigation Bar with Magnetic Spring Pill */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-12 scrollbar-none">
-          <div className="inline-flex p-1.5 rounded-2xl glass-card gap-1.5 backdrop-blur-xl">
+        {/* Category Filter Navigation Bar with Magnetic Spring Pill (wraps cleanly on mobile) */}
+        <div className="flex justify-center mb-10 sm:mb-12">
+          <div className="flex flex-wrap items-center justify-center p-1.5 rounded-2xl glass-card gap-1.5 backdrop-blur-xl max-w-full">
             {dept.categories.map((cat) => {
               const isActive = activeCategory === cat.id;
               const count = categoryCounts[cat.id] || 0;
@@ -216,8 +238,11 @@ function DepartmentsChapter({ t, onOpenBooking }) {
                 <button
                   key={cat.id}
                   type="button"
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`relative px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors duration-200 whitespace-nowrap cursor-pointer flex items-center gap-2 ${
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    setShowAllMobile(false);
+                  }}
+                  className={`relative px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors duration-200 whitespace-nowrap cursor-pointer flex items-center gap-1.5 sm:gap-2 ${
                     isActive
                       ? 'text-white font-semibold'
                       : 'text-[#5b4b6b] dark:text-slate-300 hover:text-[#1f122b] dark:hover:text-white'
@@ -245,17 +270,17 @@ function DepartmentsChapter({ t, onOpenBooking }) {
         </div>
 
         {/* Medical Conditions & Rehabilitation Grid with Silk-Smooth Crossfade & Cascade */}
-        <div className="relative min-h-[500px]">
+        <div className="relative min-h-[420px]">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeCategory}
+              key={`${activeCategory}-${showAllMobile ? 'all' : 'slice'}`}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.32, ease: EXPO_OUT }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+              transition={{ duration: 0.3, ease: EXPO_OUT }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
             >
-              {filteredItems.map((item, index) => (
+              {displayedItems.map((item, index) => (
                 <DepartmentCard
                   key={item.id}
                   item={item}
@@ -267,6 +292,24 @@ function DepartmentsChapter({ t, onOpenBooking }) {
               ))}
             </motion.div>
           </AnimatePresence>
+
+          {isMobile && activeCategory === 'all' && filteredItems.length > 6 && (
+            <div className="mt-8 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setShowAllMobile((prev) => !prev)}
+                className="px-6 py-3 rounded-full glass-card border border-[#9d237a]/30 dark:border-fuchsia-400/35 text-xs sm:text-sm font-semibold text-[#1f122b] dark:text-white hover:border-[#629131] dark:hover:border-lime-400 shadow-lg transition-all cursor-pointer"
+              >
+                {isAr
+                  ? showAllMobile
+                    ? 'عرض تخصصات أقل'
+                    : `عرض جميع التخصصات الطبية (${filteredItems.length})`
+                  : showAllMobile
+                    ? 'Show Fewer Specialties'
+                    : `View All Specialties (${filteredItems.length})`}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Bottom Consultation Assistance Note */}

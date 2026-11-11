@@ -82,26 +82,26 @@ function HeroContactDock({ t, lang = 'ar', onOpenBooking }) {
   return (
     <motion.nav
       aria-label={dock.ariaLabel || (isAr ? 'قنوات التواصل المباشرة مع المركز' : 'Direct Clinic Communication Channels')}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65, delay: 0.75, ease: EXPO_OUT }}
-      className="mt-6 mb-14 sm:mb-2 w-full sm:w-fit max-w-4xl mx-auto px-1"
+      transition={{ duration: 0.55, delay: 0.25, ease: EXPO_OUT }}
+      className="mt-5 mb-2 w-full sm:w-fit max-w-4xl mx-auto"
     >
-      <div className="glass-notch rounded-2xl sm:rounded-full px-2.5 py-2 sm:px-3.5 sm:py-2 border border-[#9d237a]/15 dark:border-fuchsia-300/20 shadow-[0_14px_40px_-10px_rgba(157,35,122,0.18)] dark:shadow-[0_18px_45px_-10px_rgba(157,35,122,0.35)]">
-        <div className="grid grid-cols-3 sm:flex sm:flex-nowrap sm:items-center sm:justify-center gap-1.5 sm:gap-1.5">
+      <div className="glass-notch rounded-2xl sm:rounded-full px-2 py-2 sm:px-3.5 sm:py-2 border border-[#9d237a]/20 dark:border-fuchsia-300/20 shadow-[0_14px_40px_-10px_rgba(157,35,122,0.18)] dark:shadow-[0_18px_45px_-10px_rgba(157,35,122,0.35)]">
+        <div className="grid grid-cols-3 sm:flex sm:flex-nowrap sm:items-center sm:justify-center gap-1.5">
           {channels.map((channel) => {
             const IconComponent = channel.icon;
             const commonClasses =
-              'group/item flex items-center justify-center sm:justify-start gap-1.5 px-2 py-2 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-full text-xs font-medium text-[#1f122b] dark:text-[#f8f0fc] hover:bg-[#9d237a]/8 dark:hover:bg-white/10 transition-all duration-200 cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9d237a] dark:focus-visible:ring-lime-400';
+              'group/item flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-1.5 px-1.5 py-2 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-medium text-[#1f122b] dark:text-[#f8f0fc] bg-[#9d237a]/[0.04] sm:bg-transparent dark:bg-white/[0.04] sm:dark:bg-transparent hover:bg-[#9d237a]/10 dark:hover:bg-white/10 transition-all duration-200 cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9d237a] dark:focus-visible:ring-lime-400';
 
             const content = (
               <>
                 <span
-                  className={`w-7 h-7 rounded-full bg-[#9d237a]/8 dark:bg-white/10 flex items-center justify-center shrink-0 transition-all duration-200 ${channel.accentClass}`}
+                  className={`w-7 h-7 rounded-full bg-[#9d237a]/10 dark:bg-white/10 flex items-center justify-center shrink-0 transition-all duration-200 ${channel.accentClass}`}
                 >
                   <IconComponent className="w-3.5 h-3.5" />
                 </span>
-                <span className={`truncate ${isAr ? 'font-arabic' : 'font-sans'} font-semibold tracking-tight`}>
+                <span className={`${isAr ? 'font-arabic' : 'font-sans'} font-semibold tracking-tight leading-tight`}>
                   {channel.label}
                 </span>
               </>

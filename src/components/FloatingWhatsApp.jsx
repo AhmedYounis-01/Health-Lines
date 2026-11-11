@@ -10,7 +10,7 @@ function FloatingWhatsApp({ lang = 'ar' }) {
   const whatsappUrl = siteConfig.buildWhatsAppUrl(text);
 
   return (
-    <aside aria-label="WhatsApp Contact" className="fixed bottom-5 left-5 sm:bottom-6 sm:left-6 z-50 flex items-center group">
+    <aside aria-label="WhatsApp Contact" className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 flex items-center group">
       {/* Floating Interactive Pill Label (Desktop & Tablet) */}
       <motion.a
         href={whatsappUrl}
@@ -47,20 +47,20 @@ function FloatingWhatsApp({ lang = 'ar' }) {
         whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
         whileTap={{ scale: 0.92 }}
         transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-        className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#0a5c43] via-[#128C7E] to-[#25D366] text-white flex items-center justify-center shadow-[0_12px_35px_rgba(37,211,102,0.45)] hover:shadow-[0_16px_45px_rgba(37,211,102,0.7)] border-2 border-emerald-300/40 cursor-pointer group/btn"
+        className="relative w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-[#0a5c43] via-[#128C7E] to-[#25D366] text-white flex items-center justify-center shadow-lg md:shadow-[0_12px_35px_rgba(37,211,102,0.45)] hover:shadow-[0_16px_45px_rgba(37,211,102,0.7)] border-2 border-emerald-300/40 cursor-pointer group/btn"
       >
-        {/* Soft radial aura glow */}
-        <span className="absolute -inset-1 rounded-full bg-emerald-500 opacity-30 blur-sm animate-pulse pointer-events-none" />
+        {/* Soft radial aura glow (desktop) */}
+        <span className="hidden md:block absolute -inset-1 rounded-full bg-emerald-500 opacity-30 blur-sm animate-pulse pointer-events-none" />
 
-        {/* Outer concentric ping ring */}
-        <span className="absolute -inset-2 rounded-full border border-emerald-400/30 animate-ping pointer-events-none" />
+        {/* Outer concentric ping ring (desktop) */}
+        <span className="hidden md:block absolute -inset-2 rounded-full border border-emerald-400/30 animate-ping pointer-events-none" />
 
         {/* Specular gloss reflection overlay */}
         <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 via-transparent to-black/20 pointer-events-none" />
 
         {/* WhatsApp Icon - flawless, fully rounded vector path */}
         <svg 
-          className="w-7 h-7 sm:w-8 sm:h-8 fill-white relative z-10 drop-shadow-md transition-transform duration-300 group-hover/btn:scale-110" 
+          className="w-6 h-6 md:w-8 md:h-8 fill-white relative z-10 drop-shadow-md transition-transform duration-300 group-hover/btn:scale-110" 
           viewBox="0 0 448 512" 
           xmlns="http://www.w3.org/2000/svg"
         >

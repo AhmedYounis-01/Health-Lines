@@ -249,7 +249,7 @@ function AmbientSound({ t }) {
         type="button"
         onClick={toggleSound}
         aria-label={isPlaying ? t.soundOff : t.soundOn}
-        className={`fixed bottom-24 sm:bottom-24 left-5 sm:left-6 z-40 flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-full glass-card border transition-all duration-300 hover:scale-105 shadow-xl backdrop-blur-xl cursor-pointer ${
+        className={`fixed bottom-[18px] left-[72px] md:bottom-24 md:left-6 z-40 flex items-center gap-2 px-3 md:px-3.5 h-11 md:h-auto md:py-2 rounded-full glass-card border transition-all duration-300 md:hover:scale-105 shadow-lg md:shadow-xl md:backdrop-blur-xl cursor-pointer ${
           isPlaying
             ? 'border-[#629131]/55 dark:border-lime-400/50 bg-[#eef7e6]/90 dark:bg-[#22351b]/80 text-[#3f6418] dark:text-lime-300 shadow-[0_0_25px_rgba(98,145,49,0.2)]'
             : 'border-[#9d237a]/20 dark:border-fuchsia-300/20 hover:border-[#9d237a]/45 dark:hover:border-fuchsia-400/45 text-[#4a3b59] dark:text-slate-200 hover:text-[#1f122b] dark:hover:text-white'

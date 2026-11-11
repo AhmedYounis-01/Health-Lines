@@ -72,26 +72,26 @@ function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 md:px-8 py-3 flex items-center justify-between ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-3 sm:px-4 md:px-8 py-2.5 sm:py-3 flex items-center justify-between gap-2 ${
           isScrolled
-            ? 'glass-header py-2.5 shadow-xl shadow-[#9d237a]/5 dark:shadow-black/30'
+            ? 'glass-header py-2 sm:py-2.5 shadow-xl shadow-[#9d237a]/5 dark:shadow-black/30'
             : 'bg-transparent'
         }`}
       >
         {/* Brand Logo */}
         <a
           href="#hero"
-          className="flex items-center gap-3 group focus:outline-none focus:ring-1 focus:ring-[#9d237a]/50 dark:focus:ring-fuchsia-400/50 rounded-xl"
+          className="flex items-center gap-2 sm:gap-3 group focus:outline-none focus:ring-1 focus:ring-[#9d237a]/50 dark:focus:ring-fuchsia-400/50 rounded-xl shrink-0"
           aria-label={t.siteTitle}
         >
-          <div className="w-10 h-10 rounded-full bg-white p-1 border border-[#9d237a]/30 dark:border-fuchsia-400/40 flex items-center justify-center group-hover:border-[#629131] dark:group-hover:border-lime-400/80 transition-all shadow-lg shadow-[#9d237a]/15 overflow-hidden">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white p-1 border border-[#9d237a]/30 dark:border-fuchsia-400/40 flex items-center justify-center group-hover:border-[#629131] dark:group-hover:border-lime-400/80 transition-all shadow-lg shadow-[#9d237a]/15 overflow-hidden shrink-0">
             <img src="/assets/logo.png" alt="Health Lines Logo" className="w-full h-full object-contain" />
           </div>
-          <div className="flex flex-col">
-            <span className="font-editorial text-lg md:text-xl font-semibold tracking-widest text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-300 transition-colors">
+          <div className="flex flex-col min-w-0">
+            <span className="font-editorial text-sm sm:text-lg md:text-xl font-semibold tracking-wider sm:tracking-widest whitespace-nowrap text-[#1f122b] dark:text-white group-hover:text-[#9d237a] dark:group-hover:text-fuchsia-300 transition-colors leading-tight">
               HEALTH LINES
             </span>
-            <span className="text-[10px] font-semibold text-[#4d7c1b] dark:text-lime-400 tracking-wider">
+            <span className="text-[9px] sm:text-[10px] font-semibold text-[#4d7c1b] dark:text-lime-400 tracking-normal sm:tracking-wider whitespace-nowrap leading-tight">
               {isAr ? 'مركز خطوط الصحة للعلاج الطبيعي' : 'Rehabilitation & Wellness'}
             </span>
           </div>
@@ -196,12 +196,12 @@ function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
         </div>
 
         {/* Right Actions: Theme Switch, Language Switch & Booking CTA */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {/* Theme Switcher */}
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full glass-card hover:border-[#9d237a]/40 dark:hover:border-fuchsia-400/45 text-xs font-medium text-[#1f122b] dark:text-slate-200 transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 rounded-full glass-card hover:border-[#9d237a]/40 dark:hover:border-fuchsia-400/45 text-xs font-medium text-[#1f122b] dark:text-slate-200 transition-all duration-200 cursor-pointer shrink-0"
             aria-label={isDark ? (t.theme?.toLight || 'Switch to Light Mode') : (t.theme?.toDark || 'Switch to Dark Mode')}
             title={isDark ? (t.theme?.toLight || 'Switch to Light Mode') : (t.theme?.toDark || 'Switch to Dark Mode')}
           >
@@ -222,10 +222,10 @@ function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
           <button
             type="button"
             onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card hover:border-[#9d237a]/40 dark:hover:border-fuchsia-400/40 text-xs font-medium text-[#4a3b59] dark:text-slate-200 hover:text-[#1f122b] dark:hover:text-white transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full glass-card hover:border-[#9d237a]/40 dark:hover:border-fuchsia-400/40 text-[11px] sm:text-xs font-medium text-[#4a3b59] dark:text-slate-200 hover:text-[#1f122b] dark:hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0"
             aria-label="Toggle language"
           >
-            <Globe className="w-3.5 h-3.5 text-[#629131] dark:text-lime-400" />
+            <Globe className="w-3.5 h-3.5 text-[#629131] dark:text-lime-400 shrink-0" />
             <span className={lang === 'en' ? 'text-[#9d237a] dark:text-fuchsia-300 font-bold' : ''}>EN</span>
             <span className="text-[#9d237a]/30 dark:text-slate-500">/</span>
             <span className={lang === 'ar' ? 'text-[#9d237a] dark:text-fuchsia-300 font-bold font-arabic' : 'font-arabic'}>عربي</span>
@@ -245,7 +245,7 @@ function MorphoHeader({ lang, setLang, t, activeChapter, onOpenBooking }) {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-full glass-card text-[#1f122b] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white cursor-pointer"
+            className="lg:hidden p-1.5 sm:p-2 rounded-full glass-card text-[#1f122b] dark:text-slate-200 hover:text-[#9d237a] dark:hover:text-white cursor-pointer shrink-0"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

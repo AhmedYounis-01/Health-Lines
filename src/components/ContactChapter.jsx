@@ -19,7 +19,7 @@ const slideUp = {
 };
 
 function ContactChapter({ t, onOpenBooking }) {
-  const isAr = typeof document !== 'undefined' && (document.documentElement.lang === 'ar' || !document.documentElement.lang);
+  const isAr = t?.langCode === 'العربية';
   const whatsappUrl = siteConfig.buildWhatsAppUrl(
     isAr
       ? 'السلام عليكم، أود الاستفسار وحجز موعد استشارة في مركز خطوط الصحة للعلاج الطبيعي ونحت القوام.'
@@ -29,15 +29,15 @@ function ContactChapter({ t, onOpenBooking }) {
   return (
     <motion.section
       id="contact"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-[#9d237a]/10 dark:border-white/10 theme-section-bg"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-20 sm:py-24 px-4 sm:px-6 border-t border-[#9d237a]/10 dark:border-white/10 theme-section-bg"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-8%' }}
     >
-      {/* Atmosphere Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-[#9d237a]/12 via-fuchsia-400/10 to-transparent dark:from-[#9d237a]/25 dark:via-fuchsia-600/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#629131]/12 dark:bg-[#84cc16]/15 rounded-full blur-[130px] pointer-events-none" />
+      {/* Atmosphere Glow (GPU radial gradient, hidden on small mobile to protect scroll FPS) */}
+      <div className="hidden md:block absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(650px,95vw)] h-[min(650px,95vw)] rounded-full bg-[radial-gradient(circle,rgba(157,35,122,0.14)_0%,transparent_68%)] dark:bg-[radial-gradient(circle,rgba(157,35,122,0.26)_0%,transparent_68%)] pointer-events-none" />
+      <div className="hidden md:block absolute bottom-10 right-10 w-[min(400px,80vw)] h-[min(400px,80vw)] rounded-full bg-[radial-gradient(circle,rgba(98,145,49,0.12)_0%,transparent_68%)] dark:bg-[radial-gradient(circle,rgba(132,204,22,0.15)_0%,transparent_68%)] pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Section Header */}
@@ -94,14 +94,14 @@ function ContactChapter({ t, onOpenBooking }) {
               </div>
             </div>
 
-            <div className="pt-6 border-t border-[#9d237a]/10 dark:border-white/10 flex flex-wrap items-center gap-4">
+            <div className="pt-6 border-t border-[#9d237a]/10 dark:border-white/10 grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-3 sm:gap-4">
               <motion.a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.04, boxShadow: '0 20px 40px -10px rgba(98,145,49,0.4)' }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#629131] hover:bg-[#527d27] dark:bg-lime-400 dark:hover:bg-lime-300 text-white dark:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-lg shadow-[#629131]/25 dark:shadow-lime-500/20 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#629131] hover:bg-[#527d27] dark:bg-lime-400 dark:hover:bg-lime-300 text-white dark:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-lg shadow-[#629131]/25 dark:shadow-lime-500/20 cursor-pointer"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>{t.sanctuary.quickActionWhatsApp}</span>
@@ -113,7 +113,7 @@ function ContactChapter({ t, onOpenBooking }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.03, borderColor: 'rgba(157,35,122,0.5)' }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass-card border border-[#9d237a]/25 dark:border-fuchsia-400/35 hover:border-[#9d237a] dark:hover:border-fuchsia-400 text-[#1f122b] dark:text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl glass-card border border-[#9d237a]/25 dark:border-fuchsia-400/35 hover:border-[#9d237a] dark:hover:border-fuchsia-400 text-[#1f122b] dark:text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
               >
                 <MapPin className="w-4 h-4 text-[#9d237a] dark:text-fuchsia-300" />
                 <span>{t.sanctuary.googleMapsBtn || 'خرائط جوجل'}</span>
@@ -123,10 +123,10 @@ function ContactChapter({ t, onOpenBooking }) {
               <motion.a
                 href={`tel:${siteConfig.contact.phone}`}
                 whileHover={{ scale: 1.03 }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass-card text-[#1f122b] dark:text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl glass-card text-[#1f122b] dark:text-white font-medium text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
               >
                 <Phone className="w-4 h-4 text-[#4d7c1b] dark:text-lime-400" />
-                <span>{t.sanctuary.phone}</span>
+                <span dir="ltr">{t.sanctuary.phone}</span>
               </motion.a>
             </div>
           </motion.div>
@@ -134,10 +134,10 @@ function ContactChapter({ t, onOpenBooking }) {
           {/* Booking Card */}
           <motion.div
             variants={{
-              hidden: { opacity: 0, x: 25, scale: 0.97 },
-              visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.7, ease: EXPO_OUT, delay: 0.15 } },
+              hidden: { opacity: 0, y: 20, scale: 0.97 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: EXPO_OUT, delay: 0.12 } },
             }}
-            className="lg:col-span-5 glass-card p-8 md:p-10 rounded-3xl flex flex-col justify-between bg-gradient-to-br from-[#9d237a]/10 via-white/85 to-[#629131]/10 dark:from-[#9d237a]/35 dark:via-[#3b1749]/85 dark:to-[#202d20]/90 relative overflow-hidden shadow-2xl backdrop-blur-xl"
+            className="lg:col-span-5 glass-card p-6 sm:p-8 md:p-10 rounded-3xl flex flex-col justify-between bg-gradient-to-br from-[#9d237a]/10 via-white/85 to-[#629131]/10 dark:from-[#9d237a]/35 dark:via-[#3b1749]/85 dark:to-[#202d20]/90 relative overflow-hidden shadow-2xl backdrop-blur-xl"
           >
             <div className="absolute top-0 right-0 rtl:right-auto rtl:left-0 w-48 h-48 bg-[#9d237a]/15 dark:bg-[#9d237a]/30 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10">

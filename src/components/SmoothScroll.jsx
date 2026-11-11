@@ -2,21 +2,20 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useDeviceProfile } from '../hooks/useDeviceProfile';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Lightweight, high-FPS smooth scroll engine (Lenis + ScrollTrigger sync).
- * Uses natural wheel responsiveness (wheelMultiplier: 1.0, lerp: 0.12)
- * without artificial drag or continuous GSAP ticker lag-locks.
+ * Automatically bypassed on mobile/touch & low-power devices so native touch
+ * scrolling runs completely un-throttled without an extra rAF loop.
  */
 export default function SmoothScroll({ isPaused = false }) {
-  useEffect(() => {
-    const prefersReducedMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const { isMobile, isWeakOrSaveData } = useDeviceProfile();
 
-    if (prefersReducedMotion) return undefined;
+  useEffect(() => {
+    if (isMobile || isWeakOrSaveData) return undefined;
 
     const lenis = new Lenis({
       lerp: 0.12,
@@ -66,7 +65,7 @@ export default function SmoothScroll({ isPaused = false }) {
       lenis.destroy();
       window.lenis = null;
     };
-  }, []);
+  }, [isMobile, isWeakOrSaveData]);
 
   // Pause / resume scroll when booking modal opens
   useEffect(() => {

@@ -198,6 +198,20 @@ html[dir="rtl"] h6 {
   letter-spacing: normal;
 }
 
+/* Prevent monospace/tracking utilities from breaking connected Arabic letters */
+html[dir="rtl"] .font-mono {
+  font-family: var(--font-arabic) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+html[dir="rtl"] .tracking-wide,
+html[dir="rtl"] .tracking-wider,
+html[dir="rtl"] .tracking-widest,
+html[dir="rtl"] .tracking-\[0\.18em\],
+html[dir="rtl"] .tracking-\[0\.2em\] {
+  letter-spacing: 0 !important;
+}
+
 .font-arabic-calligraphic {
   font-family: var(--font-arabic) !important;
 }
@@ -335,31 +349,54 @@ html.dark .atmosphere-glow {
   50% { transform: translate(-40px, 30px); }
 }
 
+/* Gentle compositor-only float animation */
+@keyframes float-gentle {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -5px, 0); }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3.6s ease-in-out infinite;
+}
+
 /* ===== Mobile Hardware Acceleration & Weak Device Optimization ===== */
 @media (max-width: 768px) {
   .atmosphere-glow {
-    filter: blur(50px) !important;
-    opacity: 0.16 !important;
+    filter: none !important;
+    background: radial-gradient(circle, rgba(157, 35, 122, 0.14) 0%, transparent 70%) !important;
+    mix-blend-mode: normal !important;
+    opacity: 0.6 !important;
     transform: translateZ(0);
   }
   html.dark .atmosphere-glow {
-    opacity: 0.28 !important;
+    background: radial-gradient(circle, rgba(192, 38, 211, 0.22) 0%, transparent 70%) !important;
+    opacity: 0.7 !important;
+  }
+  .glass-card,
+  .glass-notch,
+  .glass-header,
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   .glass-card {
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    background: rgba(255, 255, 255, 0.88) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
   }
   html.dark .glass-card {
-    background: rgba(54, 23, 68, 0.82) !important;
+    background: rgba(54, 23, 68, 0.88) !important;
   }
   .glass-notch {
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    background: rgba(255, 255, 255, 0.94) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
   }
   html.dark .glass-notch {
-    background: rgba(48, 20, 62, 0.92) !important;
+    background: rgba(48, 20, 62, 0.94) !important;
+  }
+  header.glass-header {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+  main > section {
+    contain: layout style paint;
   }
 }
 

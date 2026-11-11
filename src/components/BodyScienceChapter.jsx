@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Activity, Brain, Sun, Thermometer } from 'lucide-react';
 import ScrollReadingText from './ScrollReadingWord';
 import ChapterVideoBackground from './ChapterVideoBackground';
+import useDeviceProfile from '../hooks/useDeviceProfile';
 
 const EXPO_OUT = [0.16, 1, 0.3, 1];
 
@@ -50,12 +51,13 @@ const FloatingParticles = memo(function FloatingParticles() {
 function BodyScienceChapter({ t }) {
   const icons = [Thermometer, Activity, Brain, Sun];
   const sectionRef = useRef(null);
+  const { isMobile, isWeakOrSaveData } = useDeviceProfile();
 
   return (
     <motion.section
       ref={sectionRef}
       id="science"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-[#9d237a]/10 dark:border-white/10"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-20 sm:py-24 px-4 sm:px-6 border-t border-[#9d237a]/10 dark:border-white/10"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -71,12 +73,12 @@ function BodyScienceChapter({ t }) {
         contrast="contrast-[1.03] dark:contrast-[1.08]"
       />
 
-      {/* Floating Particles */}
-      <FloatingParticles />
+      {/* Floating Particles (desktop / capable hardware only) */}
+      {!(isMobile || isWeakOrSaveData) && <FloatingParticles />}
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header copy with animated text reveal */}
-        <motion.div variants={slideUp} className="max-w-3xl mb-14">
+        <motion.div variants={slideUp} className="max-w-3xl mb-10 sm:mb-14">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +115,7 @@ function BodyScienceChapter({ t }) {
         </motion.div>
 
         {/* 4 Health Roles Grid — staggered with reveal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 sm:mb-12">
           {t.science.items.map((item, idx) => {
             const Icon = icons[idx] || Activity;
             return (
@@ -134,7 +136,7 @@ function BodyScienceChapter({ t }) {
                   boxShadow: '0 25px 50px -12px rgba(98, 145, 49, 0.2)',
                 }}
                 transition={{ duration: 0.25 }}
-                className="glass-card p-6 rounded-2xl flex flex-col justify-between group relative overflow-hidden shadow-xl backdrop-blur-xl"
+                className="glass-card p-5 sm:p-6 rounded-2xl flex flex-col justify-between group relative overflow-hidden shadow-xl backdrop-blur-xl"
               >
                 {/* Glow reveal on hover */}
                 <div className="absolute inset-0 bg-gradient-to-b from-[#629131]/0 to-transparent group-hover:from-[#629131]/10 dark:group-hover:from-[#84cc16]/15 group-hover:to-transparent transition-all duration-500 rounded-2xl pointer-events-none" />

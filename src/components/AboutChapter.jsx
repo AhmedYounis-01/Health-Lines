@@ -73,11 +73,11 @@ const StatCard = memo(function StatCard({ num, label, idx }) {
         },
       }}
       whileHover={{ y: -6, borderColor: 'rgba(157, 35, 122, 0.45)', boxShadow: '0 20px 40px -10px rgba(157,35,122,0.18)' }}
-      className="glass-card p-6 md:p-8 rounded-2xl text-center shadow-xl backdrop-blur-xl"
+      className="glass-card p-4 sm:p-6 md:p-8 rounded-2xl text-center shadow-xl backdrop-blur-xl"
     >
       <div
         ref={ref}
-        className="font-editorial text-3xl md:text-5xl font-light text-[#629131] dark:text-lime-400 mb-2 font-mono"
+        className="font-editorial text-2xl sm:text-3xl md:text-5xl font-light text-[#629131] dark:text-lime-400 mb-1.5 sm:mb-2 font-mono"
       >
         0
       </div>
@@ -93,7 +93,7 @@ export default memo(function AboutChapter({ t, onExploreServices }) {
     <motion.section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 px-6 border-t border-[#9d237a]/10 dark:border-white/10"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-20 sm:py-24 px-4 sm:px-6 border-t border-[#9d237a]/10 dark:border-white/10"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -111,7 +111,7 @@ export default memo(function AboutChapter({ t, onExploreServices }) {
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header copy with animated text reveal */}
-        <motion.div variants={slideUp} className="max-w-3xl mb-14">
+        <motion.div variants={slideUp} className="max-w-3xl mb-10 sm:mb-14">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ export default memo(function AboutChapter({ t, onExploreServices }) {
         </motion.div>
 
         {/* Animated Statistics Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-10 sm:mb-12">
           {t.sanctuary.stats.map((st, idx) => (
             <StatCard key={idx} num={st.num} label={st.label} idx={idx} />
           ))}

@@ -71,7 +71,7 @@ export const translations = {
     },
 
     therapy: {
-      eyebrow: "01 / PHYSICAL THERAPY & RESTORATION",
+      eyebrow: "04 / PHYSICAL THERAPY & RESTORATION",
       titlePrefix: "Restoring harmony",
       titleEmphasis: "to every joint.",
       readingText: "Targeted manual therapy, spine decompression, and neuromuscular activation engineered to eliminate chronic pain.",
@@ -107,7 +107,7 @@ export const translations = {
     },
 
     velashape: {
-      eyebrow: "02 / ADVANCED BODY CONTOURING",
+      eyebrow: "05 / ADVANCED BODY CONTOURING",
       titlePrefix: "Sculpted with",
       titleEmphasis: "medical precision.",
       readingText: "Harnessing VelaShape III, medical radiofrequency, and vacuum acoustic therapy to firm contours and smooth tissue.",
@@ -128,7 +128,7 @@ export const translations = {
     },
 
     lymphatic: {
-      eyebrow: "03 / LYMPHATIC DETOX & HEALING",
+      eyebrow: "06 / LYMPHATIC DETOX & HEALING",
       titlePrefix: "The rhythm of",
       titleEmphasis: "cellular renewal.",
       readingText: "Gentle, rhythmic strokes stimulating lymphatic flow, accelerating post-operative healing and alleviating fluid retention.",
@@ -143,7 +143,7 @@ export const translations = {
     },
 
     science: {
-      eyebrow: "04 / WATER, BODY & BALANCE",
+      eyebrow: "07 / HEALTH BLOG · WATER, BODY & BALANCE",
       titlePrefix: "Essential,",
       titleEmphasis: "every day.",
       readingText: "A simple principle of physiology: when fluid pathways flow freely, the human body thrives effortlessly.",
@@ -169,7 +169,7 @@ export const translations = {
     },
 
     sanctuary: {
-      eyebrow: "05 / THE JEDDAH SANCTUARY",
+      eyebrow: "02 / ABOUT US · THE JEDDAH SANCTUARY",
       titlePrefix: "A space designed",
       titleEmphasis: "for peace.",
       readingText: "Located at Prince Majed Road, Al-Rabwah, Jeddah. Private suites, certified female therapists, and compassionate care.",
@@ -197,7 +197,7 @@ export const translations = {
     },
 
     departments: {
-      eyebrow: "07 / CLINICAL DEPARTMENTS & THERAPEUTIC PROGRAMS",
+      eyebrow: "03 / OUR SERVICES & CLINICAL DEPARTMENTS",
       titlePrefix: "Specialized departments,",
       titleEmphasis: "tailored for every woman's recovery.",
       readingText: "Comprehensive physical therapy and body rehabilitation supervised by certified female specialists in completely private suites.",
@@ -420,12 +420,12 @@ export const translations = {
       signatureEmphasis: "In Motion.",
       invitation: "Comprehensive physical therapy and body wellness crafted with scientific excellence.",
       links: [
-        { label: "Our Story", href: "#hero" },
+        { label: "Home", href: "#hero" },
+        { label: "About Us", href: "#about" },
+        { label: "Clinical Departments", href: "#departments" },
         { label: "Therapies", href: "#therapy" },
         { label: "VelaShape Technology", href: "#velashape" },
-        { label: "Lymphatic Drainage", href: "#lymphatic" },
-        { label: "Jeddah Clinic", href: "#sanctuary" },
-        { label: "Clinical Departments", href: "#departments" },
+        { label: "Contact Us", href: "#contact" },
       ],
       journalTitle: "Stay in the flow.",
       journalSub: "Wellness insights and exclusive offers, straight to your inbox.",
@@ -510,7 +510,7 @@ export const translations = {
     },
 
     therapy: {
-      eyebrow: "٠١ / جلسات العلاج الطبيعي والتأهيل النسائي",
+      eyebrow: "٠٤ / جلسات العلاج الطبيعي والتأهيل النسائي",
       titlePrefix: "ترجعين لحركتكِ وخفتكِ،",
       titleEmphasis: "بدون ألم وبكل طاقة ونشاط.",
       readingText: "جلسات علاج يدوي متخصصة وتخفيف لضغط الفقرات بإشراف أخصائيات علاج طبيعي سعوديات ومعتمدات، نساعدك تودعين الألم المزمن للأبد.",
@@ -546,7 +546,7 @@ export const translations = {
     },
 
     velashape: {
-      eyebrow: "٠٢ / أحدث أجهزة نحت وشد القوام للسيدات",
+      eyebrow: "٠٥ / أحدث أجهزة نحت وشد القوام للسيدات",
       titlePrefix: "قوام متناسق ومشدود،",
       titleEmphasis: "بدقة وأمان طبي تام.",
       readingText: "جلسات فيلاشيب III تجمع بين موجات الراديو فركونسي والشفط الميكانيكي، تفتت السيلوليت وتشد الجلد بدون أي جراحة وبجلسات مريحة.",
@@ -567,7 +567,7 @@ export const translations = {
     },
 
     lymphatic: {
-      eyebrow: "٠٣ / المساج اللمفاوي وطرد السوائل المحتبسة",
+      eyebrow: "٠٦ / المساج اللمفاوي وطرد السوائل المحتبسة",
       titlePrefix: "خفة ونقاء عميق،",
       titleEmphasis: "لكل خلية بجسدكِ.",
       readingText: "مساج لمفاوي يدوي بحركات مدروسة وخفيفة، يصرّف احتباس الماء بعد العمليات ويزيل التورمات والتليفات لتستعيدين راحتكِ وخفتكِ.",
@@ -582,7 +582,7 @@ export const translations = {
     },
 
     science: {
-      eyebrow: "٠٤ / أسرار حيوية وتوازن جسمكِ",
+      eyebrow: "٠٧ / المدونة · أسرار حيوية وتوازن جسمكِ",
       titlePrefix: "سر خفتكِ ونشاطكِ",
       titleEmphasis: "في كل يوم.",
       readingText: "مبدأ فسيولوجي بسيط: لما مسارات جسمكِ وسوائله تتدفق بسلاسة وبإشراف مختص، طاقتكِ تتجدد ونشاطكِ يرجع أضعاف.",
@@ -608,7 +608,7 @@ export const translations = {
     },
 
     sanctuary: {
-      eyebrow: "٠٥ / ملاذكِ الصحي النسائي الخاص بجدة",
+      eyebrow: "٠٢ / من نحن · ملاذكِ الصحي النسائي الخاص بجدة",
       titlePrefix: "مكان صممناه بكل حب،",
       titleEmphasis: "عشان راحتكِ وخصوصيتكِ التامة.",
       readingText: "شارع الأمير ماجد (السبعين)، حي الربوة، مركز العلي للأعمال. أجنحة نسائية مقفلة ૧٠٠٪ مع كادر أخصائيات سعوديات ومعتمدات.",
@@ -636,7 +636,7 @@ export const translations = {
     },
 
     departments: {
-      eyebrow: "٠٧ / الأقسام الطبية والبرامج العلاجية المتخصصة",
+      eyebrow: "٠٣ / خدماتنا والأقسام الطبية المتخصصة",
       titlePrefix: "أقسام متكاملة وبرامج علاجية مدروسة،",
       titleEmphasis: "لعلاج وتأهيل كل حالة بأعلى خصوصية.",
       readingText: "كل الحالات الطبية تخضع لتقييم سريري شامل بإشراف كادر نسائي معتمد، مع برامج تأهيلية دقيقة مصممة لرحلة شفائكِ التامة واستعادة عافيتكِ.",
@@ -860,12 +860,12 @@ export const translations = {
       signatureEmphasis: "تبدأ بخطوة معنا.",
       invitation: "فريقنا من الأخصائيات المعتمدات جاهز يستقبلكِ في أجنحتنا الخاصة بجدة. تواصلي معنا ونرتب لكِ كل التفاصيل بكل حب وخصوصية.",
       links: [
-        { label: "حكايتنا", href: "#hero" },
+        { label: "الرئيسية", href: "#hero" },
+        { label: "من نحن", href: "#about" },
+        { label: "خدماتنا والأقسام", href: "#departments" },
         { label: "العلاج الطبيعي", href: "#therapy" },
         { label: "نحت القوام", href: "#velashape" },
-        { label: "المساج اللمفاوي", href: "#lymphatic" },
-        { label: "مقرنا بجدة", href: "#sanctuary" },
-        { label: "الأقسام الطبية", href: "#departments" },
+        { label: "تواصل معنا", href: "#contact" },
       ],
       journalTitle: "نصائح وإرشادات لصحتكِ وقوامكِ",
       journalSub: "سجلي بريدكِ لتصلكِ أحدث النصائح الطبية والتمارين المنزلية المفيدة أول بأول.",

@@ -34,14 +34,14 @@ function MorphoFooter({ t, onOpenBooking }) {
 
   return (
     <motion.footer
-      className="relative theme-footer-bg text-[#4a3b59] dark:text-slate-200 border-t border-[#9d237a]/15 dark:border-white/10 pt-20 pb-12 px-6 overflow-hidden"
+      className="relative theme-footer-bg text-[#4a3b59] dark:text-slate-200 border-t border-[#9d237a]/15 dark:border-white/10 pt-16 sm:pt-20 pb-24 sm:pb-12 px-4 sm:px-6 overflow-hidden"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-5%' }}
     >
       {/* Subtle atmosphere glow */}
-      <div className="atmosphere-glow w-[600px] h-[300px] bottom-0 left-1/2 -translate-x-1/2 bg-[#9d237a]/12 dark:bg-[#9d237a]/20" />
+      <div className="atmosphere-glow w-[320px] sm:w-[600px] max-w-full h-[300px] bottom-0 left-1/2 -translate-x-1/2 bg-[#9d237a]/12 dark:bg-[#9d237a]/20" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Origin and Back to Top Bar */}

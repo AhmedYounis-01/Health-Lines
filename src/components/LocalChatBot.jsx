@@ -64,14 +64,16 @@ Feel free to ask any question or tap a suggested topic below:`,
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Show gentle welcome speech bubble after 2.4s if not opened yet
+  // Show welcome speech bubble only after scrolling past Hero on desktop so HeroContactDock stays unobstructed
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isOpen && !hasDismissedPrompt) {
-        setShowWelcomeBubble(true);
-      }
-    }, 2400);
-    return () => clearTimeout(timer);
+    const updateBubble = () => {
+      const scrolledPastHero = window.scrollY > 320;
+      const shouldShow = scrolledPastHero && !isOpen && !hasDismissedPrompt;
+      setShowWelcomeBubble((prev) => (prev === shouldShow ? prev : shouldShow));
+    };
+
+    window.addEventListener('scroll', updateBubble, { passive: true });
+    return () => window.removeEventListener('scroll', updateBubble);
   }, [isOpen, hasDismissedPrompt]);
 
   // Quick prompt chips
@@ -171,7 +173,7 @@ Feel free to ask any question or tap a suggested topic below:`,
   return (
     <>
       {/* Floating Action Area on Bottom-Right */}
-      <aside aria-label="AI Clinic Assistant" className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center">
+      <aside aria-label="AI Clinic Assistant" className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex items-center">
         
         {/* Floating Interactive Pill Label (Desktop & Tablet) */}
         {!isOpen && (
@@ -211,7 +213,7 @@ Feel free to ask any question or tap a suggested topic below:`,
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="hidden sm:block absolute bottom-20 right-0 sm:right-2 w-72 sm:w-80 p-4 rounded-2xl bg-white/95 dark:bg-[#2c123c]/95 border border-[#9d237a]/25 dark:border-fuchsia-400/40 text-[#1f122b] dark:text-white shadow-[0_20px_50px_rgba(31,18,43,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] backdrop-blur-2xl z-50 text-right rtl:text-right"
+              className="hidden md:block absolute bottom-20 right-0 sm:right-2 w-72 sm:w-80 p-4 rounded-2xl bg-white/95 dark:bg-[#2c123c]/95 border border-[#9d237a]/25 dark:border-fuchsia-400/40 text-[#1f122b] dark:text-white shadow-[0_20px_50px_rgba(31,18,43,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] backdrop-blur-2xl z-50 text-right rtl:text-right"
             >
               <button
                 type="button"
@@ -267,23 +269,23 @@ Feel free to ask any question or tap a suggested topic below:`,
           whileHover={{ scale: 1.1, rotate: isOpen ? 90 : [0, -6, 6, 0] }}
           whileTap={{ scale: 0.92 }}
           transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#7c1a60] via-[#9d237a] to-[#629131] text-white flex items-center justify-center shadow-[0_12px_40px_rgba(157,35,122,0.55)] hover:shadow-[0_16px_50px_rgba(157,35,122,0.8)] border-2 border-fuchsia-400/40 cursor-pointer group/btn"
+          className="relative w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-[#7c1a60] via-[#9d237a] to-[#629131] text-white flex items-center justify-center shadow-lg md:shadow-[0_12px_40px_rgba(157,35,122,0.55)] hover:shadow-[0_16px_50px_rgba(157,35,122,0.8)] border-2 border-fuchsia-400/40 cursor-pointer group/btn"
         >
-          {/* Radial aura glow */}
-          <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-fuchsia-500 to-lime-400 opacity-40 blur-sm animate-pulse pointer-events-none" />
+          {/* Radial aura glow (desktop) */}
+          <span className="hidden md:block absolute -inset-1 rounded-full bg-gradient-to-r from-fuchsia-500 to-lime-400 opacity-40 blur-sm animate-pulse pointer-events-none" />
 
-          {/* Outer ping ring */}
-          <span className="absolute -inset-2 rounded-full border border-fuchsia-400/35 animate-ping pointer-events-none" />
+          {/* Outer ping ring (desktop) */}
+          <span className="hidden md:block absolute -inset-2 rounded-full border border-fuchsia-400/35 animate-ping pointer-events-none" />
 
           {/* Specular glass reflection overlay */}
           <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/30 via-transparent to-black/25 pointer-events-none" />
 
           {isOpen ? (
-            <X className="w-7 h-7 sm:w-8 sm:h-8 relative z-10 drop-shadow-md text-white transition-transform duration-300" />
+            <X className="w-6 h-6 md:w-8 md:h-8 relative z-10 drop-shadow-md text-white transition-transform duration-300" />
           ) : (
             <div className="relative z-10 flex items-center justify-center">
-              <Bot className="w-7 h-7 sm:w-8 sm:h-8 text-white drop-shadow-md transition-transform duration-300 group-hover/btn:scale-110" />
-              <Sparkles className="w-3.5 h-3.5 text-lime-300 absolute -top-1 -right-1.5 animate-pulse" />
+              <Bot className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-md transition-transform duration-300 group-hover/btn:scale-110" />
+              <Sparkles className="w-3 h-3 md:w-3.5 md:h-3.5 text-lime-300 absolute -top-1 -right-1.5" />
             </div>
           )}
 
@@ -300,7 +302,7 @@ Feel free to ask any question or tap a suggested topic below:`,
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.94 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className="fixed bottom-24 right-3 sm:right-6 z-50 w-[94vw] sm:w-[430px] max-w-[440px] h-[610px] max-h-[84vh] rounded-3xl glass-notch border border-[#9d237a]/20 dark:border-fuchsia-300/25 overflow-hidden shadow-[0_25px_60px_rgba(31,18,43,0.2)] dark:shadow-[0_25px_60px_rgba(10,3,18,0.65)] flex flex-col bg-white/95 dark:bg-[#2a113a]/95 backdrop-blur-2xl"
+            className="fixed bottom-20 left-3 right-3 sm:left-auto sm:bottom-24 sm:right-6 z-50 w-auto sm:w-[430px] max-w-[440px] h-[72vh] sm:h-[610px] max-h-[82vh] rounded-3xl glass-notch border border-[#9d237a]/20 dark:border-fuchsia-300/25 overflow-hidden shadow-[0_25px_60px_rgba(31,18,43,0.2)] dark:shadow-[0_25px_60px_rgba(10,3,18,0.65)] flex flex-col bg-white/95 dark:bg-[#2a113a]/95 backdrop-blur-2xl"
           >
             {/* Header */}
             <div className="p-4 sm:p-5 border-b border-[#9d237a]/15 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-[#f9ecf7] via-white to-[#f1f7ea] dark:from-[#49195e]/85 dark:via-[#2f1242] dark:to-[#223522]/75">
