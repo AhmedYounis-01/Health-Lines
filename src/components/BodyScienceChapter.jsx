@@ -84,7 +84,7 @@ function BodyScienceChapter({ t }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EXPO_OUT }}
-            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#355e0d] dark:text-[#84cc16] uppercase mb-4 flex items-center gap-2 w-fit px-3.5 py-1.5 rounded-full bg-white/52 border border-[#629131]/22 backdrop-blur-md shadow-sm dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0 dark:shadow-none"
+            className="text-xs md:text-sm font-arabic font-semibold tracking-[0.2em] text-[#355e0d] dark:text-[#84cc16] uppercase mb-4 flex items-center gap-2 w-fit px-3.5 py-1.5 rounded-full bg-white/85 md:bg-white/52 border border-[#629131]/25 backdrop-blur-md shadow-sm dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0 dark:shadow-none"
           >
             <Activity className="w-4 h-4 text-[#355e0d] dark:text-[#84cc16] animate-pulse" />
             <span>{t.science.eyebrow}</span>

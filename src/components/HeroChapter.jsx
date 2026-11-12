@@ -99,7 +99,7 @@ function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
               const el = document.getElementById('contact') || document.getElementById('sanctuary');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="animate-float-gentle group cursor-pointer inline-flex items-center gap-2.5 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white/55 hover:bg-white/75 dark:bg-gradient-to-r dark:from-[#4b1a60]/85 dark:via-[#2c123c]/88 dark:to-[#243722]/85 border border-[#9d237a]/30 dark:border-fuchsia-400/40 hover:border-[#629131] dark:hover:border-lime-400 text-[#170a24] dark:text-white shadow-[0_10px_30px_rgba(157,35,122,0.16)] dark:shadow-[0_10px_35px_rgba(157,35,122,0.35)] md:backdrop-blur-2xl transition-all duration-300 relative overflow-hidden"
+            className="animate-float-gentle group cursor-pointer inline-flex items-center gap-2.5 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white/88 md:bg-white/55 hover:bg-white/95 md:hover:bg-white/75 dark:bg-gradient-to-r dark:from-[#4b1a60]/85 dark:via-[#2c123c]/88 dark:to-[#243722]/85 border border-[#9d237a]/30 dark:border-fuchsia-400/40 hover:border-[#629131] dark:hover:border-lime-400 text-[#170a24] dark:text-white shadow-[0_10px_30px_rgba(157,35,122,0.16)] dark:shadow-[0_10px_35px_rgba(157,35,122,0.35)] md:backdrop-blur-2xl transition-all duration-300 relative overflow-hidden"
           >
             {/* Shimmer light sweep on hover */}
             <span className="hidden md:block absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#9d237a]/10 dark:via-white/10 to-transparent pointer-events-none" />
@@ -127,7 +127,7 @@ function HeroChapter({ lang, t, onScrollNext, onOpenBooking }) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.1, ease: EXPO_OUT }}
-          className={`text-[11px] sm:text-xs md:text-sm font-semibold text-[#355e0d] dark:text-lime-400 mb-3 sm:mb-4 flex items-center justify-center gap-2 max-w-xl leading-relaxed px-3.5 py-1 rounded-full bg-white/48 border border-[#629131]/22 backdrop-blur-md shadow-sm dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0 dark:shadow-none ${
+          className={`text-[11px] sm:text-xs md:text-sm font-semibold text-[#355e0d] dark:text-lime-400 mb-3 sm:mb-4 flex items-center justify-center gap-2 max-w-xl leading-relaxed px-3.5 py-1 rounded-full bg-white/85 md:bg-white/48 border border-[#629131]/25 backdrop-blur-md shadow-sm dark:bg-transparent dark:border-transparent dark:px-0 dark:py-0 dark:shadow-none ${
             isAr ? 'font-arabic' : 'uppercase tracking-[0.18em]'
           }`}
         >

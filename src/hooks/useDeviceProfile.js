@@ -20,6 +20,7 @@ export function useDeviceProfile() {
       isMobile,
       isDesktopFinePointer,
       isWeakOrSaveData: reducedMotion || saveData || (isMobile && (lowCores || lowMemory)),
+      shouldDisableVideo: reducedMotion || saveData,
     };
   });
 
@@ -37,6 +38,7 @@ export function useDeviceProfile() {
         isMobile,
         isDesktopFinePointer: pointerMq.matches,
         isWeakOrSaveData: motionMq.matches || saveData || (isMobile && (lowCores || lowMemory)),
+        shouldDisableVideo: motionMq.matches || saveData,
       });
     };
 

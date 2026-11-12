@@ -28,16 +28,16 @@ function ChapterVideoBackground({
   const isPriorityEffective = isPriority || priority;
   const videoRef = useRef(null);
   const containerRef = useRef(null);
-  const { isMobile, isWeakOrSaveData } = useDeviceProfile();
+  const { isMobile, isWeakOrSaveData, shouldDisableVideo } = useDeviceProfile();
 
   const [shouldMountVideo, setShouldMountVideo] = useState(
-    Boolean(videoSrc) && isPriorityEffective && !isWeakOrSaveData
+    Boolean(videoSrc) && isPriorityEffective && !shouldDisableVideo
   );
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   // Release decoded video frames immediately when scrolled away (stricter on mobile)
   useEffect(() => {
-    if (!videoSrc || isWeakOrSaveData) {
+    if (!videoSrc || shouldDisableVideo) {
       return undefined;
     }
 
@@ -65,17 +65,17 @@ function ChapterVideoBackground({
       {
         root: null,
         rootMargin: isMobile ? '0px' : retentionMargin,
-        threshold: isMobile ? 0.25 : 0,
+        threshold: isMobile ? 0.05 : 0,
       }
     );
 
     retentionObserver.observe(container);
     return () => retentionObserver.disconnect();
-  }, [videoSrc, isWeakOrSaveData, isMobile, retentionMargin]);
+  }, [videoSrc, shouldDisableVideo, isMobile, retentionMargin]);
 
   // Playback Observer + fast readiness detection
   useEffect(() => {
-    if (!videoSrc || !shouldMountVideo || isWeakOrSaveData) return undefined;
+    if (!videoSrc || !shouldMountVideo || shouldDisableVideo) return undefined;
 
     const video = videoRef.current;
     const container = containerRef.current;
@@ -83,8 +83,23 @@ function ChapterVideoBackground({
 
     let isSubscribed = true;
 
+    // Ensure mobile browsers / iOS WebViews recognize muted inline autoplay
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const tryPlay = () => {
+      if (!isSubscribed) return;
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+
     const markReady = () => {
-      if (isSubscribed) setIsVideoLoaded(true);
+      if (isSubscribed) {
+        setIsVideoLoaded(true);
+        tryPlay();
+      }
     };
 
     const playbackObserver = new IntersectionObserver(
@@ -92,7 +107,7 @@ function ChapterVideoBackground({
         entries.forEach((entry) => {
           if (!isSubscribed) return;
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            tryPlay();
           } else {
             video.pause();
           }
@@ -115,7 +130,7 @@ function ChapterVideoBackground({
       video.addEventListener('playing', markReady);
     }
 
-    video.play().catch(() => {});
+    tryPlay();
 
     return () => {
       isSubscribed = false;
@@ -125,7 +140,7 @@ function ChapterVideoBackground({
       video.removeEventListener('playing', markReady);
       video.pause();
     };
-  }, [videoSrc, shouldMountVideo, isWeakOrSaveData, isMobile]);
+  }, [videoSrc, shouldMountVideo, shouldDisableVideo, isMobile]);
 
   const webpSrc = posterSrc
     ? posterSrc.replace(/\.jpg$/i, '.webp').replace(/\.jpeg$/i, '.webp')
@@ -149,14 +164,14 @@ function ChapterVideoBackground({
               decoding="async"
               fetchPriority={isPriorityEffective ? 'high' : 'auto'}
               className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-500 ${
-                videoSrc && !isWeakOrSaveData && shouldMountVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
+                videoSrc && !shouldDisableVideo && shouldMountVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
               }`}
             />
           </picture>
         )}
 
         {/* Video Layer — Mounted only while Hero is in view */}
-        {videoSrc && shouldMountVideo && !isWeakOrSaveData && (
+        {videoSrc && shouldMountVideo && !shouldDisableVideo && (
           <video
             ref={videoRef}
             poster={posterSrc}
@@ -164,6 +179,7 @@ function ChapterVideoBackground({
             muted
             loop
             playsInline
+            webkit-playsinline="true"
             preload={isPriorityEffective ? 'auto' : 'metadata'}
             aria-hidden="true"
             className={`absolute inset-0 w-full h-full object-cover object-center ${brightness} ${contrast} ${scale} transition-opacity duration-500 ${
@@ -188,7 +204,7 @@ function ChapterVideoBackground({
         )}
 
         {/* Multi-layer theme-adaptive gradients keeping text crisp & underlying media clearly visible in Light Mode */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fcf9fc]/38 via-[#fbf3fb]/14 to-[#fcf9fc]/44 dark:from-[#271136]/72 dark:via-[#3d1649]/45 dark:to-[#212e21]/76 transition-colors duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fcf9fc]/60 via-[#fbf3fb]/34 to-[#fcf9fc]/65 dark:from-[#271136]/72 dark:via-[#3d1649]/45 dark:to-[#212e21]/76 transition-colors duration-500" />
 
         {/* Soft radial vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.04)_0%,rgba(249,240,249,0.44)_92%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,#241033_92%)] opacity-55 dark:opacity-65" />

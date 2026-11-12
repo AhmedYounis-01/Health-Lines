@@ -64,7 +64,7 @@ const DepartmentCard = memo(function DepartmentCard({
 
         {/* Category Pill Tag */}
         <div className="absolute top-3.5 left-3.5 rtl:left-auto rtl:right-3.5 max-w-[calc(100%-1.75rem)]">
-          <span className="inline-block truncate max-w-full px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/64 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/22 dark:border-white/20 text-[#355e0d] dark:text-lime-300 shadow-md">
+          <span className="inline-block truncate max-w-full px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-white/88 md:bg-white/64 dark:bg-[#2a113a]/80 backdrop-blur-md border border-[#9d237a]/25 dark:border-white/20 text-[#355e0d] dark:text-lime-300 shadow-md">
             {item.subtitle}
           </span>
         </div>
