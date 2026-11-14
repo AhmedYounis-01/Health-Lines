@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, lazy, Suspense } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { ClinicContextProvider } from './context/ClinicContext';
 import { useClinicContext } from './context/useClinicContext';
 import SmoothScroll from './components/SmoothScroll';
@@ -6,13 +6,13 @@ import MorphoHeader from './components/MorphoHeader';
 import ChapterNav from './components/ChapterNav';
 import AmbientSound from './components/AmbientSound';
 import HeroChapter from './components/HeroChapter';
-import AboutChapter from './components/AboutChapter';
-import DepartmentsChapter from './components/DepartmentsChapter';
-import TherapyChapter from './components/TherapyChapter';
-import VelaShapeChapter from './components/VelaShapeChapter';
-import LymphaticChapter from './components/LymphaticChapter';
-import BodyScienceChapter from './components/BodyScienceChapter';
-import ContactChapter from './components/ContactChapter';
+import IntroSection from './components/IntroSection';
+import ServicesSection from './components/ServicesSection';
+import SessionsSection from './components/SessionsSection';
+import WhyUsSection from './components/WhyUsSection';
+import ProcessSection from './components/ProcessSection';
+import FAQSection from './components/FAQSection';
+import BookingBandSection from './components/BookingBandSection';
 import MorphoFooter from './components/MorphoFooter';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
@@ -31,20 +31,21 @@ function MainApp() {
   }, [isBookingOpen]);
 
   // Track active chapter cleanly via center-band IntersectionObserver
-  // (works reliably for both short sections and multi-screen tall #departments)
   useEffect(() => {
-    const chapterIds = [
-      'hero',
-      'about',
-      'departments',
-      'therapy',
-      'velashape',
-      'lymphatic',
-      'science',
-      'contact',
-    ];
+    const sectionToChapter = {
+      hero: 'hero',
+      services: 'services',
+      'services-grid': 'services',
+      sessions: 'sessions',
+      why: 'why',
+      process: 'why',
+      faq: 'why',
+      contact: 'why',
+    };
 
-    const elements = chapterIds
+    const sectionIds = ['hero', 'services', 'services-grid', 'sessions', 'why', 'process', 'faq', 'contact'];
+
+    const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter(Boolean);
 
@@ -61,17 +62,18 @@ function MainApp() {
           }
         });
 
-        for (let i = chapterIds.length - 1; i >= 0; i -= 1) {
-          const id = chapterIds[i];
+        for (let i = sectionIds.length - 1; i >= 0; i -= 1) {
+          const id = sectionIds[i];
           if (intersecting.has(id)) {
-            setActiveChapter(id);
+            const mapped = sectionToChapter[id] || id;
+            setActiveChapter(mapped);
             return;
           }
         }
       },
       {
         root: null,
-        rootMargin: '-38% 0px -58% 0px',
+        rootMargin: '-30% 0px -50% 0px',
         threshold: 0,
       }
     );
@@ -79,16 +81,6 @@ function MainApp() {
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [setActiveChapter]);
-
-  const scrollToAbout = useCallback(() => {
-    const nextEl = document.getElementById('about');
-    if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
-  }, []);
-
-  const scrollToDepartments = useCallback(() => {
-    const nextEl = document.getElementById('departments');
-    if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth' });
-  }, []);
 
   return (
     <>
@@ -104,7 +96,7 @@ function MainApp() {
       <div
         className={`min-h-screen theme-page-bg text-[#1f122b] dark:text-[#fdfaff] relative selection:bg-[#9d237a]/25 selection:text-[#9d237a] dark:selection:text-fuchsia-200 transition-colors duration-300 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}
       >
-        {/* Floating Notch Header */}
+        {/* Floating Topbar & Notch Header */}
         <MorphoHeader
           lang={lang}
           setLang={setLang}
@@ -122,54 +114,59 @@ function MainApp() {
         {/* Ambient Sanctuary Sound Toggle */}
         <AmbientSound t={t} />
 
-        {/* Main Scrollytelling Journey */}
+        {/* Main Section Architecture matching datails-sa.online */}
         <main>
-          {/* Chapter 01: Hero / Awakening -> الرئيسية */}
+          {/* Section 1: Hero with Dual Sequential Video & 4 Facts Strip */}
           <HeroChapter
             lang={lang}
             t={t}
             onOpenBooking={openBooking}
-            onScrollNext={scrollToAbout}
           />
 
-          {/* Chapter 02: About Us / Sanctuary -> من نحن */}
-          <AboutChapter
-            t={t}
-            onExploreServices={scrollToDepartments}
-          />
-
-          {/* Chapter 03: Clinical Departments & Rehabilitation Programs -> خدماتنا */}
-          <DepartmentsChapter
+          {/* Section 2: Intro Section (الرعاية تبدأ بالفهم) */}
+          <IntroSection
+            lang={lang}
             t={t}
             onOpenBooking={openBooking}
           />
 
-          {/* Chapter 04: Physical Therapy & Spine */}
-          <TherapyChapter
+          {/* Section 3: Services Section (خدماتنا العلاجية والتأهيلية) */}
+          <ServicesSection
+            lang={lang}
             t={t}
             onOpenBooking={openBooking}
           />
 
-          {/* Chapter 05: VelaShape III & Contouring */}
-          <VelaShapeChapter
+          {/* Section 4: Therapy Showcase / Sessions (جلساتنا باحتراف) */}
+          <SessionsSection
+            lang={lang}
             t={t}
             onOpenBooking={openBooking}
           />
 
-          {/* Chapter 06: Lymphatic Detox & Cellular Renewal */}
-          <LymphaticChapter
-            t={t}
-          />
-
-          {/* Chapter 07: Water, Body & Health Science -> المدونة */}
-          <BodyScienceChapter
-            t={t}
-          />
-
-          {/* Chapter 08: The Jeddah Sanctuary & Clinic Contact -> تواصل معنا */}
-          <ContactChapter
+          {/* Section 5: Why Us (لماذا نحن / معك من أول تقييم) */}
+          <WhyUsSection
+            lang={lang}
             t={t}
             onOpenBooking={openBooking}
+          />
+
+          {/* Section 6: Process (رحلة بسيطة / من التواصل إلى أول جلسة) */}
+          <ProcessSection
+            lang={lang}
+            t={t}
+          />
+
+          {/* Section 7: FAQ (الأسئلة الشائعة) */}
+          <FAQSection
+            lang={lang}
+            t={t}
+          />
+
+          {/* Section 8: Booking Band (جاهزون لخدمتك في جدة) */}
+          <BookingBandSection
+            lang={lang}
+            t={t}
           />
         </main>
 
@@ -179,7 +176,7 @@ function MainApp() {
           onOpenBooking={openBooking}
         />
 
-        {/* Interactive Consultation Booking Modal (lazy chunk loaded on demand) */}
+        {/* Interactive Consultation Booking Modal (lazy loaded) */}
         {isBookingOpen && (
           <Suspense fallback={null}>
             <BookingModal />
@@ -189,7 +186,7 @@ function MainApp() {
         {/* Floating WhatsApp Contact Button (Bottom-Left) */}
         <FloatingWhatsApp lang={lang} />
 
-        {/* Local Intelligent Clinic Chatbot (Bottom-Right, split into async chunk) */}
+        {/* Local Intelligent Clinic Chatbot (Bottom-Right) */}
         <Suspense fallback={null}>
           <LocalChatBot lang={lang} />
         </Suspense>

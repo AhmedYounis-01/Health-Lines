@@ -268,13 +268,9 @@ html.dark .atmosphere-glow {
   mix-blend-mode: screen;
 }
 
-/* Crisp Light Mode text over gradient-scrimmed media without blurry white halo */
-html:not(.dark) .light-scrim-text {
-  text-shadow: none;
-}
-
-html.dark .light-scrim-text {
-  text-shadow: none;
+/* Text legibility without white halos */
+.light-scrim-text {
+  text-shadow: none !important;
 }
 
 /* ===== Scrollytelling reading text effect ===== */
@@ -389,27 +385,19 @@ html.dark .light-scrim-text {
     -webkit-backdrop-filter: none !important;
   }
   .glass-card {
-    background: rgba(255, 255, 255, 0.88) !important;
-    border-color: rgba(157, 35, 122, 0.26) !important;
-    box-shadow: 0 12px 28px -12px rgba(31, 18, 43, 0.14) !important;
+    background: rgba(255, 255, 255, 0.56) !important;
   }
   html.dark .glass-card {
     background: rgba(54, 23, 68, 0.88) !important;
-    border-color: rgba(232, 121, 249, 0.2) !important;
-    box-shadow: 0 24px 48px -14px rgba(15, 5, 24, 0.45) !important;
   }
   .glass-notch {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-color: rgba(157, 35, 122, 0.26) !important;
-    box-shadow: 0 12px 28px -12px rgba(157, 35, 122, 0.16) !important;
+    background: rgba(255, 255, 255, 0.62) !important;
   }
   html.dark .glass-notch {
     background: rgba(48, 20, 62, 0.94) !important;
-    border-color: rgba(232, 121, 249, 0.22) !important;
-    box-shadow: 0 20px 40px -15px rgba(15, 5, 24, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
   }
   header.glass-header {
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.68) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
   }
@@ -418,6 +406,30 @@ html.dark .light-scrim-text {
   }
   main > section {
     contain: layout style paint;
+  }
+}
+
+/* ===== Container shell matching reference site layout ===== */
+.shell {
+  width: 100%;
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .shell {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 

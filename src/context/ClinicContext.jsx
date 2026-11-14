@@ -6,12 +6,12 @@ import { ClinicContext } from './clinicContextInstance';
 const THEME_STORAGE_KEY = 'hl-theme';
 
 function getInitialTheme() {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'dark';
   try {
     const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
-    return saved === 'dark' ? 'dark' : 'light';
+    return saved === 'light' ? 'light' : 'dark';
   } catch {
-    return 'light';
+    return 'dark';
   }
 }
 
