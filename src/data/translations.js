@@ -52,13 +52,10 @@ export const translations = {
 
     chapters: [
       { id: "hero", label: "Home", num: "01" },
-      { id: "about", label: "About Us", num: "02" },
-      { id: "departments", label: "Our Services", num: "03" },
-      { id: "therapy", label: "Physical Therapy", num: "04" },
-      { id: "velashape", label: "Body Sculpting", num: "05" },
-      { id: "lymphatic", label: "Lymphatic Flow", num: "06" },
-      { id: "science", label: "Health Blog", num: "07" },
-      { id: "contact", label: "Contact Us", num: "08" },
+      { id: "services", label: "Services", num: "02" },
+      { id: "sessions", label: "Sessions", num: "03" },
+      { id: "why", label: "Why Us", num: "04" },
+      { id: "contact", label: "Contact Us", num: "05" },
     ],
 
     hero: {
@@ -491,13 +488,10 @@ export const translations = {
 
     chapters: [
       { id: "hero", label: "الرئيسية", num: "٠١" },
-      { id: "about", label: "من نحن", num: "٠٢" },
-      { id: "departments", label: "خدماتنا والأقسام", num: "٠٣" },
-      { id: "therapy", label: "العلاج الطبيعي", num: "٠٤" },
-      { id: "velashape", label: "نحت القوام (فيلاشيب)", num: "٠٥" },
-      { id: "lymphatic", label: "المساج اللمفاوي", num: "٠٦" },
-      { id: "science", label: "المدونة وصحة الجسد", num: "٠٧" },
-      { id: "contact", label: "تواصل معنا", num: "٠٨" },
+      { id: "services", label: "خدماتنا", num: "٠٢" },
+      { id: "sessions", label: "جلساتنا", num: "٠٣" },
+      { id: "why", label: "لماذا نحن", num: "٠٤" },
+      { id: "contact", label: "تواصل معنا", num: "٠٥" },
     ],
 
     hero: {

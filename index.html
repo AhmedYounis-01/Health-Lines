@@ -1,25 +1,26 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fcf9fc" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#271136" />
+    <meta name="color-scheme" content="dark light" />
     <title>HEALTH LINES | مركز خطوط الصحة للعلاج الطبيعي ونحت القوام - جدة</title>
     <meta name="description" content="مركز خطوط الصحة للعلاج الطبيعي ونحت القوام للسيدات في جدة - أحدث تقنيات التأهيل وأجهزة فيلاشيب III بأيدي أخصائيات معتمدات." />
     <script>
       (function () {
         try {
           var saved = localStorage.getItem('hl-theme');
-          var theme = saved === 'dark' ? 'dark' : 'light';
+          var theme = saved === 'light' ? 'light' : 'dark';
           var root = document.documentElement;
           root.classList.toggle('dark', theme === 'dark');
           root.dataset.theme = theme;
           var meta = document.querySelector('meta[name="theme-color"]');
           if (meta) meta.setAttribute('content', theme === 'dark' ? '#271136' : '#fcf9fc');
         } catch (e) {
-          document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.theme = 'dark';
+          document.documentElement.classList.add('dark');
         }
       })();
     </script>
