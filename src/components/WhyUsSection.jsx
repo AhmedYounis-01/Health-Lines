@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Check, HeartPulse, Sparkles } from 'lucide-react';
+import TestimonialsSlider from './TestimonialsSlider';
 
 function WhyUsSection({ lang, t, onOpenBooking }) {
   const isAr = lang === 'ar' || t.langCode === 'العربية';
@@ -135,6 +136,9 @@ function WhyUsSection({ lang, t, onOpenBooking }) {
             </button>
           </div>
         </div>
+
+        {/* Real Patient Ratings & Testimonials Interactive Carousel */}
+        <TestimonialsSlider lang={lang} t={t} />
       </div>
     </section>
   );

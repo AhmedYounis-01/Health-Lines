@@ -40,7 +40,7 @@ function MainApp() {
       why: 'why',
       process: 'why',
       faq: 'why',
-      contact: 'why',
+      contact: 'contact',
     };
 
     const sectionIds = ['hero', 'services', 'services-grid', 'sessions', 'why', 'process', 'faq', 'contact'];
@@ -62,6 +62,14 @@ function MainApp() {
           }
         });
 
+        // Bottom of page priority check
+        const scrollBottom = window.scrollY + window.innerHeight;
+        const totalHeight = document.documentElement.scrollHeight;
+        if (scrollBottom >= totalHeight - 250) {
+          setActiveChapter('contact');
+          return;
+        }
+
         for (let i = sectionIds.length - 1; i >= 0; i -= 1) {
           const id = sectionIds[i];
           if (intersecting.has(id)) {
@@ -73,13 +81,27 @@ function MainApp() {
       },
       {
         root: null,
-        rootMargin: '-30% 0px -50% 0px',
-        threshold: 0,
+        rootMargin: '-15% 0px -25% 0px',
+        threshold: 0.05,
       }
     );
 
     elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+
+    // Handle bottom of page scroll boundary to lock activeChapter to contact
+    const handleScroll = () => {
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight;
+      if (scrollBottom >= totalHeight - 250) {
+        setActiveChapter('contact');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [setActiveChapter]);
 
   return (
